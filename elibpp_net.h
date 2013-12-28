@@ -24,10 +24,10 @@
 //! LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 //! ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //! POSSIBILITY OF SUCH DAMAGE.
-#ifndef __ELIBPP_HEADER_H__
-#define __ELIBPP_HEADER_H__
+#ifndef __ELIBPP_NET_HEADER_H__
+#define __ELIBPP_NET_HEADER_H__
 
-#include "elib_internal.h"
+#include "el_net_internal.h"
 
 #include "el_circular_buffer.h"
 #include "el_file.h"
@@ -35,4 +35,9 @@
 #include "el_thread_pool.h"
 #include "el_time.h"
 
-#endif  //! __ELIBPP_HEADER_H__
+#include "el_address.h"
+#include "el_socket.h"
+#include "el_connector.h"
+#include "el_network_handler.h"
+
+#endif  //! __ELIBPP_NET_HEADER_H__
