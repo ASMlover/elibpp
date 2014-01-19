@@ -32,13 +32,10 @@ struct sockaddr_in;
 namespace el {
 
 
-class Address {
+class Address : private NonCopyable {
   enum { kDefAddressLength = 16 };
   char ip_[kDefAddressLength];
   uint16_t port_;
-
-  Address(const Address&);
-  Address& operator =(const Address&);
 public:
   explicit Address(void);
   ~Address(void);
