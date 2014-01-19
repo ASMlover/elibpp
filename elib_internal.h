@@ -61,6 +61,7 @@
 #endif
 
 #include "el_noncopyable.h"
+#include "el_uncopyable.h"
 #include "el_locker.h"
 #include "el_singleton.h"
 #include "el_allocator.h"

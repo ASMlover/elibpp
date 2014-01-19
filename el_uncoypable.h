@@ -1,4 +1,4 @@
-//! Copyright (c) 2013 ASMlover. All rights reserved.
+//! Copyright (c) 2014 ASMlover. All rights reserved.
 //!
 //! Redistribution and use in source and binary forms, with or without
 //! modification, are permitted provided that the following conditions
@@ -24,37 +24,22 @@
 //! LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 //! ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 //! POSSIBILITY OF SUCH DAMAGE.
-#ifndef __EL_ADDRESS_HEADER_H__
-#define __EL_ADDRESS_HEADER_H__
+#ifndef __EL_UNCOPYABLE_HEADER_H__
+#define __EL_UNCOPYABLE_HEADER_H__
 
-
-struct sockaddr_in;
 namespace el {
 
 
-class Address : private UnCopyable {
-  enum { kDefAddressLength = 16 };
-  char ip_[kDefAddressLength];
-  uint16_t port_;
-public:
-  explicit Address(void);
-  ~Address(void);
-
-  inline const char* ip(void) const 
-  {
-    return ip_;
-  }
-
-  inline uint16_t port(void) const 
-  {
-    return port_;
-  }
-public:
-  void Attach(const sockaddr_in* addr);
-  void Detach(void);
+class UnCopyable {
+  UnCopyable(const UnCopyable&);
+  UnCopyable& operator =(const UnCopyable&);
+protected:
+  UnCopyable(void) {}
+  ~UnCopyable(void) {}
 };
 
 
 }
 
-#endif  //! __EL_ADDRESS_HEADER_H__
+
+#endif  //! __EL_UNCOPYABLE_HEADER_H__
