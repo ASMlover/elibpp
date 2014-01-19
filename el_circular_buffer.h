@@ -29,7 +29,7 @@
 
 namespace el {
 
-class CircularBuffer : private NonCopyable {
+class CircularBuffer : private UnCopyable {
   enum { kDefBufferLength = 1024 * 1024 };
   char* buffer_;
   int length_;

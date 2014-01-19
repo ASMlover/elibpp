@@ -42,7 +42,7 @@
 namespace el {
 
 class Mutex;
-class Condition : private NonCopyable {
+class Condition : private UnCopyable {
   Mutex& mutex_;
   CondVar cond_;
 public:
