@@ -31,32 +31,22 @@ namespace el {
 
 
 template <typename Object, typename Locker = SpinLock> 
-class Singleton {
-  Singleton(const Singleton&);
-  Singleton& operator =(const Singleton&);
+class Singleton : private UnCopyable {
 public:
-  explicit Singleton(void)
-  {
-  }
-
-  virtual ~Singleton(void)
-  {
-  }
-
   static Object& Instance(void) 
   {
-    static Object* _s_instance = NULL;
-    static Locker _s_locker_;
+    static Object* s_instance = NULL;
+    static Locker  s_locker;
 
-    if (NULL == _s_instance) {
-      LockerGuard<SpinLock> guard(_s_locker_);
-      if (NULL == _s_instance) {
+    if (NULL == s_instance) {
+      LockerGuard<SpinLock> guard(s_locker);
+      if (NULL == s_instance) {
         static Object _s_object;
-        _s_instance = &_s_object;
+        s_instance = &_s_object;
       }
     }
 
-    return *_s_instance;
+    return *s_instance;
   }
 };
 

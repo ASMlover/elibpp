@@ -31,8 +31,7 @@ namespace el {
 
 struct Memory;
 class SpinLock;
-class Allocator 
-  : public Singleton<Allocator> {
+class Allocator : public Singleton<Allocator> {
   enum {
     ALIGN       = 8, 
     MAX_BYTES   = 1024, 
