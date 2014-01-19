@@ -36,7 +36,7 @@ class NonCopyable {
   NonCopyable& operator =(const NonCopyable&);
 protected:
   NonCopyable(void) {}
-  virtual ~NonCopyable(void) {}
+  ~NonCopyable(void) {}
 };
 
 
