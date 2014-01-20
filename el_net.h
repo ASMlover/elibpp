@@ -42,7 +42,7 @@ enum EventType {
 };
 
 
-class NetLibrary : public Singleton<NetLibrary>, private NonCopyable {
+class NetLibrary : public Singleton<NetLibrary> {
   static bool loaded_;
 public:
   explicit NetLibrary(void);

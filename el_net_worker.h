@@ -30,7 +30,7 @@
 namespace el {
 
 
-class NetWorker : private NonCopyable {
+class NetWorker : private UnCopyable {
   bool running_;
   Poller* poller_;
   Thread* thread_;

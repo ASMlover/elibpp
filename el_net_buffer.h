@@ -31,7 +31,7 @@
 namespace el {
 
 
-class NetBuffer : private NonCopyable {
+class NetBuffer : private UnCopyable {
   char* buffer_;
   int   length_;
   int   storage_;

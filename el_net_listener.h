@@ -31,7 +31,7 @@ namespace el {
 
 
 class NetworkHandler;
-class NetListener : private NonCopyable {
+class NetListener : private UnCopyable {
   bool running_;
   Socket* listener_;
   Thread* thread_;

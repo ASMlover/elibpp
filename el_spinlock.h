@@ -36,7 +36,7 @@
 
 namespace el {
 
-class SpinLockGuard : private NonCopyable {
+class SpinLockGuard : private UnCopyable {
   SpinLock& spinlock_;
 public:
   explicit SpinLockGuard(SpinLock& spinlock)

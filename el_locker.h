@@ -33,7 +33,7 @@
 namespace el {
 
 template <typename Locker>
-class LockerGuard : private NonCopyable {
+class LockerGuard : private UnCopyable {
   Locker& locker_;
 public:
   explicit LockerGuard(Locker& locker)

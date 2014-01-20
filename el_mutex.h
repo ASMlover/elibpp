@@ -35,7 +35,7 @@
 
 namespace el {
 
-class MutexGuard : private NonCopyable {
+class MutexGuard : private UnCopyable {
   Mutex& mutex_;
 public:
   explicit MutexGuard(Mutex& mutex)

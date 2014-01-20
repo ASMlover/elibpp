@@ -46,7 +46,7 @@ struct LogFile {
 
 
 struct Time;
-class Logging : public Singleton<Logging>, private NonCopyable {
+class Logging : public Singleton<Logging> {
   enum {kDefBufferSize = 16 * 1024};
 public:
   enum SeverityType {

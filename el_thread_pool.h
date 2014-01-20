@@ -41,7 +41,7 @@ struct Task {
 };
 
 class Thread;
-class ThreadPool : private NonCopyable {
+class ThreadPool : private UnCopyable {
   enum {
     kDefMinThreadsCount = 8, 
     kDefMaxThreadsCount = 256, 

@@ -32,7 +32,7 @@ namespace el {
 
 
 class Address;
-class Socket : public SmallAllocator, private NonCopyable {
+class Socket : public SmallAllocator, private UnCopyable {
   int fd_;
 public:
   explicit Socket(void);

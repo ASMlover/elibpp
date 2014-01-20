@@ -32,7 +32,7 @@ namespace el {
 class NetWorker;
 class NetListener;
 class ConnectorDispatcher;
-class NetworkHandler : private NonCopyable {
+class NetworkHandler : private UnCopyable {
   enum {
     kDefaultWorkerCount = 1, 
     kDefaultBufferSize  = 16 * 1024, 
