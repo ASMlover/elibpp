@@ -31,7 +31,7 @@
 namespace el {
 
 
-class Epoll : public Poller, private NonCopyable {
+class Epoll : public Poller, private UnCopyable {
   enum {
     kEpollSize  = 32000, 
     kEventCount = 4096, 

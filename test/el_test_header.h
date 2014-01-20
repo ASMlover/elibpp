@@ -51,8 +51,7 @@ struct UnitCase {
   }
 };
 
-class UnitFramework 
-  : public el::Singleton<UnitFramework>, private el::NonCopyable {
+class UnitFramework : public el::Singleton<UnitFramework> {
   std::vector<UnitCase> unit_list_;
 public:
   explicit UnitFramework(void);

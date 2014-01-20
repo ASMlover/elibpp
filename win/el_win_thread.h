@@ -34,7 +34,7 @@
 
 namespace el {
 
-class Thread : private NonCopyable {
+class Thread : private UnCopyable {
   HANDLE start_event_;
   HANDLE thread_;
   void (*routine_)(void*);

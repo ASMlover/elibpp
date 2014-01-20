@@ -30,7 +30,7 @@
 
 namespace el {
 
-class Mutex : private NonCopyable {
+class Mutex : private UnCopyable {
   pthread_mutex_t mutex_;
 public:
   explicit Mutex(void)

@@ -27,7 +27,7 @@
 
 namespace el {
 
-class Thread : private NonCopyable {
+class Thread : private UnCopyable {
   pthread_t thread_id_;
   void (*routine_)(void*);
   void* argument_;

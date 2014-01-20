@@ -30,7 +30,7 @@
 
 namespace el {
 
-class SpinLock : private NonCopyable {
+class SpinLock : private UnCopyable {
   pthread_spinlock_t spinlock_;
 public:
   explicit SpinLock(void)

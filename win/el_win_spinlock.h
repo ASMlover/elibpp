@@ -30,7 +30,7 @@
 
 namespace el {
 
-class SpinLock : private NonCopyable {
+class SpinLock : private UnCopyable {
   CRITICAL_SECTION spinlock_;
 public:
   explicit SpinLock(void)

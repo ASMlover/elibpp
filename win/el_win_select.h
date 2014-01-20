@@ -33,7 +33,7 @@ namespace el {
 
 struct win_fd_set;
 struct SelectEntry;
-class Select : public Poller, private NonCopyable {
+class Select : public Poller, private UnCopyable {
   uint32_t fd_storage_;
   win_fd_set* rset_in_;
   win_fd_set* wset_in_;
