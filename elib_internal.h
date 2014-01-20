@@ -60,7 +60,6 @@
 # include "./posix/el_posix_tools.h"
 #endif
 
-#include "el_noncopyable.h"
 #include "el_uncopyable.h"
 #include "el_locker.h"
 #include "el_singleton.h"
