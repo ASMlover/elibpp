@@ -39,10 +39,10 @@ public:
     static Locker  s_locker;
 
     if (NULL == s_instance) {
-      LockerGuard<SpinLock> guard(s_locker);
+      LockerGuard<Locker> guard(s_locker);
       if (NULL == s_instance) {
-        static Object _s_object;
-        s_instance = &_s_object;
+        static Object s_object;
+        s_instance = &s_object;
       }
     }
 
