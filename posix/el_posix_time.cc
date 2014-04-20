@@ -34,9 +34,10 @@ uint32_t
 Clock(void)
 {
   struct timeval tv;
+  if (0 == gettimeofday(&tv, NULL))
+    return (((tv.tv_sec - 1000000000) * 1000) + (tv.tv_usec / 1000));
 
-  gettimeofday(&tv, NULL);
-  return (((tv.tv_sec - 1000000000) * 1000) + (tv.tv_usec / 1000));
+  return 0;
 }
 
 void 
