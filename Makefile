@@ -29,7 +29,7 @@ OUT	= elibpp
 RM	= rm 
 RD	= rm -rf
 CC	= g++
-CFLAGS	= -g -O2 -Wall 
+CFLAGS	= -g -O2 -Wall -std=c++0x
 LDFLAGS	= -lpthread -lrt
 OBJS	= ./test/el_test_main.o ./test/el_test_mutex.o\
 	./test/el_test_spinlock.o ./test/el_test_condition.o\

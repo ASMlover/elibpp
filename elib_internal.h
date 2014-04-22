@@ -28,7 +28,7 @@
 #define __ELIB_INTERNAL_HEADER_H__
 
 #include "el_config.h"
-
+#include <stdint.h>
 #if defined(PLATFORM_WIN)
 # include <windows.h>
 # include <mmsystem.h>
