@@ -51,4 +51,4 @@ public:
 
 }
 
-#endif  //! __EL_SPINLOCK_HEADER_H__
+#endif  // __EL_SPINLOCK_HEADER_H__

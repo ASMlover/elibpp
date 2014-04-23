@@ -42,4 +42,4 @@ protected:
 }
 
 
-#endif  //! __EL_UNCOPYABLE_HEADER_H__
+#endif  // __EL_UNCOPYABLE_HEADER_H__

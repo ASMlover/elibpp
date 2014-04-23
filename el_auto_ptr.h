@@ -1,4 +1,4 @@
-// Copyright (c) 2013 ASMlover. All rights reserved.
+// Copyright (c) 2014 ASMlover. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions
@@ -24,36 +24,51 @@
 // LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 // ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-#ifndef __EL_POSIX_MUTEX_HEADER_H__
-#define __EL_POSIX_MUTEX_HEADER_H__
+#ifndef __EL_AUTO_PTR_HEADER_H__
+#define __EL_AUTO_PTR_HEADER_H__
 
 
 namespace el {
 
-class Mutex : private UnCopyable {
-  pthread_mutex_t mutex_;
+
+template <typename T> 
+class AutoPtr : private UnCopyable {
+  T* ptr_;
+
+  typedef AutoPtr<T> SelfType;
 public:
-  Mutex(void) {
-    PthreadCall("Mutex init", pthread_mutex_init(&mutex_, nullptr));
+  explicit AutoPtr(T* p = nullptr) 
+    : ptr_(p) {
   }
 
-  ~Mutex(void) {
-    PthreadCall("Mutex destroy", pthread_mutex_destroy(&mutex_));
+  ~AutoPtr(void) {
+    if (nullptr != ptr_)
+      delete ptr_;
+  }
+public:
+  inline void Reset(T* p = nullptr) {
+    SelfType(p).Swap(*this);
   }
 
-  inline void Lock(void) {
-    PthreadCall("Mutex lock", pthread_mutex_lock(&mutex_));
+  inline T& operator*(void) const {
+    return *ptr_;
   }
 
-  inline void Unlock(void) {
-    PthreadCall("Mutex unlock", pthread_mutex_unlock(&mutex_));
+  inline T* operator->(void) const {
+    return ptr_;
   }
 
-  inline pthread_mutex_t* mutex(void) {
-    return &mutex_;
+  inline T* Get(void) const {
+    return ptr_;
+  }
+private:
+  void Swap(AutoPtr& x) {
+    std::swap(ptr_, x.ptr_);
   }
 };
 
+
 }
 
-#endif  // __EL_POSIX_MUTEX_HEADER_H__
+
+#endif  // __EL_AUTO_PTR_HEADER_H__

@@ -59,4 +59,4 @@ public:
 
 }
 
-#endif  //! __EL_WIN_MUTEX_HEADER_H__
+#endif  // __EL_WIN_MUTEX_HEADER_H__

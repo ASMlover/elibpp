@@ -55,4 +55,4 @@ public:
 
 }
 
-#endif  //! __EL_WIN_SPINLOCK_HEADER_H__
+#endif  // __EL_WIN_SPINLOCK_HEADER_H__

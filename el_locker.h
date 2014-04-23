@@ -60,4 +60,4 @@ public:
 #include "el_spinlock.h"
 
 
-#endif  //! __EL_LOCKER_HEADER_H__
+#endif  // __EL_LOCKER_HEADER_H__
