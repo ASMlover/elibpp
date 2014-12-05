@@ -33,33 +33,31 @@ struct Task {
   void (*routine)(void*);
   void* argument;
 
-  Task(void (*worker)(void*) = NULL, void* arg = NULL)
+  Task(void (*worker)(void*) = nullptr, void* arg = nullptr)
     : routine(worker)
-    , argument(arg)
-  {
+    , argument(arg) {
   }
 };
 
-class Thread;
 class ThreadPool : private UnCopyable {
   enum {
-    kDefMinThreadsCount = 8, 
-    kDefMaxThreadsCount = 256, 
+    MIN_THREADS = 8, 
+    MAX_THREADS = 64, 
   };
 
-  Mutex mutex_;
+  Mutex     mutex_;
   Condition cond_;
-  bool running_;
+  bool      running_;
 
   std::vector<Thread*> threads_;
-  std::queue<Task> tasks_;
+  std::queue<Task>     tasks_;
 public:
-  explicit ThreadPool(void);
+  ThreadPool(void);
   ~ThreadPool(void);
 
-  void Start(int thread_count = kDefMinThreadsCount);
+  void Start(int thread_count = MIN_THREADS);
   void Stop(void);
-  void Run(void (*routine)(void*) = NULL, void* argument = NULL);
+  void Run(void (*routine)(void*) = nullptr, void* argument = nullptr);
 private:
   Task TakeTask(void);
   static void Routine(void* argument);
@@ -67,4 +65,4 @@ private:
 
 }
 
-#endif  //! __EL_THREAD_POOL_HEADER_H__
+#endif  // __EL_THREAD_POOL_HEADER_H__

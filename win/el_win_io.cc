@@ -31,9 +31,8 @@
 
 namespace el {
 
-static inline int 
-ColorVfprintf(FILE* stream, int color, const char* format, va_list ap)
-{
+static inline int ColorVfprintf(
+    FILE* stream, int color, const char* format, va_list ap) {
   HANDLE out_handle = GetStdHandle(STD_OUTPUT_HANDLE);
   CONSOLE_SCREEN_BUFFER_INFO info;
   GetConsoleScreenBufferInfo(out_handle, &info);
@@ -61,9 +60,7 @@ ColorVfprintf(FILE* stream, int color, const char* format, va_list ap)
 
 
 
-int 
-ColorPrintf(int color, const char* format, ...)
-{
+int ColorPrintf(int color, const char* format, ...) {
   va_list ap;
 
   va_start(ap, format);
@@ -73,9 +70,7 @@ ColorPrintf(int color, const char* format, ...)
   return ret;
 }
 
-int 
-ColorFprintf(FILE* stream, int color, const char* format, ...)
-{
+int ColorFprintf(FILE* stream, int color, const char* format, ...) {
   va_list ap;
 
   va_start(ap, format);

@@ -34,23 +34,19 @@ namespace el {
 ThreadPool::ThreadPool(void)
   : mutex_()
   , cond_(mutex_)
-  , running_(false)
-{
+  , running_(false) {
 }
 
-ThreadPool::~ThreadPool(void)
-{
+ThreadPool::~ThreadPool(void) {
   if (running_)
     Stop();
 }
 
-void 
-ThreadPool::Start(int thread_count)
-{
-  if (thread_count < kDefMinThreadsCount)
-    thread_count = kDefMinThreadsCount;
-  if (thread_count > kDefMaxThreadsCount)
-    thread_count = kDefMaxThreadsCount;
+void ThreadPool::Start(int thread_count) {
+  if (thread_count < MIN_THREADS)
+    thread_count = MIN_THREADS;
+  if (thread_count > MAX_THREADS)
+    thread_count = MAX_THREADS;
 
   running_ = true;
   for (int i = 0; i < thread_count; ++i) {
@@ -59,9 +55,7 @@ ThreadPool::Start(int thread_count)
   }
 }
 
-void 
-ThreadPool::Stop(void)
-{
+void ThreadPool::Stop(void) {
   {
     MutexGuard lock(mutex_);
     running_ = false;
@@ -76,9 +70,7 @@ ThreadPool::Stop(void)
   threads_.clear();
 }
 
-void 
-ThreadPool::Run(void (*routine)(void*), void* argument)
-{
+void ThreadPool::Run(void (*routine)(void*), void* argument) {
   if (threads_.empty()) {
     routine(argument);
   }
@@ -91,9 +83,7 @@ ThreadPool::Run(void (*routine)(void*), void* argument)
 }
 
 
-Task 
-ThreadPool::TakeTask(void)
-{
+Task ThreadPool::TakeTask(void) {
   MutexGuard lock(mutex_);
   while (tasks_.empty() && running_)
     cond_.Wait();
@@ -107,9 +97,7 @@ ThreadPool::TakeTask(void)
   return task;
 }
 
-void 
-ThreadPool::Routine(void* argument)
-{
+void ThreadPool::Routine(void* argument) {
   ThreadPool* self = static_cast<ThreadPool*>(argument);
   if (NULL == self)
     abort();

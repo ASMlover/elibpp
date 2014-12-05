@@ -32,7 +32,7 @@ namespace el {
 
 class UnCopyable {
   UnCopyable(const UnCopyable&);
-  UnCopyable& operator =(const UnCopyable&);
+  UnCopyable& operator=(const UnCopyable&);
 protected:
   UnCopyable(void) {}
   ~UnCopyable(void) {}
@@ -42,4 +42,4 @@ protected:
 }
 
 
-#endif  //! __EL_UNCOPYABLE_HEADER_H__
+#endif  // __EL_UNCOPYABLE_HEADER_H__

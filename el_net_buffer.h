@@ -36,31 +36,27 @@ class NetBuffer : private UnCopyable {
   int   length_;
   int   storage_;
 public:
-  enum { kDefaultStorage = 16 * 1024 };
+  enum { DEF_STORAGE = 16 * 1024 };
   explicit NetBuffer(void);
   ~NetBuffer(void);
 
-  inline const char* buffer(void) const 
-  {
+  inline const char* buffer(void) const {
     return buffer_;
   }
 
-  inline int length(void) const 
-  {
+  inline int length(void) const {
     return length_;
   }
 
-  inline char* free_buffer(void) const 
-  {
+  inline char* free_buffer(void) const {
     return buffer_ + length_;
   }
 
-  inline int free_length(void) const 
-  {
+  inline int free_length(void) const {
     return storage_ - length_;
   }
 public:
-  bool Init(int storage = kDefaultStorage);
+  bool Init(int storage = DEF_STORAGE);
   void Destroy(void);
 
   int Put(const char* buffer, int bytes);
@@ -74,4 +70,4 @@ public:
 
 }
 
-#endif  //! __EL_NET_BUFFER_HEADER_H__
+#endif  // __EL_NET_BUFFER_HEADER_H__

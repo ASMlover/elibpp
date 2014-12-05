@@ -30,10 +30,8 @@
 
 namespace el {
 
-bool 
-Localtime(Time* time)
-{
-  if (NULL == time) {
+bool Localtime(Time* time) {
+  if (nullptr == time) {
     return false;
   }
   else {

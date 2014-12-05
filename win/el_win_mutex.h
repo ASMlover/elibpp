@@ -33,35 +33,30 @@ namespace el {
 class Mutex : private UnCopyable {
   CRITICAL_SECTION mutex_;
 public:
-  explicit Mutex(void)
-  {
+  Mutex(void) {
     InitializeCriticalSection(&mutex_);
   }
 
-  ~Mutex(void)
-  {
+  ~Mutex(void) {
     DeleteCriticalSection(&mutex_);
   }
 
-  inline void Lock(void)
-  {
+  inline void Lock(void) {
     if ((DWORD)mutex_.OwningThread == GetCurrentThreadId())
       return;
 
     EnterCriticalSection(&mutex_);
   }
 
-  inline void Unlock(void)
-  {
+  inline void Unlock(void) {
     LeaveCriticalSection(&mutex_);
   }
 
-  inline CRITICAL_SECTION* mutex(void)
-  {
+  inline CRITICAL_SECTION* mutex(void) {
     return &mutex_;
   }
 };
 
 }
 
-#endif  //! __EL_WIN_MUTEX_HEADER_H__
+#endif  // __EL_WIN_MUTEX_HEADER_H__

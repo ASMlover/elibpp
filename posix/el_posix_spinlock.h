@@ -33,27 +33,23 @@ namespace el {
 class SpinLock : private UnCopyable {
   pthread_spinlock_t spinlock_;
 public:
-  explicit SpinLock(void)
-  {
+  SpinLock(void) {
     PthreadCall("SpinLock init", pthread_spin_init(&spinlock_, 0));
   }
 
-  ~SpinLock(void)
-  {
+  ~SpinLock(void) {
     PthreadCall("SpinLock destroy", pthread_spin_destroy(&spinlock_));
   }
 
-  inline void Lock(void)
-  {
+  inline void Lock(void) {
     PthreadCall("SpinLock lock", pthread_spin_lock(&spinlock_));
   }
 
-  inline void Unlock(void)
-  {
+  inline void Unlock(void) {
     PthreadCall("SpinLock unlock", pthread_spin_unlock(&spinlock_));
   }
 };
 
 }
 
-#endif  //! __EL_POSIX_SPINLOCK_HEADER_H__
+#endif  // __EL_POSIX_SPINLOCK_HEADER_H__

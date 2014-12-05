@@ -28,7 +28,6 @@
 #define __ELIB_INTERNAL_HEADER_H__
 
 #include "el_config.h"
-
 #if defined(PLATFORM_WIN)
 # include <windows.h>
 # include <mmsystem.h>
@@ -47,6 +46,7 @@
 # define MAX_PATH PATH_MAX
 #endif
 #include <sys/timeb.h>
+#include <stdint.h>
 #include <assert.h>
 #include <stdarg.h>
 #include <stdio.h>
@@ -60,12 +60,14 @@
 # include "./posix/el_posix_tools.h"
 #endif
 
+#include "el_static_assert.h"
 #include "el_uncopyable.h"
 #include "el_locker.h"
 #include "el_singleton.h"
+#include "el_auto_ptr.h"
 #include "el_allocator.h"
 #include "el_condition.h"
 #include "el_thread.h"
 #include "el_io.h"
 
-#endif  //! __ELIB_INTERNAL_HEADER_H__
+#endif  // __ELIB_INTERNAL_HEADER_H__

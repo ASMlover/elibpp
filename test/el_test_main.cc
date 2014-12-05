@@ -28,17 +28,13 @@
 
 
 
-UnitFramework::UnitFramework(void)
-{
+UnitFramework::UnitFramework(void) {
 }
 
-UnitFramework::~UnitFramework(void)
-{
+UnitFramework::~UnitFramework(void) {
 }
 
-int 
-UnitFramework::Run(void)
-{
+int UnitFramework::Run(void) {
   fprintf(stdout, "=====================BEGIN====================\n");
 
   size_t size = unit_list_.size();
@@ -54,9 +50,7 @@ UnitFramework::Run(void)
   return 0;
 }
 
-bool 
-UnitFramework::RegisterUnit(const char* name, void (*unit)(void))
-{
+bool UnitFramework::RegisterUnit(const char* name, void (*unit)(void)) {
   if (NULL == name || NULL == unit)
     return false;
 
@@ -67,8 +61,6 @@ UnitFramework::RegisterUnit(const char* name, void (*unit)(void))
 
 
 
-int 
-main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
   return UNIT_RUN_ALL();
 }

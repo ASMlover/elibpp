@@ -38,9 +38,7 @@ struct Memory {
 
 
 
-Memory* 
-Allocator::AllocChunk(size_t index)
-{
+Memory* Allocator::AllocChunk(size_t index) {
   size_t alloc_size = (index + 1) * ALIGN + PREFIX_SIZE;
   size_t chunk_size = alloc_size * MAX_NUMBER;
 
@@ -61,9 +59,7 @@ Allocator::AllocChunk(size_t index)
   return free_list_[index];
 }
 
-void 
-Allocator::InsertChunk(void* chunk)
-{
+void Allocator::InsertChunk(void* chunk) {
   if (chunk_count_ == chunk_storage_) {
     size_t new_chunk_storage = chunk_storage_ + NFREELISTS;
     void** new_chunk_list = 
@@ -84,32 +80,23 @@ Allocator::InsertChunk(void* chunk)
 
 
 
-Allocator::Allocator(void)
-{
-  memset(free_list_, 0, sizeof(chunk_list_));
+Allocator::Allocator(void) {
+  memset(free_list_, 0, sizeof(free_list_));
   chunk_list_ = (void**)malloc(sizeof(void*) * NFREELISTS);
   assert(NULL != chunk_list_);
   chunk_count_ = 0;
   chunk_storage_ = NFREELISTS;
-
-  spinlock_ = new SpinLock();
-  assert(NULL != spinlock_);
 }
 
-Allocator::~Allocator(void)
-{
+Allocator::~Allocator(void) {
   for (size_t i = 0; i < chunk_count_; ++i)
     free(chunk_list_[i]);
   free(chunk_list_);
-
-  delete spinlock_;
 }
 
-void* 
-Allocator::Malloc(size_t bytes)
-{
-  //! Allocator must has beed initialized 
-  //! and bytes must > 0
+void* Allocator::Malloc(size_t bytes) {
+  // Allocator must has beed initialized 
+  // and bytes must > 0
 
   assert(bytes > 0);
 
@@ -122,7 +109,7 @@ Allocator::Malloc(size_t bytes)
   else {
     size_t index = FreeListIndex(bytes);
 
-    SpinLockGuard lock(*spinlock_);
+    LockerGuard<SpinLock> guard(locker_);
     if (NULL == free_list_[index])
       AllocChunk(index);
 
@@ -133,9 +120,7 @@ Allocator::Malloc(size_t bytes)
   return ret;
 }
 
-void 
-Allocator::Free(void* ptr)
-{
+void Allocator::Free(void* ptr) {
   assert(NULL != ptr);
 
   void* realptr = (uint8_t*)ptr - PREFIX_SIZE;
@@ -146,7 +131,7 @@ Allocator::Free(void* ptr)
   else if (index < NFREELISTS) {
     Memory* free_block = (Memory*)realptr;
 
-    SpinLockGuard lock(*spinlock_);
+    LockerGuard<SpinLock> guard(locker_);
     free_block->next = free_list_[index];
     free_list_[index] = free_block;
   }

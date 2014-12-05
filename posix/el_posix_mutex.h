@@ -33,32 +33,27 @@ namespace el {
 class Mutex : private UnCopyable {
   pthread_mutex_t mutex_;
 public:
-  explicit Mutex(void)
-  {
-    PthreadCall("Mutex init", pthread_mutex_init(&mutex_, NULL));
+  Mutex(void) {
+    PthreadCall("Mutex init", pthread_mutex_init(&mutex_, nullptr));
   }
 
-  ~Mutex(void)
-  {
+  ~Mutex(void) {
     PthreadCall("Mutex destroy", pthread_mutex_destroy(&mutex_));
   }
 
-  inline void Lock(void)
-  {
+  inline void Lock(void) {
     PthreadCall("Mutex lock", pthread_mutex_lock(&mutex_));
   }
 
-  inline void Unlock(void)
-  {
+  inline void Unlock(void) {
     PthreadCall("Mutex unlock", pthread_mutex_unlock(&mutex_));
   }
 
-  inline pthread_mutex_t* mutex(void)
-  {
+  inline pthread_mutex_t* mutex(void) {
     return &mutex_;
   }
 };
 
 }
 
-#endif  //! __EL_POSIX_MUTEX_HEADER_H__
+#endif  // __EL_POSIX_MUTEX_HEADER_H__

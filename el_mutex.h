@@ -39,17 +39,15 @@ class MutexGuard : private UnCopyable {
   Mutex& mutex_;
 public:
   explicit MutexGuard(Mutex& mutex)
-    : mutex_(mutex)
-  {
+    : mutex_(mutex) {
     mutex_.Lock();
   }
 
-  ~MutexGuard(void)
-  {
+  ~MutexGuard(void) {
     mutex_.Unlock();
   }
 };
 
 }
 
-#endif  //! __EL_MUTEX_HEADER_H__
+#endif  // __EL_MUTEX_HEADER_H__

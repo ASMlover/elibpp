@@ -33,30 +33,26 @@ namespace el {
 class SpinLock : private UnCopyable {
   CRITICAL_SECTION spinlock_;
 public:
-  explicit SpinLock(void)
-  {
+  SpinLock(void) {
     InitializeCriticalSectionAndSpinCount(&spinlock_, 4000);
   }
 
-  ~SpinLock(void)
-  {
+  ~SpinLock(void) {
     DeleteCriticalSection(&spinlock_);
   }
 
-  inline void Lock(void)
-  {
+  inline void Lock(void) {
     if ((DWORD)spinlock_.OwningThread == GetCurrentThreadId())
       return;
 
     EnterCriticalSection(&spinlock_);
   }
 
-  inline void Unlock(void)
-  {
+  inline void Unlock(void) {
     LeaveCriticalSection(&spinlock_);
   }
 };
 
 }
 
-#endif  //! __EL_WIN_SPINLOCK_HEADER_H__
+#endif  // __EL_WIN_SPINLOCK_HEADER_H__

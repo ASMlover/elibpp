@@ -50,4 +50,4 @@ extern void Sleep(uint32_t millitm);
 #define StdClock  clock
 
 
-#endif  //! __EL_TIME_HEADER_H__
+#endif  // __EL_TIME_HEADER_H__

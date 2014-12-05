@@ -31,9 +31,8 @@
 
 namespace el {
 
-static inline int 
-ColorVfprintf(FILE* stream, int color, const char* format, va_list ap)
-{
+static inline int ColorVfprintf(
+    FILE* stream, int color, const char* format, va_list ap) {
   switch (color) {
   case kColorTypeRed:
     fprintf(stream, "\033[31;1m");
@@ -50,9 +49,7 @@ ColorVfprintf(FILE* stream, int color, const char* format, va_list ap)
 
 
 
-int 
-ColorPrintf(int color, const char* format, ...)
-{
+int ColorPrintf(int color, const char* format, ...) {
   va_list ap;
 
   va_start(ap, format);
@@ -62,9 +59,7 @@ ColorPrintf(int color, const char* format, ...)
   return ret;
 }
 
-int 
-ColorFprintf(FILE* stream, int color, const char* format, ...)
-{
+int ColorFprintf(FILE* stream, int color, const char* format, ...) {
   va_list ap;
 
   va_start(ap, format);

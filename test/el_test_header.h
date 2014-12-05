@@ -46,15 +46,14 @@ struct UnitCase {
 
   UnitCase(const char* name, void (*unit)(void))
     : unit_name(name)
-    , unit_case(unit)
-  {
+    , unit_case(unit) {
   }
 };
 
 class UnitFramework : public el::Singleton<UnitFramework> {
   std::vector<UnitCase> unit_list_;
 public:
-  explicit UnitFramework(void);
+  UnitFramework(void);
   ~UnitFramework(void);
 
   int Run(void);
@@ -69,8 +68,8 @@ static bool _s_##name = \
 static void el_Unit##name(void)
 
 
-//! Have our own assert, so we are sure it dose not get 
-//! optomized away in a release build.
+// Have our own assert, so we are sure it dose not get 
+// optomized away in a release build.
 #define UNIT_ASSERT(expr)\
 do {\
   if (!(expr)) {\
@@ -86,4 +85,4 @@ do {\
 } while (0)
 
 
-#endif  //! __EL_TEST_HEADER_H__
+#endif  // __EL_TEST_HEADER_H__

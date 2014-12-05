@@ -40,17 +40,15 @@ class SpinLockGuard : private UnCopyable {
   SpinLock& spinlock_;
 public:
   explicit SpinLockGuard(SpinLock& spinlock)
-    : spinlock_(spinlock)
-  {
+    : spinlock_(spinlock) {
     spinlock_.Lock();
   }
 
-  ~SpinLockGuard(void)
-  {
+  ~SpinLockGuard(void) {
     spinlock_.Unlock();
   }
 };
 
 }
 
-#endif  //! __EL_SPINLOCK_HEADER_H__
+#endif  // __EL_SPINLOCK_HEADER_H__

@@ -27,8 +27,6 @@
 #ifndef __EL_LOCKER_HEADER_H__
 #define __EL_LOCKER_HEADER_H__
 
-#include "el_mutex.h"
-#include "el_spinlock.h"
 
 namespace el {
 
@@ -37,17 +35,29 @@ class LockerGuard : private UnCopyable {
   Locker& locker_;
 public:
   explicit LockerGuard(Locker& locker)
-    : locker_(locker)
-  {
+    : locker_(locker) {
     locker_.Lock();
   }
 
-  ~LockerGuard(void) 
-  {
+  ~LockerGuard(void) {
     locker_.Unlock();
   }
 };
 
+
+class DummyLock : private UnCopyable {
+public:
+  DummyLock(void) {}
+  ~DummyLock(void) {}
+
+  inline void Lock(void) {}
+  inline void Unlock(void) {}
+};
+
 }
 
-#endif  //! __EL_LOCKER_HEADER_H__
+#include "el_mutex.h"
+#include "el_spinlock.h"
+
+
+#endif  // __EL_LOCKER_HEADER_H__

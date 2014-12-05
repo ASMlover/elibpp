@@ -40,4 +40,4 @@ extern int ColorFprintf(FILE* stream, int color, const char* format, ...);
 
 }
 
-#endif  //! __EL_INPUT_OUTPUT_HEADER_H__
+#endif  // __EL_INPUT_OUTPUT_HEADER_H__

@@ -30,15 +30,11 @@
 
 namespace el {
 
-uint32_t 
-Clock(void)
-{
+uint32_t Clock(void) {
   return timeGetTime();
 }
 
-void 
-Sleep(uint32_t millitm)
-{
+void Sleep(uint32_t millitm) {
   ::Sleep(millitm);
 }
 

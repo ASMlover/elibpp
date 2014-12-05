@@ -1,4 +1,4 @@
-// Copyright (c) 2013 ASMlover. All rights reserved.
+// Copyright (c) 2014 ASMlover. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions
@@ -24,57 +24,26 @@
 // LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 // ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-#ifndef __EL_ALLOCATOR_HEADER_H__
-#define __EL_ALLOCATOR_HEADER_H__
+#ifndef __EL_STATIC_ASSERT_HEADER_H__
+#define __EL_STATIC_ASSERT_HEADER_H__
+
 
 namespace el {
 
-struct Memory;
-class Allocator : public Singleton<Allocator> {
-  enum {
-    ALIGN       = 8, 
-    MAX_BYTES   = 1024, 
-    NFREELISTS  = MAX_BYTES / ALIGN, 
-    MAX_NUMBER  = 64, 
-    PREFIX_SIZE = sizeof(size_t), 
+
+template <bool expr> struct CompileTimeChecker;
+template <> struct CompileTimeChecker<true> {
+  enum class Checker : bool {
+    CHECKER_VALUE = true, 
   };
-
-  Memory*   free_list_[NFREELISTS];
-  void**    chunk_list_;
-  size_t    chunk_count_;
-  size_t    chunk_storage_;
-  SpinLock  locker_;
-
-  inline size_t FreeListIndex(size_t bytes) {
-    return ((bytes + (ALIGN - 1)) / ALIGN - 1);
-  }
-
-  Memory* AllocChunk(size_t index);
-  void InsertChunk(void* chunk);
-public:
-  Allocator(void);
-  ~Allocator(void);
-
-  void* Malloc(size_t bytes);
-  void Free(void* ptr);
 };
 
-#define NEW(s)  Allocator::Instance().Malloc((s))
-#define DEL(p)  Allocator::Instance().Free((p))
-
-
-
-class SmallAllocator {
-public:
-  static void* operator new(size_t bytes) {
-    return NEW(bytes);
-  }
-
-  static void operator delete(void* ptr, size_t bytes) {
-    DEL(ptr);
-  }
-};
 
 }
 
-#endif  // __EL_ALLOCATOR_HEADER_H__
+#define STATIC_ASSERT(expr) do {\
+  (void)el::CompileTimeChecker<(expr)>::Checker::CHECKER_VALUE;\
+} while (0)
+
+
+#endif  // __EL_STATIC_ASSERT_HEADER_H__
