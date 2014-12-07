@@ -64,7 +64,7 @@
 #include "el_uncopyable.h"
 #include "el_locker.h"
 #include "el_singleton.h"
-#include "el_auto_ptr.h"
+#include "el_unique_ptr.h"
 #include "el_allocator.h"
 #include "el_condition.h"
 #include "el_thread.h"

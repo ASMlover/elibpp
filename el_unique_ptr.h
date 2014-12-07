@@ -24,24 +24,22 @@
 // LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 // ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-#ifndef __EL_AUTO_PTR_HEADER_H__
-#define __EL_AUTO_PTR_HEADER_H__
-
+#ifndef __EL_UNIQUE_PTR_HEADER_H__
+#define __EL_UNIQUE_PTR_HEADER_H__
 
 namespace el {
 
-
 template <typename T> 
-class AutoPtr : private UnCopyable {
+class UniquePtr : private UnCopyable {
   T* ptr_;
 
-  typedef AutoPtr<T> SelfType;
+  typedef UniquePtr<T> SelfType;
 public:
-  explicit AutoPtr(T* p = nullptr) 
+  explicit UniquePtr(T* p = nullptr) 
     : ptr_(p) {
   }
 
-  ~AutoPtr(void) {
+  ~UniquePtr(void) {
     if (nullptr != ptr_)
       delete ptr_;
   }
@@ -62,13 +60,11 @@ public:
     return ptr_;
   }
 private:
-  void Swap(AutoPtr& x) {
+  void Swap(UniquePtr& x) {
     std::swap(ptr_, x.ptr_);
   }
 };
 
-
 }
 
-
-#endif  // __EL_AUTO_PTR_HEADER_H__
+#endif  // __EL_UNIQUE_PTR_HEADER_H__
