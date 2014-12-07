@@ -1,4 +1,4 @@
-// Copyright (c) 2013 ASMlover. All rights reserved.
+// Copyright (c) 2014 ASMlover. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions
@@ -24,51 +24,43 @@
 // LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 // ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-#ifndef __ELIB_INTERNAL_HEADER_H__
-#define __ELIB_INTERNAL_HEADER_H__
+#ifndef __EL_UNIQUE_ARRAY_HEADER_H__
+#define __EL_UNIQUE_ARRAY_HEADER_H__
 
-#include "el_config.h"
-#if defined(PLATFORM_WIN)
-# include <windows.h>
-# include <mmsystem.h>
-# include <process.h>
-# include <io.h>
-# include <direct.h>
-#elif defined(PLATFORM_LINUX)
-# include <sys/time.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <unistd.h>
-# include <fcntl.h>
-# include <pthread.h>
-# include <limits.h>
+namespace el {
 
-# define MAX_PATH PATH_MAX
-#endif
-#include <sys/timeb.h>
-#include <stdint.h>
-#include <assert.h>
-#include <stdarg.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <time.h>
-#include <vector>
-#include <queue>
+template <typename T>
+class UniqueArray : private UnCopyable {
+  T* ptr_;
 
-#if defined(PLATFORM_LINUX)
-# include "./posix/el_posix_tools.h"
-#endif
+  typedef UniqueArray<T> SelfType;
+public:
+  explicit UniqueArray(T* p = nullptr)
+    : ptr_(p) {
+  }
+  
+  ~UniqueArray(void) {
+    if (nullptr != ptr_)
+      delete [] ptr_;
+  }
+public:
+  inline void Reset(T* p = nullptr) {
+    SelfType(p).Swap(*this);
+  }
 
-#include "el_static_assert.h"
-#include "el_uncopyable.h"
-#include "el_locker.h"
-#include "el_singleton.h"
-#include "el_unique_ptr.h"
-#include "el_unique_array.h"
-#include "el_allocator.h"
-#include "el_condition.h"
-#include "el_thread.h"
-#include "el_io.h"
+  inline T& operator[](uint32_t i) const {
+    return ptr_[i];
+  }
 
-#endif  // __ELIB_INTERNAL_HEADER_H__
+  inline T* Get(void) const {
+    return ptr_;
+  }
+private:
+  void Swap(UniqueArray& x) {
+    std::swap(ptr_, x.ptr_);
+  }
+};
+
+}
+
+#endif  // __EL_UNIQUE_ARRAY_HEADER_H__
