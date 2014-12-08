@@ -27,8 +27,6 @@
 #include "elib_internal.h"
 #include "el_allocator.h"
 
-
-
 namespace el {
 
 struct Memory {
@@ -36,15 +34,13 @@ struct Memory {
   Memory* next;
 };
 
-
-
 Memory* Allocator::AllocChunk(size_t index) {
   size_t alloc_size = (index + 1) * ALIGN + PREFIX_SIZE;
   size_t chunk_size = alloc_size * MAX_NUMBER;
 
-  if (NULL == free_list_[index]) {
+  if (nullptr == free_list_[index]) {
     free_list_[index] = (Memory*)malloc(chunk_size);
-    assert(NULL != free_list_[index]);
+    assert(nullptr != free_list_[index]);
     InsertChunk(free_list_[index]);
 
     Memory* node = free_list_[index];
@@ -53,7 +49,7 @@ Memory* Allocator::AllocChunk(size_t index) {
       node = node->next = (Memory*)((uint8_t*)node + alloc_size);
     }
     node->index = index;
-    node->next = NULL;
+    node->next = nullptr;
   }
 
   return free_list_[index];
@@ -64,7 +60,7 @@ void Allocator::InsertChunk(void* chunk) {
     size_t new_chunk_storage = chunk_storage_ + NFREELISTS;
     void** new_chunk_list = 
       (void**)malloc(sizeof(void*) * new_chunk_storage);
-    assert(NULL != new_chunk_list);
+    assert(nullptr != new_chunk_list);
 
     memmove(new_chunk_list, 
         chunk_list_, 
@@ -77,13 +73,10 @@ void Allocator::InsertChunk(void* chunk) {
   chunk_list_[chunk_count_++] = chunk;
 }
 
-
-
-
 Allocator::Allocator(void) {
   memset(free_list_, 0, sizeof(free_list_));
   chunk_list_ = (void**)malloc(sizeof(void*) * NFREELISTS);
-  assert(NULL != chunk_list_);
+  assert(nullptr != chunk_list_);
   chunk_count_ = 0;
   chunk_storage_ = NFREELISTS;
 }
@@ -110,7 +103,7 @@ void* Allocator::Malloc(size_t bytes) {
     size_t index = FreeListIndex(bytes);
 
     LockerGuard<SpinLock> guard(locker_);
-    if (NULL == free_list_[index])
+    if (nullptr == free_list_[index])
       AllocChunk(index);
 
     ret = (uint8_t*)free_list_[index] + PREFIX_SIZE;
@@ -121,7 +114,7 @@ void* Allocator::Malloc(size_t bytes) {
 }
 
 void Allocator::Free(void* ptr) {
-  assert(NULL != ptr);
+  assert(nullptr != ptr);
 
   void* realptr = (uint8_t*)ptr - PREFIX_SIZE;
   size_t index = *(size_t*)realptr;

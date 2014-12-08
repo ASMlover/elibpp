@@ -27,26 +27,23 @@
 #ifndef __EL_ADDRESS_HEADER_H__
 #define __EL_ADDRESS_HEADER_H__
 
-
 struct sockaddr_in;
 namespace el {
 
-
 class Address : private UnCopyable {
-  enum { kDefAddressLength = 16 };
-  char ip_[kDefAddressLength];
+  enum { ADDRESS_LENGTH = 16 };
+  
+  char ip_[ADDRESS_LENGTH];
   uint16_t port_;
 public:
-  explicit Address(void);
+  Address(void);
   ~Address(void);
 
-  inline const char* ip(void) const 
-  {
+  inline const char* ip(void) const {
     return ip_;
   }
 
-  inline uint16_t port(void) const 
-  {
+  inline uint16_t port(void) const {
     return port_;
   }
 public:
@@ -54,7 +51,6 @@ public:
   void Detach(void);
 };
 
-
 }
 
-#endif  //! __EL_ADDRESS_HEADER_H__
+#endif  // __EL_ADDRESS_HEADER_H__

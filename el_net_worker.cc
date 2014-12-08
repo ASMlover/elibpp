@@ -29,36 +29,29 @@
 #include "el_event_poller.h"
 #include "el_net_worker.h"
 
-
-
 namespace el {
-
 
 NetWorker::NetWorker(void)
   : running_(false)
-  , poller_(NULL)
-  , thread_(NULL)
-  , dispatcher_(NULL)
-{
+  , poller_(nullptr)
+  , thread_(nullptr)
+  , dispatcher_(nullptr) {
 }
 
-NetWorker::~NetWorker(void)
-{
+NetWorker::~NetWorker(void) {
   Stop();
 }
 
-bool 
-NetWorker::Start(void)
-{
-  if (NULL == dispatcher_)
+bool NetWorker::Start(void) {
+  if (nullptr == dispatcher_)
     return false;
 
-  if (NULL == (poller_ = new EventPoller()))
+  if (nullptr == (poller_ = new EventPoller()))
     return false;
 
   do {
     thread_ = new Thread(&NetWorker::Routine, this);
-    if (NULL == thread_)
+    if (nullptr == thread_)
       break;
 
     running_ = true;
@@ -71,28 +64,24 @@ NetWorker::Start(void)
   return false;
 }
 
-void 
-NetWorker::Stop(void)
-{
+void NetWorker::Stop(void) {
   running_ = false;
 
-  if (NULL != thread_) {
+  if (nullptr != thread_) {
     thread_->Join();
 
     delete thread_;
-    thread_ = NULL;
+    thread_ = nullptr;
   }
 
-  if (NULL != poller_) {
+  if (nullptr != poller_) {
     delete poller_;
-    poller_ = NULL;
+    poller_ = nullptr;
   }
 }
 
-bool 
-NetWorker::AddConnector(Connector* conn)
-{
-  if (NULL == poller_ || NULL == conn)
+bool NetWorker::AddConnector(Connector* conn) {
+  if (nullptr == poller_ || nullptr == conn)
     return false;
 
   if (!poller_->Insert(conn))
@@ -103,12 +92,9 @@ NetWorker::AddConnector(Connector* conn)
   return true;
 }
 
-
-void 
-NetWorker::Routine(void* argument)
-{
+void NetWorker::Routine(void* argument) {
   NetWorker* self = static_cast<NetWorker*>(argument);
-  if (NULL == self || NULL == self->poller_ || NULL == self->dispatcher_)
+  if (nullptr == self || nullptr == self->poller_ || nullptr == self->dispatcher_)
     return;
 
   while (self->running_) {
@@ -118,6 +104,5 @@ NetWorker::Routine(void* argument)
     }
   }
 }
-
 
 }

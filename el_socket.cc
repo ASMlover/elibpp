@@ -28,46 +28,29 @@
 #include "el_address.h"
 #include "el_socket.h"
 
-
-
-
 namespace el {
 
-
-
 Socket::Socket(void)
-  : fd_(kNetTypeInval)
-{
+  : fd_(kNetTypeInval) {
 }
 
-Socket::~Socket(void)
-{
+Socket::~Socket(void) {
   Close();
 }
 
-
-bool 
-Socket::SetTcpNoDelay(bool nodelay)
-{
+bool Socket::SetTcpNoDelay(bool nodelay) {
   return SetOption(IPPROTO_TCP, TCP_NODELAY, (nodelay ? 1 : 0));
 }
 
-bool 
-Socket::SetReuseAddr(bool reuse)
-{
+bool Socket::SetReuseAddr(bool reuse) {
   return SetOption(SOL_SOCKET, SO_REUSEADDR, (reuse ? 1 : 0));
 }
 
-bool 
-Socket::SetKeepAlive(bool keep)
-{
+bool Socket::SetKeepAlive(bool keep) {
   return SetOption(SOL_SOCKET, SO_KEEPALIVE, (keep ? 1 : 0));
 }
 
-
-bool 
-Socket::Open(void)
-{
+bool Socket::Open(void) {
   fd_ = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
   if (kNetTypeInval == fd_)
     return false;
@@ -75,15 +58,13 @@ Socket::Open(void)
   return true;
 }
 
-bool 
-Socket::Bind(const char* ip, unsigned short port)
-{
+bool Socket::Bind(const char* ip, unsigned short port) {
   if (kNetTypeInval == fd_)
     return false;
 
   struct sockaddr_in host_addr;
   host_addr.sin_addr.s_addr = 
-    (NULL == ip ? htonl(INADDR_ANY) : inet_addr(ip));
+    (nullptr == ip ? htonl(INADDR_ANY) : inet_addr(ip));
   host_addr.sin_family      = AF_INET;
   host_addr.sin_port        = htons(port);
 
@@ -94,9 +75,7 @@ Socket::Bind(const char* ip, unsigned short port)
   return true;
 }
 
-bool 
-Socket::Listen(void)
-{
+bool Socket::Listen(void) {
   if (kNetTypeInval == fd_)
     return false;
 
@@ -106,10 +85,8 @@ Socket::Listen(void)
   return true;
 }
 
-bool 
-Socket::Accept(Socket* s, Address* addr)
-{
-  if (kNetTypeInval == fd_ || NULL == s)
+bool Socket::Accept(Socket* s, Address* addr) {
+  if (kNetTypeInval == fd_ || nullptr == s)
     return false;
 
   struct sockaddr_in remote_addr;
@@ -119,19 +96,17 @@ Socket::Accept(Socket* s, Address* addr)
     return false;
 
   s->Attach(fd);
-  if (NULL != addr)
+  if (nullptr != addr)
     addr->Attach(&remote_addr);
 
   return true;
 }
 
-bool 
-Socket::Connect(const char* ip, unsigned short port)
-{
+bool Socket::Connect(const char* ip, unsigned short port) {
   if (kNetTypeInval == fd_)
     return false;
 
-  if (NULL == ip)
+  if (nullptr == ip)
     ip = "127.0.0.1";
   struct sockaddr_in remote_addr;
   remote_addr.sin_addr.s_addr = inet_addr(ip);
@@ -144,23 +119,18 @@ Socket::Connect(const char* ip, unsigned short port)
   return true;
 }
 
-int 
-Socket::Recv(int bytes, char* buffer)
-{
-  if (kNetTypeInval == fd_ || bytes <= 0 || NULL == buffer)
+int Socket::Recv(int bytes, char* buffer) {
+  if (kNetTypeInval == fd_ || bytes <= 0 || nullptr == buffer)
     return kNetTypeError;
 
   return recv(fd_, buffer, bytes, 0);
 }
 
-int 
-Socket::Send(const char* buffer, int bytes)
-{
-  if (kNetTypeInval == fd_ || NULL == buffer || bytes <= 0)
+int Socket::Send(const char* buffer, int bytes) {
+  if (kNetTypeInval == fd_ || nullptr == buffer || bytes <= 0)
     return kNetTypeError;
 
   return send(fd_, buffer, bytes, 0);
 }
-
 
 }

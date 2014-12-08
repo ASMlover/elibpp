@@ -44,11 +44,10 @@ class NetworkHandler : private UnCopyable {
   int suitable_worker_;
   EventHandler* handler_;
 public:
-  explicit NetworkHandler(void);
+  NetworkHandler(void);
   ~NetworkHandler(void);
 
-  inline void Attach(EventHandler* handler)
-  {
+  inline void Attach(EventHandler* handler) {
     handler_ = handler;
   }
 public:
@@ -66,4 +65,4 @@ public:
 
 }
 
-#endif  //! __EL_NETWORK_HANDLER_H__
+#endif  // __EL_NETWORK_HANDLER_H__

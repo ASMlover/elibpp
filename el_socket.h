@@ -27,29 +27,24 @@
 #ifndef __EL_SOCKET_HEADER_H__
 #define __EL_SOCKET_HEADER_H__
 
-
 namespace el {
-
 
 class Address;
 class Socket : public SmallAllocator, private UnCopyable {
   int fd_;
 public:
-  explicit Socket(void);
+  Socket(void);
   ~Socket(void);
 
-  inline int fd(void) const 
-  {
+  inline int fd(void) const {
     return fd_;
   }
 
-  inline void Attach(int fd)
-  {
+  inline void Attach(int fd) {
     fd_ = fd;
   }
 
-  inline int Detach(void)
-  {
+  inline int Detach(void) {
     int fd = fd_;
     fd_ = -1;
     return fd;
@@ -74,8 +69,6 @@ private:
   bool SetOption(int level, int optname, int optval);
 };
 
-
 }
 
-
-#endif  //! __EL_SOCKET_HEADER_H__
+#endif  // __EL_SOCKET_HEADER_H__

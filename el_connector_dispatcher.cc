@@ -29,29 +29,23 @@
 #include "el_connector.h"
 #include "el_connector_dispatcher.h"
 
-
 namespace el {
 
-
 ConnectorDispatcher::ConnectorDispatcher(void)
-  : rbytes_(kDefBufferSize)
-  , wbytes_(kDefBufferSize)
+  : rbytes_(DEF_BUFFERSIZE)
+  , wbytes_(DEF_BUFFERSIZE)
   , spinlock_()
-  , handler_(NULL)
-{
+  , handler_(nullptr) {
 }
 
-ConnectorDispatcher::~ConnectorDispatcher(void)
-{
+ConnectorDispatcher::~ConnectorDispatcher(void) {
   CloseAll();
 }
 
-void 
-ConnectorDispatcher::CloseAll(void)
-{
+void ConnectorDispatcher::CloseAll(void) {
   std::map<int, Connector*>::iterator it;
   for (it = connectors_.begin(); it != connectors_.end(); ++it) {
-    if (NULL != it->second) {
+    if (nullptr != it->second) {
       it->second->Close();
       delete it->second;
     }
@@ -59,18 +53,16 @@ ConnectorDispatcher::CloseAll(void)
   connectors_.clear();
 }
 
-Connector* 
-ConnectorDispatcher::Insert(int fd)
-{
-  if (NULL == handler_)
-    return NULL;
+Connector* ConnectorDispatcher::Insert(int fd) {
+  if (nullptr == handler_)
+    return nullptr;
 
   LockerGuard<SpinLock> guard(spinlock_);
   std::map<int, Connector*>::iterator it = connectors_.find(fd);
   if (it == connectors_.end()) {
     Connector* conn = new Connector();
-    if (NULL == conn)
-      return NULL;
+    if (nullptr == conn)
+      return nullptr;
 
     conn->Attach(fd);
     conn->SetNonBlock();
@@ -87,16 +79,14 @@ ConnectorDispatcher::Insert(int fd)
     return conn;
   }
 
-  return NULL;
+  return nullptr;
 }
 
-void 
-ConnectorDispatcher::Remove(int fd)
-{
+void ConnectorDispatcher::Remove(int fd) {
   LockerGuard<SpinLock> guard(spinlock_);
   std::map<int, Connector*>::iterator it = connectors_.find(fd);
   if (it != connectors_.end()) {
-    if (NULL != it->second) {
+    if (nullptr != it->second) {
       it->second->Close();
       delete it->second;
     }
@@ -105,10 +95,8 @@ ConnectorDispatcher::Remove(int fd)
   }
 }
 
-bool 
-ConnectorDispatcher::DispatchReader(Poller* poller, Connector* conn)
-{
-  if (NULL == handler_ || NULL == poller || NULL == conn)
+bool ConnectorDispatcher::DispatchReader(Poller* poller, Connector* conn) {
+  if (nullptr == handler_ || nullptr == poller || nullptr == conn)
     return false;
 
   int read_bytes = conn->DealWithAsyncRead();
@@ -128,10 +116,8 @@ ConnectorDispatcher::DispatchReader(Poller* poller, Connector* conn)
   return true;
 }
 
-bool 
-ConnectorDispatcher::DispatchWriter(Poller* poller, Connector* conn)
-{
-  if (NULL == handler_ || NULL == poller || NULL == conn)
+bool ConnectorDispatcher::DispatchWriter(Poller* poller, Connector* conn) {
+  if (nullptr == handler_ || nullptr == poller || nullptr == conn)
     return false;
 
   int write_bytes = conn->DealWithAsyncWrite();
@@ -157,6 +143,5 @@ ConnectorDispatcher::DispatchWriter(Poller* poller, Connector* conn)
 
   return true;
 }
-
 
 }

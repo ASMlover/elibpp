@@ -29,7 +29,6 @@
 
 namespace el {
 
-
 class Connector : public Socket {
   uint32_t events_;
   SpinLock spinlock_;
@@ -37,26 +36,22 @@ class Connector : public Socket {
   NetBuffer rbuf_;
   NetBuffer wbuf_;
 public:
-  explicit Connector(void);
+  Connector(void);
   ~Connector(void);
 
-  inline bool SetReadBuffer(uint32_t bytes) 
-  {
+  inline bool SetReadBuffer(uint32_t bytes) {
     return rbuf_.Init(bytes);
   }
 
-  inline bool SetWriteBuffer(uint32_t bytes)
-  {
+  inline bool SetWriteBuffer(uint32_t bytes) {
     return wbuf_.Init(bytes);
   }
 
-  inline uint32_t events(void) const 
-  {
+  inline uint32_t events(void) const {
     return events_;
   }
 
-  inline void set_events(uint32_t events)
-  {
+  inline void set_events(uint32_t events) {
     events_ = events;
   }
 public:
@@ -70,7 +65,6 @@ public:
   int DealWithAsyncWrite(void);
 };
 
-
 }
 
-#endif  //! __EL_CONNECTOR_HEADER_H__
+#endif  // __EL_CONNECTOR_HEADER_H__

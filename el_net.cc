@@ -27,19 +27,14 @@
 #include "elib_internal.h"
 #include "el_net.h"
 
-
-
 namespace el {
 
 bool NetLibrary::loaded_ = false;
 
-NetLibrary::NetLibrary(void)
-{
+NetLibrary::NetLibrary(void) {
 }
 
-NetLibrary::~NetLibrary(void)
-{
+NetLibrary::~NetLibrary(void) {
 }
-
 
 }

@@ -28,14 +28,11 @@
 #include "el_time.h"
 #include "el_logging.h"
 
-
 #define ROOT_DIR  ("logging")
 
 namespace el {
 
-static inline int 
-logging_mkdir(const char* path)
-{
+static inline int logging_mkdir(const char* path) {
   int ret = -1;
 #if defined(PLATFORM_WIN)
   ret = mkdir(path);
@@ -47,17 +44,13 @@ logging_mkdir(const char* path)
   return ret;
 }
 
-static inline bool 
-KeyEqual(LogFile* lf, Time* t)
-{
+static inline bool KeyEqual(LogFile* lf, Time* t) {
   return (lf->year == t->year 
       && lf->mon == t->mon 
       && lf->day == t->day);
 }
 
-static inline void 
-CreateLogDirectory(const char* directory)
-{
+static inline void CreateLogDirectory(const char* directory) {
   if (0 != access(ROOT_DIR, 0))
     logging_mkdir(ROOT_DIR);
 
@@ -67,24 +60,18 @@ CreateLogDirectory(const char* directory)
     logging_mkdir(path);
 }
 
-
-
-Logging::Logging(void)
-{
+Logging::Logging(void) {
   memset(file_list_, 0, sizeof(file_list_));
 }
 
-Logging::~Logging(void)
-{
+Logging::~Logging(void) {
   for (int i = 0; i < kSeverityTypeCount; ++i) {
-    if (NULL != file_list_[i].stream)
+    if (nullptr != file_list_[i].stream)
       fclose(file_list_[i].stream);
   }
 }
 
-const char* 
-Logging::GetSeverityName(int severity)
-{
+const char* Logging::GetSeverityName(int severity) {
   switch (severity) {
   case kSeverityTypeDebug:
     return "debug";
@@ -101,22 +88,20 @@ Logging::GetSeverityName(int severity)
   return "???";
 }
 
-FILE* 
-Logging::GetFileStream(int severity, Time* time)
-{
-  if ((severity < 0 || severity >= kSeverityTypeCount) || NULL == time)
-    return NULL;
+FILE* Logging::GetFileStream(int severity, Time* time) {
+  if ((severity < 0 || severity >= kSeverityTypeCount) || nullptr == time)
+    return nullptr;
 
   FILE* stream;
   const char* directory = GetSeverityName(severity);
-  if (NULL == file_list_[severity].stream) {
+  if (nullptr == file_list_[severity].stream) {
     CreateLogDirectory(directory);
 
     char fname[MAX_PATH];
     sprintf(fname, "./%s/%s/%04d%02d%02d.log", 
         ROOT_DIR, directory, time->year, time->mon, time->day);
     stream = fopen(fname, "a+");
-    setvbuf(stream, NULL, _IOFBF, kDefBufferSize);
+    setvbuf(stream, nullptr, _IOFBF, kDefBufferSize);
 
     file_list_[severity].year = time->year;
     file_list_[severity].mon  = time->mon;
@@ -134,7 +119,7 @@ Logging::GetFileStream(int severity, Time* time)
       sprintf(fname, "%s/%s/%04d%02d%02d.log", 
           ROOT_DIR, directory, time->year, time->mon, time->day);
       stream = fopen(fname, "a+");
-      setvbuf(stream, NULL, _IOFBF, kDefBufferSize);
+      setvbuf(stream, nullptr, _IOFBF, kDefBufferSize);
 
       file_list_[severity].year = time->year;
       file_list_[severity].mon  = time->mon;
@@ -146,15 +131,12 @@ Logging::GetFileStream(int severity, Time* time)
   return stream;
 }
 
-
-void 
-Logging::Write(int severity, const char* format, ...)
-{
+void Logging::Write(int severity, const char* format, ...) {
   Time time;
   Localtime(&time);
 
   FILE* stream = GetFileStream(severity, &time);
-  if (NULL == stream)
+  if (nullptr == stream)
     return;
 
   va_list ap;
@@ -163,15 +145,13 @@ Logging::Write(int severity, const char* format, ...)
   va_end(ap);
 }
 
-void 
-Logging::WriteX(int severity, 
-    const char* file, int line, const char* format, ...)
-{
+void Logging::WriteX(int severity, 
+    const char* file, int line, const char* format, ...) {
   Time time;
   Localtime(&time);
 
   FILE* stream = GetFileStream(severity, &time);
-  if (NULL == stream)
+  if (nullptr == stream)
     return;
 
   char buf[1024];
@@ -184,6 +164,5 @@ Logging::WriteX(int severity,
   fprintf(stream, "[%02d:%02d:%02d:%03d] [%s](%d) : %s", 
       time.hour, time.min, time.sec, time.millitm, file, line, buf);
 }
-
 
 }

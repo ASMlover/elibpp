@@ -38,15 +38,13 @@
   typedef pthread_cond_t CondVar;
 #endif 
 
-
 namespace el {
 
-class Mutex;
 class Condition : private UnCopyable {
   Mutex& mutex_;
   CondVar cond_;
 public:
-  explicit Condition(Mutex& mutex);
+  Condition(Mutex& mutex);
   ~Condition(void);
 
   void Signal(void);
@@ -56,4 +54,4 @@ public:
 
 }
 
-#endif  //! __EL_CONDITION_HEADER_H__
+#endif  // __EL_CONDITION_HEADER_H__

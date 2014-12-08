@@ -40,13 +40,11 @@
 # endif
 #endif
 
-
 #if defined(_MSC_VER)
 # define COMPILER_MSVC
 #elif defined(__GNUC__)
 # define COMPILER_GCC
 #endif
-
 
 #if defined(COMPILER_MSVC)
 # if (_MSC_VER < 1700)
@@ -59,12 +57,10 @@
 # endif
 #endif
 
-
 #if defined(PLATFORM_WIN)
 # define USING_SELECT
 #elif defined(PLATFORM_LINUX)
 # define USING_EPOLL
 #endif
-
 
 #endif  // __EL_CONFIG_HEADER_H__

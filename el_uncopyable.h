@@ -29,7 +29,6 @@
 
 namespace el {
 
-
 class UnCopyable {
   UnCopyable(const UnCopyable&);
   UnCopyable& operator=(const UnCopyable&);
@@ -38,8 +37,6 @@ protected:
   ~UnCopyable(void) {}
 };
 
-
 }
-
 
 #endif  // __EL_UNCOPYABLE_HEADER_H__

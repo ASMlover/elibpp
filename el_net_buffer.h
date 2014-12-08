@@ -27,9 +27,7 @@
 #ifndef __EL_NET_BUFFER_HEADER_H__
 #define __EL_NET_BUFFER_HEADER_H__
 
-
 namespace el {
-
 
 class NetBuffer : private UnCopyable {
   char* buffer_;
@@ -66,7 +64,6 @@ public:
 
   bool Regrow(void);
 };
-
 
 }
 

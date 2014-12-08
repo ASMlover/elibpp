@@ -62,8 +62,6 @@ public:
 #define NEW(s)  Allocator::Instance().Malloc((s))
 #define DEL(p)  Allocator::Instance().Free((p))
 
-
-
 class SmallAllocator {
 public:
   static void* operator new(size_t bytes) {

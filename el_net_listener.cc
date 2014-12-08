@@ -32,33 +32,25 @@
 #include "el_network_handler.h"
 #include "el_net_listener.h"
 
-
-
 namespace el {
-
 
 NetListener::NetListener(void)
   : running_(false)
-  , listener_(NULL)
-  , thread_(NULL)
-  , network_(NULL)
-  , conn_holder_(NULL)
-{
+  , listener_(nullptr)
+  , thread_(nullptr)
+  , network_(nullptr)
+  , conn_holder_(nullptr) {
 }
 
-NetListener::~NetListener(void)
-{
+NetListener::~NetListener(void) {
   Stop();
 }
 
-
-bool 
-NetListener::Start(const char* ip, uint16_t port)
-{
-  if (NULL == network_ || NULL == conn_holder_)
+bool NetListener::Start(const char* ip, uint16_t port) {
+  if (nullptr == network_ || nullptr == conn_holder_)
     return false;
 
-  if (NULL == (listener_ = new Socket()))
+  if (nullptr == (listener_ = new Socket()))
     return false;
 
   do {
@@ -68,7 +60,7 @@ NetListener::Start(const char* ip, uint16_t port)
         || !listener_->Listen())
       break;
 
-    if (NULL == (thread_ = new Thread(&NetListener::Routine, this)))
+    if (nullptr == (thread_ = new Thread(&NetListener::Routine, this)))
       break;
 
     running_ = true;
@@ -81,35 +73,29 @@ NetListener::Start(const char* ip, uint16_t port)
   return false;
 }
 
-void 
-NetListener::Stop(void)
-{
+void NetListener::Stop(void) {
   running_ = false;
 
-  if (NULL != listener_)
+  if (nullptr != listener_)
     listener_->Close();
 
-  if (NULL != thread_) {
+  if (nullptr != thread_) {
     thread_->Join();
 
     delete thread_;
-    thread_ = NULL;
+    thread_ = nullptr;
   }
 
-  if (NULL != listener_) {
+  if (nullptr != listener_) {
     delete listener_;
-    listener_ = NULL;
+    listener_ = nullptr;
   }
 }
 
-
-
-void 
-NetListener::Routine(void* argument)
-{
+void NetListener::Routine(void* argument) {
   NetListener* self = static_cast<NetListener*>(argument);
-  if (NULL == self || NULL == self->listener_ 
-      || NULL == self->network_ || NULL == self->conn_holder_)
+  if (nullptr == self || nullptr == self->listener_ 
+      || nullptr == self->network_ || nullptr == self->conn_holder_)
     return;
 
   Socket s;
@@ -121,7 +107,7 @@ NetListener::Routine(void* argument)
     }
     else {
       Connector* conn = self->conn_holder_->Insert(s.fd());
-      if (NULL != conn) {
+      if (nullptr != conn) {
         self->network_->SuitableWorker().AddConnector(conn);
         self->network_->MarkNextSuitableWorker();
       }
@@ -134,6 +120,5 @@ NetListener::Routine(void* argument)
     }
   }
 }
-
 
 }

@@ -27,31 +27,27 @@
 #ifndef __EL_CONNECTOR_DISPATCHER_HEADER_H__
 #define __EL_CONNECTOR_DISPATCHER_HEADER_H__
 
-
 namespace el {
-
 
 class ConnectorDispatcher 
   : public ConnectorHolder, public Dispatcher, private UnCopyable {
-  enum { kDefBufferSize = 16 * 1024 };
+  enum { DEF_BUFFERSIZE = 16 * 1024 };
   uint32_t rbytes_;
   uint32_t wbytes_;
   SpinLock spinlock_;
   EventHandler* handler_;
   std::map<int, Connector*> connectors_;
 public:
-  explicit ConnectorDispatcher(void);
+  ConnectorDispatcher(void);
   ~ConnectorDispatcher(void);
 
-  inline void Attach(EventHandler* handler)
-  {
+  inline void Attach(EventHandler* handler) {
     handler_ = handler;
   }
 
   inline void SetBuffer(
-      uint32_t rbytes = kDefBufferSize, 
-      uint32_t wbytes = kDefBufferSize)
-  {
+      uint32_t rbytes = DEF_BUFFERSIZE, 
+      uint32_t wbytes = DEF_BUFFERSIZE) {
     rbytes_ = rbytes;
     wbytes_ = wbytes;
   }
@@ -64,7 +60,6 @@ public:
   virtual bool DispatchWriter(Poller* poller, Connector* conn);
 };
 
-
 }
 
-#endif  //! __EL_CONNECTOR_DISPATCHER_HEADER_H__
+#endif  // __EL_CONNECTOR_DISPATCHER_HEADER_H__

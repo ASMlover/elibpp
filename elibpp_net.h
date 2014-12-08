@@ -40,4 +40,4 @@
 #include "el_connector.h"
 #include "el_network_handler.h"
 
-#endif  //! __ELIBPP_NET_HEADER_H__
+#endif  // __ELIBPP_NET_HEADER_H__

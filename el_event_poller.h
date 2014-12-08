@@ -27,7 +27,6 @@
 #ifndef __EL_EVENT_POLLER_HEADER_H__
 #define __EL_EVENT_POLLER_HEADER_H__
 
-
 #if defined(USING_SELECT)
 # include "win/el_win_select.h"
 #elif defined(USING_EPOLL)
@@ -38,16 +37,12 @@
 
 namespace el {
 
-
 #if defined(USING_SELECT)
   typedef Select  EventPoller;
 #elif defined(USING_EPOLL)
   typedef Epoll   EventPoller;
 #endif
 
-
 }
 
-
-
-#endif  //! __EL_EVENT_POLLER_HEADER_H__
+#endif  // __EL_EVENT_POLLER_HEADER_H__

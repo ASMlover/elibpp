@@ -27,55 +27,47 @@
 #include "elib_internal.h"
 #include "el_circular_buffer.h"
 
-
 namespace el {
-
-
-//! (read_pos/write_pos)
-//!     |
-//!     V
-//!    |-----------------------------------------------------|
-//!
-//!            (read_pos)                      (write_pos)
-//!               |                                |
-//!               V                                V
-//!    |----------=================================----------|
-//!
-//!            (write_pos)                     (read_pos)
-//!               |                                |
-//!               V                                V
-//!    |==========---------------------------------==========|
-//!
-//!                     (read_pos/write_pos)
-//!                             |
-//!                             V
-//!    |=====================================================|
-
+// (read_pos/write_pos)
+//     |
+//     V
+//    |-----------------------------------------------------|
+//
+//            (read_pos)                      (write_pos)
+//               |                                |
+//               V                                V
+//    |----------=================================----------|
+//
+//            (write_pos)                     (read_pos)
+//               |                                |
+//               V                                V
+//    |==========---------------------------------==========|
+//
+//                     (read_pos/write_pos)
+//                             |
+//                             V
+//    |=====================================================|
 
 CircularBuffer::CircularBuffer(void)
-  : buffer_(NULL)
+  : buffer_(nullptr)
   , length_(0)
   , rpos_(0)
   , wpos_(0)
   , data_length_(0)
-  , free_length_(0)
-{
+  , free_length_(0) {
 }
 
-CircularBuffer::~CircularBuffer(void)
-{
+CircularBuffer::~CircularBuffer(void) {
   Release();
 }
 
-bool 
-CircularBuffer::Create(int length)
-{
-  if (NULL != buffer_)
+bool CircularBuffer::Create(int length) {
+  if (nullptr != buffer_)
     free(buffer_);
 
-  length_ = (length < kDefBufferLength ? kDefBufferLength : length);
+  length_ = (length < BUFFER_LENGTH ? BUFFER_LENGTH : length);
   buffer_ = (char*)malloc(length_);
-  if (NULL == buffer_)
+  if (nullptr == buffer_)
     return false;
 
   rpos_ = wpos_ = 0;
@@ -85,32 +77,26 @@ CircularBuffer::Create(int length)
   return true;
 }
 
-void 
-CircularBuffer::Release(void)
-{
-  if (NULL != buffer_) {
+void CircularBuffer::Release(void) {
+  if (nullptr != buffer_) {
     free(buffer_);
-    buffer_ = NULL;
+    buffer_ = nullptr;
   }
   length_ = 0;
   rpos_ = wpos_ = 0;
   data_length_ = free_length_ = 0;
 }
 
-void 
-CircularBuffer::Clear(void)
-{
+void CircularBuffer::Clear(void) {
   rpos_ = wpos_ = 0;
   data_length_ = 0;
   free_length_ = length_;
 }
 
-int 
-CircularBuffer::Write(const void* buffer, int length)
-{
-  //! buffer must be valid and length must > 0
+int CircularBuffer::Write(const void* buffer, int length) {
+  // buffer must be valid and length must > 0
   
-  if (NULL == buffer || length <= 0)
+  if (nullptr == buffer || length <= 0)
     return -1;
 
   int write_length = (free_length_ > length ? length : free_length_);
@@ -136,12 +122,10 @@ CircularBuffer::Write(const void* buffer, int length)
   return write_length;
 }
 
-int 
-CircularBuffer::Read(int length, void* buffer)
-{
-  //! length must > 0 and buffer must be valid 
+int CircularBuffer::Read(int length, void* buffer) {
+  // length must > 0 and buffer must be valid 
 
-  if (length <= 0 || NULL == buffer)
+  if (length <= 0 || nullptr == buffer)
     return -1;
 
   int read_length = (data_length_ > length ? length : data_length_);
@@ -167,10 +151,8 @@ CircularBuffer::Read(int length, void* buffer)
   return read_length;
 }
 
-int 
-CircularBuffer::Remove(int length)
-{
-  //! length must > 0
+int CircularBuffer::Remove(int length) {
+  // length must > 0
   if (length <= 0)
     return -1;
 

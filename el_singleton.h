@@ -29,7 +29,6 @@
 
 namespace el {
 
-
 template <typename Object, typename Locker = SpinLock> 
 class Singleton : private UnCopyable {
 public:
@@ -49,7 +48,6 @@ public:
   }
 };
 
-
 }
 
-#endif  //! __EL_SINGLETON_HEADER_H__
+#endif  // __EL_SINGLETON_HEADER_H__

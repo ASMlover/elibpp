@@ -41,17 +41,17 @@ class File : private UnCopyable {
   size_t  buf_size_;
   size_t  data_size_;
 public:
-  explicit File(void);
+  File(void);
   ~File(void);
 
   void SetBuffer(char* buffer, size_t size);
   bool Open(const char* fname, bool append = false);
   void Close(void);
 
-  //! be sure that length of buffer is less than data_size_
+  // be sure that length of buffer is less than data_size_
   size_t Write(const void* buffer, size_t size);
 };
 
 }
 
-#endif  //! __EL_FILE_HEADER_H__
+#endif  // __EL_FILE_HEADER_H__

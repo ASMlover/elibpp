@@ -39,15 +39,13 @@ struct Time {
   uint16_t  millitm;
 };
 
-
 extern bool Localtime(Time* time);
 extern uint32_t Clock(void);
 extern void Sleep(uint32_t millitm);
 
-
 }
 
+#undef StdClock
 #define StdClock  clock
-
 
 #endif  // __EL_TIME_HEADER_H__

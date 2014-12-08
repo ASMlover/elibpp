@@ -27,13 +27,11 @@
 #ifndef __EL_LOGGING_HEADER_H__
 #define __EL_LOGGING_HEADER_H__
 
-
 #if defined(PLATFORM_WIN)
 # if defined(_MSC_VER) && (_MSC_VER < 1400)
 #   error "Your compiler version is too low"
 # endif
 #endif
-
 
 namespace el {
 
@@ -43,7 +41,6 @@ struct LogFile {
   uint8_t  day;
   FILE*    stream;
 };
-
 
 struct Time;
 class Logging : public Singleton<Logging> {
@@ -64,7 +61,7 @@ private:
   const char* GetSeverityName(int severity);
   FILE* GetFileStream(int severity, Time* time);
 public:
-  explicit Logging(void);
+  Logging(void);
   ~Logging(void);
 
   void Write(int severity, const char* format, ...);
@@ -106,5 +103,4 @@ public:
   el::Logging::Instance().WriteX(el::Logging::kSeverityTypeFail, \
       __FILE__, __LINE__, (fmt), ##__VA_ARGS__)
 
-
-#endif  //! __EL_LOGGING_HEADER_H__
+#endif  // __EL_LOGGING_HEADER_H__

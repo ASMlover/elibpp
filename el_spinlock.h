@@ -33,7 +33,6 @@
 # include "./posix/el_posix_spinlock.h"
 #endif
 
-
 namespace el {
 
 class SpinLockGuard : private UnCopyable {

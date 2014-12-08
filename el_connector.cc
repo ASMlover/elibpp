@@ -28,39 +28,28 @@
 #include "el_socket.h"
 #include "el_connector.h"
 
-
-
-
 namespace el {
-
 
 Connector::Connector(void)
   : events_(0)
   , spinlock_()
-  , writable_(true)
-{
+  , writable_(true) {
 }
 
-Connector::~Connector(void)
-{
+Connector::~Connector(void) {
   rbuf_.Destroy();
   wbuf_.Destroy();
 }
 
-
-int 
-Connector::Read(uint32_t bytes, char* buffer)
-{
-  if (0 == bytes || NULL == buffer)
+int Connector::Read(uint32_t bytes, char* buffer) {
+  if (0 == bytes || nullptr == buffer)
     return kNetTypeError;
 
   return rbuf_.Get(bytes, buffer);
 }
 
-int 
-Connector::Write(const char* buffer, uint32_t bytes)
-{
-  if (NULL == buffer || 0 == bytes)
+int Connector::Write(const char* buffer, uint32_t bytes) {
+  if (nullptr == buffer || 0 == bytes)
     return kNetTypeError;
 
   int ret;
@@ -75,9 +64,7 @@ Connector::Write(const char* buffer, uint32_t bytes)
   return ret;
 }
 
-bool 
-Connector::WriteBufferEmpty(void)
-{
+bool Connector::WriteBufferEmpty(void) {
   bool ret;
 
   {
@@ -88,17 +75,11 @@ Connector::WriteBufferEmpty(void)
   return ret;
 }
 
-void 
-Connector::SetWritable(bool writable)
-{
+void Connector::SetWritable(bool writable) {
   writable_ = writable;
 }
 
-
-
-int 
-Connector::DealWithAsyncRead(void)
-{
+int Connector::DealWithAsyncRead(void) {
   int read_bytes = 0;
   int ret;
 
@@ -136,9 +117,7 @@ Connector::DealWithAsyncRead(void)
   return read_bytes;
 }
 
-int 
-Connector::DealWithAsyncWrite(void)
-{
+int Connector::DealWithAsyncWrite(void) {
   int write_bytes = 0;
   int ret;
 
@@ -174,7 +153,5 @@ Connector::DealWithAsyncWrite(void)
 
   return write_bytes;
 }
-
-
 
 }

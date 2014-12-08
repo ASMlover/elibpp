@@ -29,7 +29,6 @@
 
 namespace el {
 
-
 enum NetType {
   kNetTypeInval = -1, 
   kNetTypeError = -1, 
@@ -41,17 +40,15 @@ enum EventType {
   kEventTypeWrite   = 0x02,
 };
 
-
 class NetLibrary : public Singleton<NetLibrary> {
   static bool loaded_;
 public:
-  explicit NetLibrary(void);
+  NetLibrary(void);
   ~NetLibrary(void);
 
   bool Init(void);
   void Destroy(void);
 };
-
 
 class Connector;
 struct EventHandler {
@@ -63,4 +60,4 @@ struct EventHandler {
 
 }
 
-#endif  //! __EL_NET_HEADER_H__
+#endif  // __EL_NET_HEADER_H__

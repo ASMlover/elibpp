@@ -29,18 +29,16 @@
 
 namespace el {
 
-
 class NetWorker : private UnCopyable {
   bool running_;
   Poller* poller_;
   Thread* thread_;
   Dispatcher* dispatcher_;
 public:
-  explicit NetWorker(void);
+  NetWorker(void);
   ~NetWorker(void);
 
-  inline void Attach(Dispatcher* dispatcher)
-  {
+  inline void Attach(Dispatcher* dispatcher) {
     dispatcher_ = dispatcher;
   }
 public:
@@ -52,7 +50,6 @@ private:
   static void Routine(void* argument);
 };
 
-
 }
 
-#endif  //! __NET_WORKER_HEADER_H__
+#endif  // __NET_WORKER_HEADER_H__

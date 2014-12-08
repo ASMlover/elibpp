@@ -61,7 +61,6 @@
 
 namespace el {
 
-
 struct Poller;
 struct Dispatcher {
   virtual ~Dispatcher(void) {}
@@ -69,14 +68,12 @@ struct Dispatcher {
   virtual bool DispatchWriter(Poller* poller, Connector* conn) = 0;
 };
 
-
 struct ConnectorHolder {
   virtual ~ConnectorHolder(void) {}
   virtual void CloseAll(void) = 0;
   virtual Connector* Insert(int fd) = 0;
   virtual void Remove(int fd) = 0;
 };
-
 
 struct Poller {
   virtual ~Poller(void) {}
@@ -87,7 +84,6 @@ struct Poller {
   virtual bool Dispatch(Dispatcher* dispatcher, uint32_t millitm) = 0;
 };
 
-
 }
 
-#endif  //! __EL_NET_INTERNAL_HEADER_H__
+#endif  // __EL_NET_INTERNAL_HEADER_H__

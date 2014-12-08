@@ -27,36 +27,25 @@
 #include "el_net_internal.h"
 #include "el_address.h"
 
-
-
-
 namespace el {
 
-
-Address::Address(void)
-{
+Address::Address(void) {
   memset(this, 0, sizeof(*this));
 }
 
-Address::~Address(void)
-{
+Address::~Address(void) {
 }
 
-void 
-Address::Attach(const sockaddr_in* addr)
-{
-  if (NULL == addr)
+void Address::Attach(const sockaddr_in* addr) {
+  if (nullptr == addr)
     return;
 
   strcpy(ip_, inet_ntoa(addr->sin_addr));
   port_ = ntohs(addr->sin_port);
 }
 
-void 
-Address::Detach(void)
-{
+void Address::Detach(void) {
   memset(this, 0, sizeof(*this));
 }
-
 
 }

@@ -31,32 +31,27 @@
 #include "el_net_listener.h"
 #include "el_network_handler.h"
 
-
 namespace el {
 
-
 NetworkHandler::NetworkHandler(void)
-  : dispatcher_(NULL)
+  : dispatcher_(nullptr)
   , worker_count_(kDefaultWorkerCount)
-  , workers_(NULL)
-  , listener_(NULL)
+  , workers_(nullptr)
+  , listener_(nullptr)
   , suitable_worker_(0)
-  , handler_(NULL)
-{
+  , handler_(nullptr) {
 }
 
-NetworkHandler::~NetworkHandler(void)
-{
+NetworkHandler::~NetworkHandler(void) {
   Destroy();
 }
 
-bool 
-NetworkHandler::Init(int worker_count, uint32_t rbuf, uint32_t wbuf)
-{
-  if (NULL == handler_)
+bool NetworkHandler::Init(
+    int worker_count, uint32_t rbuf, uint32_t wbuf) {
+  if (nullptr == handler_)
     return false;
 
-  if (NULL == (dispatcher_ = new ConnectorDispatcher()))
+  if (nullptr == (dispatcher_ = new ConnectorDispatcher()))
     return false;
   dispatcher_->Attach(handler_);
   dispatcher_->SetBuffer(rbuf, wbuf);
@@ -65,7 +60,7 @@ NetworkHandler::Init(int worker_count, uint32_t rbuf, uint32_t wbuf)
       worker_count : kDefaultWorkerCount);
 
   do {
-    if (NULL == (workers_ = new NetWorker[worker_count_]))
+    if (nullptr == (workers_ = new NetWorker[worker_count_]))
       break;
 
     for (int i = 0; i < worker_count_; ++i) {
@@ -80,66 +75,57 @@ NetworkHandler::Init(int worker_count, uint32_t rbuf, uint32_t wbuf)
   return true;
 }
 
-void 
-NetworkHandler::Destroy(void)
-{
-  if (NULL != listener_) {
+void NetworkHandler::Destroy(void) {
+  if (nullptr != listener_) {
     listener_->Stop();
 
     delete listener_;
-    listener_ = NULL;
+    listener_ = nullptr;
   }
 
-  if (NULL != workers_) {
+  if (nullptr != workers_) {
     for (int i = 0; i < worker_count_; ++i)
       workers_[i].Stop();
 
     delete [] workers_;
-    workers_ = NULL;
+    workers_ = nullptr;
   }
   worker_count_ = kDefaultWorkerCount;
 
-  if (NULL != dispatcher_) {
+  if (nullptr != dispatcher_) {
     dispatcher_->CloseAll();
 
     delete dispatcher_;
-    dispatcher_ = NULL;
+    dispatcher_ = nullptr;
   }
 }
 
-NetWorker& 
-NetworkHandler::SuitableWorker(void)
-{
+NetWorker& NetworkHandler::SuitableWorker(void) {
   return workers_[suitable_worker_];
 }
 
-void 
-NetworkHandler::MarkNextSuitableWorker(void)
-{
+void NetworkHandler::MarkNextSuitableWorker(void) {
   suitable_worker_ = (suitable_worker_ + 1) % worker_count_;
 }
 
 
-bool 
-NetworkHandler::Listen(const char* ip, uint16_t port)
-{
-  if (NULL == dispatcher_)
+bool NetworkHandler::Listen(const char* ip, uint16_t port) {
+  if (nullptr == dispatcher_)
     return false;
 
-  if (NULL == (listener_ = new NetListener()))
+  if (nullptr == (listener_ = new NetListener()))
     return false;
   listener_->Attach(this);
   listener_->Attach(dispatcher_);
 
   if (!listener_->Start(ip, port)) {
     delete listener_;
-    listener_ = NULL;
+    listener_ = nullptr;
 
     return false;
   }
 
   return true;
 }
-
 
 }

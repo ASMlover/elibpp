@@ -27,7 +27,6 @@
 #ifndef __EL_LOCKER_HEADER_H__
 #define __EL_LOCKER_HEADER_H__
 
-
 namespace el {
 
 template <typename Locker>
@@ -44,7 +43,6 @@ public:
   }
 };
 
-
 class DummyLock : private UnCopyable {
 public:
   DummyLock(void) {}
@@ -58,6 +56,5 @@ public:
 
 #include "el_mutex.h"
 #include "el_spinlock.h"
-
 
 #endif  // __EL_LOCKER_HEADER_H__

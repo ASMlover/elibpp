@@ -27,11 +27,7 @@
 #include "el_net_internal.h"
 #include "el_net_buffer.h"
 
-
-
-
 namespace el {
-
 
 NetBuffer::NetBuffer(void)
   : buffer_(nullptr)
@@ -123,6 +119,5 @@ bool NetBuffer::Regrow(void) {
 
   return true;
 }
-
 
 }

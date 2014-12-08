@@ -35,4 +35,4 @@
 #include "el_thread_pool.h"
 #include "el_time.h"
 
-#endif  //! __ELIBPP_HEADER_H__
+#endif  // __ELIBPP_HEADER_H__

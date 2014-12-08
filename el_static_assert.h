@@ -27,9 +27,7 @@
 #ifndef __EL_STATIC_ASSERT_HEADER_H__
 #define __EL_STATIC_ASSERT_HEADER_H__
 
-
 namespace el {
-
 
 template <bool expr> struct CompileTimeChecker;
 template <> struct CompileTimeChecker<true> {
@@ -38,12 +36,10 @@ template <> struct CompileTimeChecker<true> {
   };
 };
 
-
 }
 
 #define STATIC_ASSERT(expr) do {\
   (void)el::CompileTimeChecker<(expr)>::Checker::CHECKER_VALUE;\
 } while (0)
-
 
 #endif  // __EL_STATIC_ASSERT_HEADER_H__

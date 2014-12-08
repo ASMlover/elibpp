@@ -33,4 +33,4 @@
 # include "./posix/el_posix_thread.h"
 #endif
 
-#endif  //! __EL_THREAD_HEADER_H__
+#endif  // __EL_THREAD_HEADER_H__

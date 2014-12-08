@@ -27,8 +27,6 @@
 #include "elib_internal.h"
 #include "el_thread_pool.h"
 
-
-
 namespace el {
 
 ThreadPool::ThreadPool(void)
@@ -99,13 +97,13 @@ Task ThreadPool::TakeTask(void) {
 
 void ThreadPool::Routine(void* argument) {
   ThreadPool* self = static_cast<ThreadPool*>(argument);
-  if (NULL == self)
+  if (nullptr == self)
     abort();
 
   while (self->running_) {
     Task task = self->TakeTask();
 
-    if (NULL != task.routine)
+    if (nullptr != task.routine)
       task.routine(task.argument);
   }
 }

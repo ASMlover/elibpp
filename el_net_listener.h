@@ -29,7 +29,6 @@
 
 namespace el {
 
-
 class NetworkHandler;
 class NetListener : private UnCopyable {
   bool running_;
@@ -38,16 +37,14 @@ class NetListener : private UnCopyable {
   NetworkHandler* network_;
   ConnectorHolder* conn_holder_;
 public:
-  explicit NetListener(void);
+  NetListener(void);
   ~NetListener(void);
 
-  inline void Attach(NetworkHandler* network)
-  {
+  inline void Attach(NetworkHandler* network) {
     network_ = network;
   }
 
-  inline void Attach(ConnectorHolder* holder)
-  {
+  inline void Attach(ConnectorHolder* holder) {
     conn_holder_ = holder;
   }
 public:
@@ -57,7 +54,6 @@ private:
   static void Routine(void* argument);
 };
 
-
 }
 
-#endif  //! __EL_NET_LISTENER_HEADER_H__
+#endif  // __EL_NET_LISTENER_HEADER_H__
