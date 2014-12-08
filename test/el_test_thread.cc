@@ -27,16 +27,11 @@
 #include "el_test_header.h"
 #include "../el_thread.h"
 
-
-static inline void 
-Worker(void* arg)
-{
+static inline void Worker(void* arg) {
   UNIT_ASSERT((void*)100 == arg);
 }
 
-
-UNIT_IMPL(Thread)
-{
+UNIT_IMPL(Thread) {
   el::Thread thread(Worker, (void*)100);
 
   thread.Start();

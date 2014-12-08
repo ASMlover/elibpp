@@ -31,7 +31,6 @@
 # error "requires /MTd, /MT, /MDd or /MD compiler options"
 #endif
 
-
 namespace el {
 
 class Thread : private UnCopyable {
@@ -40,51 +39,46 @@ class Thread : private UnCopyable {
   void (*routine_)(void*);
   void* argument_;
 public:
-  explicit Thread(void (*routine)(void*) = NULL, void* argument = NULL)
-    : start_event_(NULL)
-    , thread_(NULL)
+  explicit Thread(void (*routine)(void*) = nullptr, void* argument = nullptr)
+    : start_event_(nullptr)
+    , thread_(nullptr)
     , routine_(routine)
-    , argument_(argument)
-  {
+    , argument_(argument) {
   }
 
-  ~Thread(void)
-  {
+  ~Thread(void) {
     Join();
   }
 
-  inline void Start(void)
-  {
-    start_event_ = CreateEvent(NULL, TRUE, FALSE, NULL);
-    if (NULL == start_event_)
+  inline void Start(void) {
+    start_event_ = CreateEvent(nullptr, TRUE, FALSE, nullptr);
+    if (nullptr == start_event_)
       abort();
 
-    thread_ = (HANDLE)_beginthreadex(NULL, 
-        0, &Thread::Routine, this, 0, NULL);
-    if (NULL != thread_)
+    thread_ = (HANDLE)_beginthreadex(nullptr, 
+        0, &Thread::Routine, this, 0, nullptr);
+    if (nullptr != thread_)
       WaitForSingleObject(start_event_, INFINITE);
 
     CloseHandle(start_event_);
   }
 
-  inline void Join(void)
-  {
-    if (NULL != thread_) {
+  inline void Join(void) {
+    if (nullptr != thread_) {
       WaitForSingleObject(thread_, INFINITE);
 
       CloseHandle(thread_);
-      thread_ = NULL;
+      thread_ = nullptr;
     }
   }
 private:
-  static UINT WINAPI Routine(void* arg)
-  {
+  static UINT WINAPI Routine(void* arg) {
     Thread* thread = static_cast<Thread*>(arg);
-    if (NULL == thread)
+    if (nullptr == thread)
       return 0;
 
     SetEvent(thread->start_event_);
-    if (NULL != thread->routine_)
+    if (nullptr != thread->routine_)
       thread->routine_(thread->argument_);
 
     return 0;
@@ -93,4 +87,4 @@ private:
 
 }
 
-#endif  //! __EL_WIN_THREAD_HEADER_H__
+#endif  // __EL_WIN_THREAD_HEADER_H__

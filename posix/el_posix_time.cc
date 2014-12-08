@@ -27,12 +27,11 @@
 #include "../elib_internal.h"
 #include "../el_time.h"
 
-
 namespace el {
 
 uint32_t Clock(void) {
   struct timeval tv;
-  if (0 == gettimeofday(&tv, NULL))
+  if (0 == gettimeofday(&tv, nullptr))
     return (((tv.tv_sec - 1000000000) * 1000) + (tv.tv_usec / 1000));
 
   return 0;
@@ -43,7 +42,7 @@ void Sleep(uint32_t millitm) {
 
   t.tv_sec = millitm / 1000;
   t.tv_nsec = (millitm % 1000) * 1000000;
-  nanosleep(&t, NULL);
+  nanosleep(&t, nullptr);
 }
 
 }

@@ -29,10 +29,7 @@
 #include "../el_connector.h"
 #include "el_win_select.h"
 
-
-
 namespace el {
-
 
 struct win_fd_set {
   u_int fd_count;
@@ -60,48 +57,40 @@ struct win_fd_set {
       ((win_fd_set*)(src))->fd_count * sizeof(int));\
 } while (0)
 
-
-
 struct SelectEntry {
   int fd;
   Connector* conn;
 };
 
-
-
 Select::Select(void)
   : fd_storage_(FD_SETSIZE)
-  , rset_in_(NULL)
-  , wset_in_(NULL)
-  , rset_out_(NULL)
-  , wset_out_(NULL)
-  , has_removed_(false)
-{
+  , rset_in_(nullptr)
+  , wset_in_(nullptr)
+  , rset_out_(nullptr)
+  , wset_out_(nullptr)
+  , has_removed_(false) {
   if (!Init())
     abort();
 }
 
-Select::~Select(void)
-{
+Select::~Select(void) {
   Destroy();
 }
 
-bool 
-Select::Init(void)
-{
+bool Select::Init(void) {
   fd_storage_ = FD_SETSIZE;
   size_t size = sizeof(win_fd_set) + (fd_storage_ - 1) * sizeof(int);
 
-  if (NULL == (rset_in_ = (win_fd_set*)malloc(size)))
+  if (nullptr == (rset_in_ = (win_fd_set*)malloc(size)))
     return false;
 
   do {
-    if (NULL == (wset_in_ = (win_fd_set*)malloc(size)))
+    if (nullptr == (wset_in_ = (win_fd_set*)malloc(size)))
       break;
 
-    if (NULL == (rset_out_ = (win_fd_set*)malloc(size)))
+    if (nullptr == (rset_out_ = (win_fd_set*)malloc(size)))
       break;
-    if (NULL == (wset_out_ = (win_fd_set*)malloc(size)))
+    if (nullptr == (wset_out_ = (win_fd_set*)malloc(size)))
       break;
 
     WINFD_ZERO(rset_in_);
@@ -116,47 +105,43 @@ Select::Init(void)
   return false;
 }
 
-void 
-Select::Destroy(void)
-{
-  if (NULL != rset_in_) {
+void Select::Destroy(void) {
+  if (nullptr != rset_in_) {
     free(rset_in_);
-    rset_in_ = NULL;
+    rset_in_ = nullptr;
   }
-  if (NULL != wset_in_) {
+  if (nullptr != wset_in_) {
     free(wset_in_);
-    wset_in_ = NULL;
+    wset_in_ = nullptr;
   }
 
-  if (NULL != rset_out_) {
+  if (nullptr != rset_out_) {
     free(rset_out_);
-    rset_out_ = NULL;
+    rset_out_ = nullptr;
   }
-  if (NULL != wset_out_) {
+  if (nullptr != wset_out_) {
     free(wset_out_);
-    wset_out_ = NULL;
+    wset_out_ = nullptr;
   }
 
   entry_list_.clear();
 }
 
-bool 
-Select::Regrow(void)
-{
+bool Select::Regrow(void) {
   uint32_t new_fd_storage = (0 != fd_storage_ ? 
       2 * fd_storage_ : FD_SETSIZE);
   size_t size = sizeof(win_fd_set) + (new_fd_storage - 1) * sizeof(int);
 
-  if (NULL == (rset_in_ = (win_fd_set*)realloc(rset_in_, size)))
+  if (nullptr == (rset_in_ = (win_fd_set*)realloc(rset_in_, size)))
     return false;
 
   do {
-    if (NULL == (wset_in_ = (win_fd_set*)realloc(wset_in_, size)))
+    if (nullptr == (wset_in_ = (win_fd_set*)realloc(wset_in_, size)))
       break;
 
-    if (NULL == (rset_out_ = (win_fd_set*)realloc(rset_out_, size)))
+    if (nullptr == (rset_out_ = (win_fd_set*)realloc(rset_out_, size)))
       break;
-    if (NULL == (wset_out_ = (win_fd_set*)realloc(wset_out_, size)))
+    if (nullptr == (wset_out_ = (win_fd_set*)realloc(wset_out_, size)))
       break;
 
     fd_storage_ = new_fd_storage;
@@ -169,10 +154,8 @@ Select::Regrow(void)
 }
 
 
-bool 
-Select::Insert(Connector* conn)
-{
-  if (NULL == conn)
+bool Select::Insert(Connector* conn) {
+  if (nullptr == conn)
     return false;
 
   if (entry_list_.size() + 1 > fd_storage_) {
@@ -186,10 +169,8 @@ Select::Insert(Connector* conn)
   return true;
 }
 
-void 
-Select::Remove(Connector* conn)
-{
-  if (NULL == conn)
+void Select::Remove(Connector* conn) {
+  if (nullptr == conn)
     return;
 
   int fd =  conn->fd();
@@ -211,10 +192,8 @@ Select::Remove(Connector* conn)
   WINFD_CLR(fd, wset_out_);
 }
 
-bool 
-Select::AddEvent(Connector* conn, int ev)
-{
-  if (NULL == conn)
+bool Select::AddEvent(Connector* conn, int ev) {
+  if (nullptr == conn)
     return false;
 
   int fd = conn->fd();
@@ -228,10 +207,8 @@ Select::AddEvent(Connector* conn, int ev)
   return true;
 }
 
-bool 
-Select::DelEvent(Connector* conn, int ev)
-{
-  if (NULL == conn)
+bool Select::DelEvent(Connector* conn, int ev) {
+  if (nullptr == conn)
     return false;
 
   int fd = conn->fd();
@@ -245,7 +222,6 @@ Select::DelEvent(Connector* conn, int ev)
   return true;
 }
 
-
 struct HasRemoved {
   bool operator ()(const SelectEntry& entry) const 
   {
@@ -253,10 +229,8 @@ struct HasRemoved {
   }
 };
 
-bool 
-Select::Dispatch(Dispatcher* dispatcher, uint32_t millitm)
-{
-  if (NULL == dispatcher)
+bool Select::Dispatch(Dispatcher* dispatcher, uint32_t millitm) {
+  if (nullptr == dispatcher)
     return false;
 
   struct timeval tv = {millitm / 1000, (millitm % 1000) * 1000};
@@ -266,7 +240,7 @@ Select::Dispatch(Dispatcher* dispatcher, uint32_t millitm)
   
   int ret = select(0, 
       (struct fd_set*)rset_out_, 
-      (struct fd_set*)wset_out_, NULL, &tv);
+      (struct fd_set*)wset_out_, nullptr, &tv);
   if (kNetTypeError == ret || 0 == ret)
     return false;
 
@@ -294,6 +268,5 @@ Select::Dispatch(Dispatcher* dispatcher, uint32_t millitm)
 
   return true;
 }
-
 
 }

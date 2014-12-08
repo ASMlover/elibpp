@@ -26,11 +26,7 @@
 // POSSIBILITY OF SUCH DAMAGE.
 #include "../elibpp_net.h"
 
-
-
-void 
-ClientMain(const char* ip = "127.0.0.1", uint16_t port = 5555)
-{
+void ClientMain(const char* ip = "127.0.0.1", uint16_t port = 5555) {
   el::Socket s;
 
   if (!s.Open())

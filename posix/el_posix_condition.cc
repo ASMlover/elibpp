@@ -27,36 +27,26 @@
 #include "../elib_internal.h"
 #include "../el_condition.h"
 
-
-
 namespace el {
 
 Condition::Condition(Mutex& mutex)
-  : mutex_(mutex)
-{
+  : mutex_(mutex) {
   PthreadCall("cv init", pthread_cond_init(&cond_, 0));
 }
 
-Condition::~Condition(void)
-{
+Condition::~Condition(void) {
   PthreadCall("cv destroy", pthread_cond_destroy(&cond_));
 }
 
-void 
-Condition::Signal(void)
-{
+void Condition::Signal(void) {
   PthreadCall("cv signal", pthread_cond_signal(&cond_));
 }
 
-void 
-Condition::SignalAll(void)
-{
+void Condition::SignalAll(void) {
   PthreadCall("cv broadcast", pthread_cond_broadcast(&cond_));
 }
 
-void 
-Condition::Wait(void)
-{
+void Condition::Wait(void) {
   PthreadCall("cv wait", pthread_cond_wait(&cond_, mutex_.mutex()));
 }
 

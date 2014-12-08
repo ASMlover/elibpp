@@ -27,7 +27,6 @@
 #ifndef __EL_WIN_MUTEX_HEADER_H__
 #define __EL_WIN_MUTEX_HEADER_H__
 
-
 namespace el {
 
 class Mutex : private UnCopyable {

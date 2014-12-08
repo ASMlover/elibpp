@@ -27,21 +27,15 @@
 #include "el_test_header.h"
 #include "../el_circular_buffer.h"
 
-
-
 #define DATA_NUM  (256)
 
-
-static inline void 
-InitData(int count, short* data)
-{
+static inline void InitData(int count, short* data) {
   srand((unsigned int)time(0));
   for (int i = 0; i < count; ++i) 
     data[i] = rand() % 10000;
 }
 
-UNIT_IMPL(CircularBufferSingle)
-{
+UNIT_IMPL(CircularBufferSingle) {
   const int BUFFER_LEN = 1024 * 1024;
   short data[DATA_NUM];
   InitData(DATA_NUM, data);

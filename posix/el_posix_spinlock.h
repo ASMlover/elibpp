@@ -27,7 +27,6 @@
 #ifndef __EL_POSIX_SPINLOCK_HEADER_H__
 #define __EL_POSIX_SPINLOCK_HEADER_H__
 
-
 namespace el {
 
 class SpinLock : private UnCopyable {

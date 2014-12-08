@@ -27,23 +27,17 @@
 #include "el_test_header.h"
 #include "../el_mutex.h"
 
-
-
-
-UNIT_IMPL(Mutex)
-{
+UNIT_IMPL(Mutex) {
   el::Mutex mutex;
 
-  UNIT_ASSERT(NULL != mutex.mutex());
+  UNIT_ASSERT(nullptr != mutex.mutex());
   mutex.Lock();
-  UNIT_ASSERT(NULL != mutex.mutex());
+  UNIT_ASSERT(nullptr != mutex.mutex());
   mutex.Unlock();
-  UNIT_ASSERT(NULL != mutex.mutex());
+  UNIT_ASSERT(nullptr != mutex.mutex());
 }
 
-
-UNIT_IMPL(MutexGuard)
-{
+UNIT_IMPL(MutexGuard) {
   el::Mutex mutex;
 
   el::MutexGuard lock(mutex);

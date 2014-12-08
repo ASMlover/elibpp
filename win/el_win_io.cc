@@ -27,8 +27,6 @@
 #include "../elib_internal.h"
 #include "../el_io.h"
 
-
-
 namespace el {
 
 static inline int ColorVfprintf(
@@ -56,9 +54,6 @@ static inline int ColorVfprintf(
 
   return ret;
 }
-
-
-
 
 int ColorPrintf(int color, const char* format, ...) {
   va_list ap;

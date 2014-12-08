@@ -26,13 +26,10 @@
 // POSSIBILITY OF SUCH DAMAGE.
 #include "../el_net_internal.h"
 
-
 extern void ServerMain(const char* ip = "0.0.0.0", uint16_t port = 5555);
 extern void ClientMain(const char* ip = "127.0.0.1", uint16_t port = 5555);
 
-int 
-main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
   if (argc < 2) {
     fprintf(stderr, "Usage: demo [srv | clt] ...\n");
     return 0;

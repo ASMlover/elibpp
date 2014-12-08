@@ -27,16 +27,9 @@
 #include "../el_net_internal.h"
 #include "../el_socket.h"
 
-
-
-
-
 namespace el {
 
-
-bool 
-Socket::SetOption(int level, int optname, int optval)
-{
+bool Socket::SetOption(int level, int optname, int optval) {
   if (kNetTypeInval == fd_)
     return false;
 
@@ -47,9 +40,7 @@ Socket::SetOption(int level, int optname, int optval)
   return true;
 }
 
-bool 
-Socket::SetNonBlock(void)
-{
+bool Socket::SetNonBlock(void) {
   if (kNetTypeInval == fd_)
     return false;
 
@@ -63,11 +54,7 @@ Socket::SetNonBlock(void)
   return true;
 }
 
-
-
-void 
-Socket::Close(void)
-{
+void Socket::Close(void) {
   if (kNetTypeInval == fd_) {
     shutdown(fd_, SHUT_RDWR);
     close(fd_);
@@ -75,6 +62,5 @@ Socket::Close(void)
     fd_ = kNetTypeInval;
   }
 }
-
 
 }

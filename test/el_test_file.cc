@@ -27,19 +27,16 @@
 #include "el_test_header.h"
 #include "../el_file.h"
 
-
 #define LOOP_TIMES  (100000)
 
-
-UNIT_IMPL(File)
-{
+UNIT_IMPL(File) {
   const char* s = "Hello, world! el::File testing ...\n";
   size_t      n = strlen(s);
   int counter;
   clock_t beg, end;
 
   FILE* fp = fopen("demo1.log", "a+");
-  setvbuf(fp, NULL, _IOFBF, 16 * 1024);
+  setvbuf(fp, nullptr, _IOFBF, 16 * 1024);
 
   counter = 0;
   beg = clock();
@@ -54,8 +51,6 @@ UNIT_IMPL(File)
   fprintf(stdout, "\t\tbuffered IO use:\t%lu\n", end - beg);
 
   fclose(fp);
-
-
 
   el::File f;
   f.Open("demo2.log", true);

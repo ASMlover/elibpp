@@ -27,10 +27,7 @@
 #include "el_test_header.h"
 #include "../el_time.h"
 
-
-
-UNIT_IMPL(Time)
-{
+UNIT_IMPL(Time) {
   el::Time t;
   UNIT_ASSERT(Localtime(&t));
   fprintf(stdout, "\t\t%04d-%02d-%02d %02d:%02d:%02d:%03d\n", 

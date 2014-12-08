@@ -29,28 +29,21 @@
 #include "../el_connector.h"
 #include "el_posix_epoll.h"
 
-
-
 namespace el {
 
 Epoll::Epoll(void)
   : epoll_fd_(kNetTypeInval)
   , event_count_(kEventCount)
-  , events_(NULL)
-{
+  , events_(nullptr) {
   if (!Init())
     abort();
 }
 
-Epoll::~Epoll(void)
-{
+Epoll::~Epoll(void) {
   Destroy();
 }
 
-
-bool 
-Epoll::Init(void)
-{
+bool Epoll::Init(void) {
   epoll_fd_ = epoll_create(kEpollSize);
   if (kNetTypeInval == epoll_fd_)
     return false;
@@ -60,7 +53,7 @@ Epoll::Init(void)
 
   do {
     events_ = (struct epoll_event*)NEW(size);
-    if (NULL == events_)
+    if (nullptr == events_)
       break;
 
     return true;
@@ -70,12 +63,10 @@ Epoll::Init(void)
   return false;
 }
 
-void 
-Epoll::Destroy(void)
-{
-  if (NULL != events_) {
+void Epoll::Destroy(void) {
+  if (nullptr != events_) {
     DEL(events_);
-    events_ = NULL;
+    events_ = nullptr;
   }
   event_count_ = kEventCount;
 
@@ -85,15 +76,13 @@ Epoll::Destroy(void)
   }
 }
 
-bool 
-Epoll::Regrow(void)
-{
+bool Epoll::Regrow(void) {
   uint32_t new_event_count = (0 != event_count_ ? 
       2 * event_count_ : kEventCount);
   size_t size = sizeof(struct epoll_event) * new_event_count;
 
   events_ = (struct epoll_event*)NEW(size);
-  if (NULL == events_) {
+  if (nullptr == events_) {
     abort();
     return false;
   }
@@ -103,12 +92,8 @@ Epoll::Regrow(void)
   return true;
 }
 
-
-
-bool 
-Epoll::Insert(Connector* conn)
-{
-  if (NULL == conn)
+bool Epoll::Insert(Connector* conn) {
+  if (nullptr == conn)
     return false;
 
   struct epoll_event event;
@@ -124,10 +109,8 @@ Epoll::Insert(Connector* conn)
   return true;
 }
 
-void 
-Epoll::Remove(Connector* conn)
-{
-  if (NULL == conn)
+void Epoll::Remove(Connector* conn) {
+  if (nullptr == conn)
     return;
 
   struct epoll_event event;
@@ -137,10 +120,8 @@ Epoll::Remove(Connector* conn)
   epoll_ctl(epoll_fd_, EPOLL_CTL_DEL, conn->fd(), &event);
 }
 
-bool 
-Epoll::AddEvent(Connector* conn, int ev)
-{
-  if (NULL == conn)
+bool Epoll::AddEvent(Connector* conn, int ev) {
+  if (nullptr == conn)
     return false;
 
   struct epoll_event event;
@@ -162,10 +143,8 @@ Epoll::AddEvent(Connector* conn, int ev)
   return true;
 }
 
-bool 
-Epoll::DelEvent(Connector* conn, int ev)
-{
-  if (NULL == conn)
+bool Epoll::DelEvent(Connector* conn, int ev) {
+  if (nullptr == conn)
     return false;
 
   struct epoll_event event;
@@ -187,10 +166,8 @@ Epoll::DelEvent(Connector* conn, int ev)
   return true;
 }
 
-bool 
-Epoll::Dispatch(Dispatcher* dispatcher, uint32_t millitm)
-{
-  if (NULL == dispatcher)
+bool Epoll::Dispatch(Dispatcher* dispatcher, uint32_t millitm) {
+  if (nullptr == dispatcher)
     return false;
 
   int num = epoll_wait(epoll_fd_, events_, event_count_, millitm);
@@ -200,7 +177,7 @@ Epoll::Dispatch(Dispatcher* dispatcher, uint32_t millitm)
   Connector* conn;
   for (int i = 0; i < num; ++i) {
     conn = (Connector*)events_[i].data.ptr;
-    if (NULL == conn)
+    if (nullptr == conn)
       continue;
 
     if (kNetTypeInval == conn->fd())
@@ -219,6 +196,5 @@ Epoll::Dispatch(Dispatcher* dispatcher, uint32_t millitm)
 
   return true;
 }
-
 
 }

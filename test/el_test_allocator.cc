@@ -27,16 +27,10 @@
 #include "el_test_header.h"
 #include "../el_allocator.h"
 
-
-
-
 #define ALLOC_TIMES   (10000)
 #define LOOP_TIMES    (500)
 
-
-
-UNIT_IMPL(Allocator)
-{
+UNIT_IMPL(Allocator) {
   int* arr[ALLOC_TIMES];
   int counter;
   clock_t beg, end;
@@ -66,8 +60,6 @@ UNIT_IMPL(Allocator)
   fprintf(stdout, "\t\tAllocator use : %lu\n", end - beg);
 }
 
-
-
 class Person : public el::SmallAllocator {
 public:
   int age_;
@@ -75,14 +67,12 @@ public:
 public:
   explicit Person(int age = 20, int sex = 0)
     : age_(age)
-    , sex_(sex)
-  {
+    , sex_(sex) {
   }
 };
 
-UNIT_IMPL(SmallAllocator)
-{
+UNIT_IMPL(SmallAllocator) {
   Person* p = new Person(22, 1);
-  UNIT_ASSERT(NULL != p);
+  UNIT_ASSERT(nullptr != p);
   delete p;
 }

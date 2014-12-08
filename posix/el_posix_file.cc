@@ -27,39 +27,33 @@
 #include "../elib_internal.h"
 #include "../el_file.h"
 
-
 #if defined(UNUSED)
 # undef UNUSED
 #endif
 #define UNUSED(x) {(x) = (x);}
 
-
 namespace el {
 
 File::File(void)
   : fd_(-1)
-  , buffer_(NULL)
+  , buffer_(nullptr)
   , allocated_(false)
   , buf_size_(0)
-  , data_size_(0)
-{
+  , data_size_(0) {
 }
 
-File::~File(void)
-{
+File::~File(void) {
   Close();
 }
 
-void 
-File::SetBuffer(char* buffer, size_t size)
-{
-  //! this function must be used before any Write 
-  if (NULL != buffer_ && allocated_)
+void File::SetBuffer(char* buffer, size_t size) {
+  // this function must be used before any Write 
+  if (nullptr != buffer_ && allocated_)
     free(buffer_);
 
   data_size_ = 0;
   buf_size_ = size;
-  if (NULL == buffer) {
+  if (nullptr == buffer) {
     buffer_ = (char*)malloc(buf_size_);
     allocated_ = true;
   }
@@ -69,9 +63,7 @@ File::SetBuffer(char* buffer, size_t size)
   }
 }
 
-bool 
-File::Open(const char* fname, bool append)
-{
+bool File::Open(const char* fname, bool append) {
   int oflags = O_RDWR | O_CREAT;
   if (append)
     oflags |= O_APPEND;
@@ -82,7 +74,7 @@ File::Open(const char* fname, bool append)
 
   buf_size_ = kDefBufferSize;
   buffer_ = (char*)malloc(buf_size_);
-  if (NULL == buffer_)
+  if (nullptr == buffer_)
     goto Exit;
   allocated_ = true;
   data_size_ = 0;
@@ -95,10 +87,8 @@ Exit:
   return false;
 }
 
-void 
-File::Close(void)
-{
-  if (NULL != buffer_) {
+void File::Close(void) {
+  if (nullptr != buffer_) {
     if (data_size_ > 0 && -1 != fd_) {
       ssize_t ret = write(fd_, buffer_, data_size_);
       UNUSED(ret)
@@ -108,7 +98,7 @@ File::Close(void)
       free(buffer_);
       allocated_ = false;
     }
-    buffer_ = NULL;
+    buffer_ = nullptr;
   }
   data_size_ = 0;
 
@@ -118,10 +108,8 @@ File::Close(void)
   }
 }
 
-size_t 
-File::Write(const void* buffer, size_t size)
-{
-  if (NULL == buffer || 0 == size)
+size_t File::Write(const void* buffer, size_t size) {
+  if (nullptr == buffer || 0 == size)
     return 0;
 
   size_t free_size = buf_size_ - data_size_;

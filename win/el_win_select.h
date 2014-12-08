@@ -27,9 +27,7 @@
 #ifndef __EL_WIN_SELECT_HEADER_H__
 #define __EL_WIN_SELECT_HEADER_H__
 
-
 namespace el {
-
 
 struct win_fd_set;
 struct SelectEntry;
@@ -42,7 +40,7 @@ class Select : public Poller, private UnCopyable {
   bool has_removed_;
   std::vector<SelectEntry> entry_list_;
 public:
-  explicit Select(void);
+  Select(void);
   ~Select(void);
 
   virtual bool Insert(Connector* conn);
@@ -56,7 +54,6 @@ private:
   bool Regrow(void);
 };
 
-
 }
 
-#endif  //! __EL_WIN_SELECT_HEADER_H__
+#endif  // __EL_WIN_SELECT_HEADER_H__

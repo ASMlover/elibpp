@@ -27,20 +27,15 @@
 #ifndef __EL_TOOLS_HEADER_H__
 #define __EL_TOOLS_HEADER_H__
 
-
 namespace el {
 
-
-inline void 
-PthreadCall(const char* label, int result)
-{
+inline void PthreadCall(const char* label, int result) {
   if (0 != result) {
     fprintf(stderr, "%s : %s\n", label, strerror(result));
     abort();
   }
 }
 
-
 }
 
-#endif  //! __EL_TOOLS_HEADER_H__
+#endif  // __EL_TOOLS_HEADER_H__

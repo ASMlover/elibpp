@@ -27,11 +27,7 @@
 #include "el_test_header.h"
 #include "../el_thread_pool.h"
 
-
-
-static inline void 
-Worker(void* arg)
-{
+static inline void Worker(void* arg) {
   char* name = static_cast<char*>(arg);
 
   for (int i = 0; i < 5; ++i) {
@@ -41,10 +37,7 @@ Worker(void* arg)
   }
 }
 
-
-
-UNIT_IMPL(ThreadPool)
-{
+UNIT_IMPL(ThreadPool) {
   el::ThreadPool thread_pool;
 
   thread_pool.Start();
@@ -56,26 +49,20 @@ UNIT_IMPL(ThreadPool)
   thread_pool.Stop();
 }
 
-
-
-
 static bool s_running = false;
-static void 
-Worker2(void* arg)
-{
+static void Worker2(void* arg) {
   while (s_running) 
     el_sleep(100);
 
   fprintf(stdout, "\t\tWorker finished ...\n");
 }
 
-UNIT_IMPL(ThreadPool2)
-{
+UNIT_IMPL(ThreadPool2) {
   el::ThreadPool thread_pool;
   thread_pool.Start();
 
   s_running = true;
-  thread_pool.Run(Worker2, NULL);
+  thread_pool.Run(Worker2, nullptr);
 
   el_sleep(1000);
   s_running = false;

@@ -27,18 +27,14 @@
 #include "el_test_header.h"
 #include "../el_spinlock.h"
 
-
-
-UNIT_IMPL(SpinLock)
-{
+UNIT_IMPL(SpinLock) {
   el::SpinLock spinlock;
 
   spinlock.Lock();
   spinlock.Unlock();
 }
 
-UNIT_IMPL(SpinLockGuard)
-{
+UNIT_IMPL(SpinLockGuard) {
   el::SpinLock spinlock;
 
   el::SpinLockGuard lock(spinlock);

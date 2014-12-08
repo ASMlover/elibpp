@@ -26,8 +26,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 #include "../elibpp_net.h"
 
-
-
 class ConnectorHandler : public el::EventHandler {
 public:
   virtual bool AcceptEvent(el::Connector* conn)
@@ -53,11 +51,7 @@ public:
   }
 };
 
-
-
-void 
-ServerMain(const char* ip = "0.0.0.0", uint16_t port = 5555)
-{
+void ServerMain(const char* ip = "0.0.0.0", uint16_t port = 5555) {
   ConnectorHandler ch;
 
   el::NetworkHandler network;

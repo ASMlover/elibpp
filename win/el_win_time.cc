@@ -27,7 +27,6 @@
 #include "../elib_internal.h"
 #include "../el_time.h"
 
-
 namespace el {
 
 uint32_t Clock(void) {

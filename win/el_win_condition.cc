@@ -27,24 +27,21 @@
 #include "../elib_internal.h"
 #include "../el_condition.h"
 
-
 namespace el {
 
-static inline int 
-CondVarInit(CondVar* cond)
-{
+static inline int CondVarInit(CondVar* cond) {
   cond->waiters_count = 0;
   InitializeCriticalSection(&cond->waiters_count_lock);
 
   int err;
-  cond->signal_event = CreateEvent(NULL, FALSE, FALSE, NULL);
-  if (NULL == cond->signal_event) {
+  cond->signal_event = CreateEvent(nullptr, FALSE, FALSE, nullptr);
+  if (nullptr == cond->signal_event) {
     err = (int)GetLastError();
     goto Exit2;
   }
 
-  cond->broadcast_event = CreateEvent(NULL, TRUE, FALSE, NULL);
-  if (NULL == cond->broadcast_event) {
+  cond->broadcast_event = CreateEvent(nullptr, TRUE, FALSE, nullptr);
+  if (nullptr == cond->broadcast_event) {
     err = (int)GetLastError();
     goto Exit;
   }
@@ -58,9 +55,8 @@ Exit2:
   return err;
 }
 
-static inline int 
-CondVarWaitHelper(CondVar* cond, Mutex* mutex, DWORD millitm)
-{
+static inline int CondVarWaitHelper(
+    CondVar* cond, Mutex* mutex, DWORD millitm) {
   HANDLE handles[2] = {cond->signal_event, cond->broadcast_event};
 
   EnterCriticalSection(&cond->waiters_count_lock);
@@ -93,18 +89,13 @@ CondVarWaitHelper(CondVar* cond, Mutex* mutex, DWORD millitm)
 }
 
 
-
-
-
 Condition::Condition(Mutex& mutex)
-  : mutex_(mutex)
-{
+  : mutex_(mutex) {
   if (0 != CondVarInit(&cond_))
     abort();
 }
 
-Condition::~Condition(void)
-{
+Condition::~Condition(void) {
   if (!CloseHandle(cond_.broadcast_event))
     abort();
   if (!CloseHandle(cond_.signal_event))
@@ -112,9 +103,7 @@ Condition::~Condition(void)
   DeleteCriticalSection(&cond_.waiters_count_lock);
 }
 
-void 
-Condition::Signal(void)
-{
+void Condition::Signal(void) {
   bool have_waiters = false;
 
   EnterCriticalSection(&cond_.waiters_count_lock);
@@ -125,9 +114,7 @@ Condition::Signal(void)
     SetEvent(cond_.signal_event);
 }
 
-void 
-Condition::SignalAll(void)
-{
+void Condition::SignalAll(void) {
   bool have_waiters = false;
 
   EnterCriticalSection(&cond_.waiters_count_lock);
@@ -138,9 +125,7 @@ Condition::SignalAll(void)
     SetEvent(cond_.broadcast_event);
 }
 
-void 
-Condition::Wait(void)
-{
+void Condition::Wait(void) {
   if (0 != CondVarWaitHelper(&cond_, &mutex_, INFINITE))
     abort();
 }

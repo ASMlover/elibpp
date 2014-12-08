@@ -32,43 +32,39 @@ class Thread : private UnCopyable {
   void (*routine_)(void*);
   void* argument_;
 public:
-  explicit Thread(void (*routine)(void*) = NULL, void* argument = NULL)
+  explicit Thread(
+      void (*routine)(void*) = nullptr, void* argument = nullptr)
     : thread_id_(0)
     , routine_(routine)
-    , argument_(argument)
-  {
+    , argument_(argument) {
   }
 
-  ~Thread(void)
-  {
+  ~Thread(void) {
     Join();
   }
 
-  inline void Start(void)
-  {
+  inline void Start(void) {
     PthreadCall("thread create", 
-      pthread_create(&thread_id_, NULL, &Thread::Routine, this));
+      pthread_create(&thread_id_, nullptr, &Thread::Routine, this));
   }
 
-  inline void Join(void)
-  {
+  inline void Join(void) {
     if (0 != thread_id_) {
-      PthreadCall("thread join", pthread_join(thread_id_, NULL));
+      PthreadCall("thread join", pthread_join(thread_id_, nullptr));
 
       thread_id_ = 0;
     }
   }
 private:
-  static void* Routine(void* arg)
-  {
+  static void* Routine(void* arg) {
     Thread* thread = static_cast<Thread*>(arg);
-    if (NULL == thread)
-      return NULL;
+    if (nullptr == thread)
+      return nullptr;
 
-    if (NULL != thread->routine_)
+    if (nullptr != thread->routine_)
       thread->routine_(thread->argument_);
 
-    return NULL;
+    return nullptr;
   }
 };
 

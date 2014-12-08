@@ -27,8 +27,6 @@
 #include "el_test_header.h"
 #include "../el_condition.h"
 
-
-
 struct WorkerConfig {
   el::Mutex mutex;
   el::Condition cond;
@@ -39,16 +37,11 @@ struct WorkerConfig {
     : mutex()
     , cond(mutex)
     , use_signal_all(false)
-    , posted(false)
-  {
+    , posted(false) {
   }
 };
 
-
-
-static inline void 
-Worker(void* arg)
-{
+static inline void Worker(void* arg) {
   WorkerConfig* wc = static_cast<WorkerConfig*>(arg);
   el_sleep(100);
 
@@ -62,8 +55,7 @@ Worker(void* arg)
   wc->mutex.Unlock();
 }
 
-UNIT_IMPL(ConditionSignal)
-{
+UNIT_IMPL(ConditionSignal) {
   WorkerConfig wc;
 
   el::Thread thread(Worker, (void*)&wc);
@@ -77,8 +69,7 @@ UNIT_IMPL(ConditionSignal)
   thread.Join();
 }
 
-UNIT_IMPL(ConditionSignalAll)
-{
+UNIT_IMPL(ConditionSignalAll) {
   WorkerConfig wc;
   wc.use_signal_all = true;
 

@@ -27,9 +27,7 @@
 #ifndef __EL_POSIX_EPOLL_HEADER_H__
 #define __EL_POSIX_EPOLL_HEADER_H__
 
-
 namespace el {
-
 
 class Epoll : public Poller, private UnCopyable {
   enum {
@@ -41,7 +39,7 @@ class Epoll : public Poller, private UnCopyable {
   uint32_t event_count_;
   struct epoll_event* events_;
 public:
-  explicit Epoll(void);
+  Epoll(void);
   ~Epoll(void);
 public:
   virtual bool Insert(Connector* conn);
@@ -55,7 +53,6 @@ private:
   bool Regrow(void);
 };
 
-
 }
 
-#endif  //! __EL_POSIX_EPOLL_HEADER_H__
+#endif  // __EL_POSIX_EPOLL_HEADER_H__

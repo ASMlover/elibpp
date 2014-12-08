@@ -26,8 +26,6 @@
 // POSSIBILITY OF SUCH DAMAGE.
 #include "el_test_header.h"
 
-
-
 UnitFramework::UnitFramework(void) {
 }
 
@@ -51,15 +49,12 @@ int UnitFramework::Run(void) {
 }
 
 bool UnitFramework::RegisterUnit(const char* name, void (*unit)(void)) {
-  if (NULL == name || NULL == unit)
+  if (nullptr == name || nullptr == unit)
     return false;
 
   unit_list_.push_back(UnitCase(name, unit));
   return true;
 }
-
-
-
 
 int main(int argc, char* argv[]) {
   return UNIT_RUN_ALL();

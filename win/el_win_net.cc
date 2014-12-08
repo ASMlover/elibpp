@@ -27,13 +27,9 @@
 #include "../el_net_internal.h"
 #include "../el_net.h"
 
-
-
 namespace el {
 
-bool 
-NetLibrary::Init(void)
-{
+bool NetLibrary::Init(void) {
   if (!loaded_) {
     WSADATA wd;
     if (0 != WSAStartup(MAKEWORD(2, 2), &wd))
@@ -45,9 +41,7 @@ NetLibrary::Init(void)
   return true;
 }
 
-void 
-NetLibrary::Destroy(void)
-{
+void NetLibrary::Destroy(void) {
   if (loaded_) {
     if (0 == WSACleanup())
       loaded_ = false;
