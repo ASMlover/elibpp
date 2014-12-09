@@ -28,13 +28,16 @@
 #ifndef __EL_CONFIG_HEADER_H__
 #define __EL_CONFIG_HEADER_H__
 
-#if !defined(PLATFORM_WIN) && !defined(PLATFORM_LINUX)
+#if !defined(PLATFORM_WIN) \
+  && !defined(PLATFORM_LINUX) && !defined(PLATFORM_MAC)
 # if defined(_WINDOWS_) || defined(_MSC_VER) || defined(__MINGW32__)
 #   define PLATFORM_WIN
 # elif defined(WIN32_LEAN_AND_MEAN)
 #   define PLATFORM_WIN
-# elif defined(__linux__) || defined(__GNUC__)
+# elif defined(__linux__)
 #   define PLATFORM_LINUX
+# elif defined(__APPLE__) || defined(__MACH__)
+#   define PLATFORM_MAC
 # else
 #  error "nonsupport this platform !!!"
 # endif
@@ -61,6 +64,8 @@
 # define USING_SELECT
 #elif defined(PLATFORM_LINUX)
 # define USING_EPOLL
+#elif defined(PLATFORM_MAC)
+# define USING_KQUEUE
 #endif
 
 #endif  // __EL_CONFIG_HEADER_H__

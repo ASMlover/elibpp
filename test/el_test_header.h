@@ -30,8 +30,6 @@
 #include "../elib_internal.h"
 
 #if defined(PLATFORM_WIN)
-# define inline       __inline
-# define __func__     __FUNCTION__
 # define el_sleep(x)  Sleep((x))
 # define SelfThreadId GetCurrentThreadId
 #elif defined(PLATFORM_LINUX)
