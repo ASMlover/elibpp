@@ -36,7 +36,7 @@ static inline int logging_mkdir(const char* path) {
   int ret = -1;
 #if defined(PLATFORM_WIN)
   ret = mkdir(path);
-#elif defined(PLATFORM_LINUX)
+#else
   int mode = S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH;
   ret = mkdir(path, mode);
 #endif 
@@ -101,7 +101,7 @@ FILE* Logging::GetFileStream(int severity, Time* time) {
     sprintf(fname, "./%s/%s/%04d%02d%02d.log", 
         ROOT_DIR, directory, time->year, time->mon, time->day);
     stream = fopen(fname, "a+");
-    setvbuf(stream, nullptr, _IOFBF, kDefBufferSize);
+    setvbuf(stream, nullptr, _IOFBF, BUFFERSIZE);
 
     file_list_[severity].year = time->year;
     file_list_[severity].mon  = time->mon;
@@ -119,7 +119,7 @@ FILE* Logging::GetFileStream(int severity, Time* time) {
       sprintf(fname, "%s/%s/%04d%02d%02d.log", 
           ROOT_DIR, directory, time->year, time->mon, time->day);
       stream = fopen(fname, "a+");
-      setvbuf(stream, nullptr, _IOFBF, kDefBufferSize);
+      setvbuf(stream, nullptr, _IOFBF, BUFFERSIZE);
 
       file_list_[severity].year = time->year;
       file_list_[severity].mon  = time->mon;
@@ -153,16 +153,13 @@ void Logging::WriteX(int severity,
   FILE* stream = GetFileStream(severity, &time);
   if (nullptr == stream)
     return;
+  fprintf(stream, "[%02d:%02d:%02d:%03d] %s(%d): ", 
+      time.hour, time.min, time.sec, time.millitm, file, line);
 
-  char buf[1024];
-  
   va_list ap;
   va_start(ap, format);
-  vsprintf(buf, format, ap);
+  vfprintf(stream, format, ap);
   va_end(ap);
-
-  fprintf(stream, "[%02d:%02d:%02d:%03d] [%s](%d) : %s", 
-      time.hour, time.min, time.sec, time.millitm, file, line, buf);
 }
 
 }

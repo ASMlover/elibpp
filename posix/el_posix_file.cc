@@ -72,7 +72,7 @@ bool File::Open(const char* fname, bool append) {
   if (-1 == fd_)
     return false;
 
-  buf_size_ = kDefBufferSize;
+  buf_size_ = BUFFERSIZE;
   buffer_ = (char*)malloc(buf_size_);
   if (nullptr == buffer_)
     goto Exit;
@@ -120,7 +120,7 @@ size_t File::Write(const void* buffer, size_t size) {
   else {
     size_t copy_size = size - free_size;
     memcpy(buffer_ + data_size_, buffer, free_size);
-    ssize_t ret = write(fd_, buffer_, kDefBufferSize);
+    ssize_t ret = write(fd_, buffer_, BUFFERSIZE);
     UNUSED(ret)
     data_size_ = 0;
 

@@ -31,6 +31,8 @@
 # include "win/el_win_select.h"
 #elif defined(USING_EPOLL)
 # include "posix/el_posix_epoll.h"
+#elif defined(USING_KQUEUE)
+// # include "mac/el_mac_kqueue.h"
 #else 
 # error "nonsupport this poller !!!"
 #endif
@@ -41,6 +43,8 @@ namespace el {
   typedef Select  EventPoller;
 #elif defined(USING_EPOLL)
   typedef Epoll   EventPoller;
+#elif defined(USING_KQUEUE)
+//  typedef Kqueue  EventPoller;
 #endif
 
 }

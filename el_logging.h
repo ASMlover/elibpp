@@ -27,12 +27,6 @@
 #ifndef __EL_LOGGING_HEADER_H__
 #define __EL_LOGGING_HEADER_H__
 
-#if defined(PLATFORM_WIN)
-# if defined(_MSC_VER) && (_MSC_VER < 1400)
-#   error "Your compiler version is too low"
-# endif
-#endif
-
 namespace el {
 
 struct LogFile {
@@ -44,7 +38,7 @@ struct LogFile {
 
 struct Time;
 class Logging : public Singleton<Logging> {
-  enum {kDefBufferSize = 16 * 1024};
+  enum { BUFFERSIZE = 16 * 1024 };
 public:
   enum SeverityType {
     kSeverityTypeDebug = 0, 

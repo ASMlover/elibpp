@@ -30,7 +30,7 @@
 namespace el {
 
 class File : private UnCopyable {
-  enum { kDefBufferSize = 16 * 1024 };
+  enum { BUFFERSIZE = 16 * 1024 };
 #if defined(PLATFORM_WIN)
   HANDLE fd_;
 #elif defined(PLATFORM_LINUX)

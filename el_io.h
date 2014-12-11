@@ -35,8 +35,8 @@ enum ColorType {
   kColorTypeGreen   = 2, 
 };
 
-extern int ColorPrintf(int color, const char* format, ...);
-extern int ColorFprintf(FILE* stream, int color, const char* format, ...);
+int ColorPrintf(int color, const char* format, ...);
+int ColorFprintf(FILE* stream, int color, const char* format, ...);
 
 }
 
