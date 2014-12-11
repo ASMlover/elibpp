@@ -65,7 +65,7 @@ bool CircularBuffer::Create(int length) {
   if (nullptr != buffer_)
     free(buffer_);
 
-  length_ = (length < BUFFER_LENGTH ? BUFFER_LENGTH : length);
+  length_ = (length < BUFFERSIZE ? BUFFERSIZE : length);
   buffer_ = (char*)malloc(length_);
   if (nullptr == buffer_)
     return false;

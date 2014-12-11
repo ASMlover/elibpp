@@ -30,7 +30,8 @@
 namespace el {
 
 class CircularBuffer : private UnCopyable {
-  enum { BUFFER_LENGTH = 1024 * 1024 };
+  enum { BUFFERSIZE = 1024 * 1024 };
+
   char* buffer_;
   int length_;
   int rpos_;
@@ -41,14 +42,6 @@ public:
   CircularBuffer(void);
   ~CircularBuffer(void);
 
-  bool Create(int length = BUFFER_LENGTH);
-  void Release(void);
-  void Clear(void);
-
-  int Write(const void* buffer, int length);
-  int Read(int length, void* buffer);
-  int Remove(int length);
-public:
   inline int length(void) const {
     return length_;
   }
@@ -60,6 +53,14 @@ public:
   inline int free_length(void) const {
     return free_length_;
   }
+public:
+  bool Create(int length = BUFFERSIZE);
+  void Release(void);
+  void Clear(void);
+
+  int Write(const void* buffer, int length);
+  int Read(int length, void* buffer);
+  int Remove(int length);
 };
 
 }

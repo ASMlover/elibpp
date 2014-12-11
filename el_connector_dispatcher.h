@@ -31,7 +31,7 @@ namespace el {
 
 class ConnectorDispatcher 
   : public ConnectorHolder, public Dispatcher, private UnCopyable {
-  enum { DEF_BUFFERSIZE = 16 * 1024 };
+  enum { BUFFERSIZE = 16 * 1024 };
   uint32_t rbytes_;
   uint32_t wbytes_;
   SpinLock spinlock_;
@@ -46,8 +46,8 @@ public:
   }
 
   inline void SetBuffer(
-      uint32_t rbytes = DEF_BUFFERSIZE, 
-      uint32_t wbytes = DEF_BUFFERSIZE) {
+      uint32_t rbytes = BUFFERSIZE, 
+      uint32_t wbytes = BUFFERSIZE) {
     rbytes_ = rbytes;
     wbytes_ = wbytes;
   }
@@ -55,7 +55,7 @@ public:
   virtual void CloseAll(void);
   virtual Connector* Insert(int fd);
   virtual void Remove(int fd);
-public:
+  
   virtual bool DispatchReader(Poller* poller, Connector* conn);
   virtual bool DispatchWriter(Poller* poller, Connector* conn);
 };

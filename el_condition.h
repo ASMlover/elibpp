@@ -41,7 +41,7 @@
 namespace el {
 
 class Condition : private UnCopyable {
-  Mutex& mutex_;
+  Mutex&  mutex_;
   CondVar cond_;
 public:
   Condition(Mutex& mutex);

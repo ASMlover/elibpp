@@ -32,8 +32,8 @@
 namespace el {
 
 ConnectorDispatcher::ConnectorDispatcher(void)
-  : rbytes_(DEF_BUFFERSIZE)
-  , wbytes_(DEF_BUFFERSIZE)
+  : rbytes_(BUFFERSIZE)
+  , wbytes_(BUFFERSIZE)
   , spinlock_()
   , handler_(nullptr) {
 }
