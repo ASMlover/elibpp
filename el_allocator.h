@@ -36,26 +36,26 @@ class Allocator : public Singleton<Allocator> {
     MAX_BYTES   = 1024, 
     NFREELISTS  = MAX_BYTES / ALIGN, 
     MAX_NUMBER  = 64, 
-    PREFIX_SIZE = sizeof(size_t), 
+    PREFIX_SIZE = sizeof(uint32_t), 
   };
 
   Memory*   free_list_[NFREELISTS];
   void**    chunk_list_;
-  size_t    chunk_count_;
-  size_t    chunk_storage_;
+  uint32_t  chunk_count_;
+  uint32_t  chunk_storage_;
   SpinLock  locker_;
 
-  inline size_t FreeListIndex(size_t bytes) {
+  inline uint32_t FreeListIndex(uint32_t bytes) {
     return ((bytes + (ALIGN - 1)) / ALIGN - 1);
   }
 
-  Memory* AllocChunk(size_t index);
+  Memory* AllocChunk(uint32_t index);
   void InsertChunk(void* chunk);
 public:
   Allocator(void);
   ~Allocator(void);
 
-  void* Malloc(size_t bytes);
+  void* Malloc(uint32_t bytes);
   void Free(void* ptr);
 };
 
@@ -64,11 +64,11 @@ public:
 
 class SmallAllocator {
 public:
-  static void* operator new(size_t bytes) {
+  static void* operator new(uint32_t bytes) {
     return NEW(bytes);
   }
 
-  static void operator delete(void* ptr, size_t bytes) {
+  static void operator delete(void* ptr, uint32_t bytes) {
     DEL(ptr);
   }
 };

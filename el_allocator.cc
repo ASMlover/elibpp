@@ -30,13 +30,13 @@
 namespace el {
 
 struct Memory {
-  size_t index;
-  Memory* next;
+  uint32_t index;
+  Memory*  next;
 };
 
-Memory* Allocator::AllocChunk(size_t index) {
-  size_t alloc_size = (index + 1) * ALIGN + PREFIX_SIZE;
-  size_t chunk_size = alloc_size * MAX_NUMBER;
+Memory* Allocator::AllocChunk(uint32_t index) {
+  uint32_t alloc_size = (index + 1) * ALIGN + PREFIX_SIZE;
+  uint32_t chunk_size = alloc_size * MAX_NUMBER;
 
   if (nullptr == free_list_[index]) {
     free_list_[index] = (Memory*)malloc(chunk_size);
@@ -44,7 +44,7 @@ Memory* Allocator::AllocChunk(size_t index) {
     InsertChunk(free_list_[index]);
 
     Memory* node = free_list_[index];
-    for (size_t i = 0; i < chunk_size - alloc_size; i += alloc_size) {
+    for (uint32_t i = 0; i < chunk_size - alloc_size; i += alloc_size) {
       node->index = index;
       node = node->next = (Memory*)((uint8_t*)node + alloc_size);
     }
@@ -57,7 +57,7 @@ Memory* Allocator::AllocChunk(size_t index) {
 
 void Allocator::InsertChunk(void* chunk) {
   if (chunk_count_ == chunk_storage_) {
-    size_t new_chunk_storage = chunk_storage_ + NFREELISTS;
+    uint32_t new_chunk_storage = chunk_storage_ + NFREELISTS;
     void** new_chunk_list = 
       (void**)malloc(sizeof(void*) * new_chunk_storage);
     assert(nullptr != new_chunk_list);
@@ -82,12 +82,12 @@ Allocator::Allocator(void) {
 }
 
 Allocator::~Allocator(void) {
-  for (size_t i = 0; i < chunk_count_; ++i)
+  for (uint32_t i = 0; i < chunk_count_; ++i)
     free(chunk_list_[i]);
   free(chunk_list_);
 }
 
-void* Allocator::Malloc(size_t bytes) {
+void* Allocator::Malloc(uint32_t bytes) {
   // Allocator must has beed initialized 
   // and bytes must > 0
 
@@ -96,11 +96,11 @@ void* Allocator::Malloc(size_t bytes) {
   void* ret;
   if (bytes > MAX_BYTES) {
     ret = malloc(bytes + PREFIX_SIZE);
-    *(size_t*)ret = NFREELISTS;
+    *(uint32_t*)ret = NFREELISTS;
     ret = (uint8_t*)ret + PREFIX_SIZE;
   }
   else {
-    size_t index = FreeListIndex(bytes);
+    uint32_t index = FreeListIndex(bytes);
 
     LockerGuard<SpinLock> guard(locker_);
     if (nullptr == free_list_[index])
@@ -117,7 +117,7 @@ void Allocator::Free(void* ptr) {
   assert(nullptr != ptr);
 
   void* realptr = (uint8_t*)ptr - PREFIX_SIZE;
-  size_t index = *(size_t*)realptr;
+  uint32_t index = *(uint32_t*)realptr;
   if (NFREELISTS == index) {
     free(realptr);
   }
