@@ -33,7 +33,7 @@ namespace el {
 class Address : private UnCopyable {
   enum { ADDRESS_LENGTH = 16 };
   
-  char ip_[ADDRESS_LENGTH];
+  char     ip_[ADDRESS_LENGTH];
   uint16_t port_;
 public:
   Address(void);
@@ -47,7 +47,7 @@ public:
     return port_;
   }
 public:
-  void Attach(const sockaddr_in* addr);
+  void Attach(const sockaddr_in& addr);
   void Detach(void);
 };
 

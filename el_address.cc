@@ -36,12 +36,9 @@ Address::Address(void) {
 Address::~Address(void) {
 }
 
-void Address::Attach(const sockaddr_in* addr) {
-  if (nullptr == addr)
-    return;
-
-  strcpy(ip_, inet_ntoa(addr->sin_addr));
-  port_ = ntohs(addr->sin_port);
+void Address::Attach(const sockaddr_in& addr) {
+  strcpy(ip_, inet_ntoa(addr.sin_addr));
+  port_ = ntohs(addr.sin_port);
 }
 
 void Address::Detach(void) {

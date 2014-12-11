@@ -97,7 +97,7 @@ bool Socket::Accept(Socket* s, Address* addr) {
 
   s->Attach(fd);
   if (nullptr != addr)
-    addr->Attach(&remote_addr);
+    addr->Attach(remote_addr);
 
   return true;
 }

@@ -64,7 +64,7 @@
 #include <vector>
 #include <queue>
 
-#if defined(PLATFORM_LINUX)
+#if !defined(PLATFORM_WIN)
 # include "./posix/el_posix_tools.h"
 #endif
 
