@@ -33,27 +33,16 @@ CFLAGS	= -g -O2 -Wall -std=c++0x
 LDFLAGS	= -lpthread -lrt
 OBJS	= $(patsubst %.cc, %.o, $(wildcard ./test/*.cc ./posix/*.cc *.cc))
 
-
-
-
 all: $(OUT)
-
 rebuild: clean all 
-
 clean:
 	$(RM) $(OUT) $(OBJS)
-
 clean_all:
 	$(RM) $(OUT) $(OBJS) *.log 
-
 clean_log:
 	$(RD) logging
 
-
-
-
 $(OUT): $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
-
 $(OBJS): %.o:%.cc 
 	$(CC) -o $*.o -c $(CFLAGS) $^
