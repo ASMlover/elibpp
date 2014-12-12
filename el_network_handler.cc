@@ -35,7 +35,7 @@ namespace el {
 
 NetworkHandler::NetworkHandler(void)
   : dispatcher_(nullptr)
-  , worker_count_(kDefaultWorkerCount)
+  , worker_count_(WORKER_COUNT)
   , workers_(nullptr)
   , listener_(nullptr)
   , suitable_worker_(0)
@@ -56,8 +56,8 @@ bool NetworkHandler::Init(
   dispatcher_->Attach(handler_);
   dispatcher_->SetBuffer(rbuf, wbuf);
 
-  worker_count_ = (worker_count > kDefaultWorkerCount ? 
-      worker_count : kDefaultWorkerCount);
+  worker_count_ = (worker_count > WORKER_COUNT ? 
+      worker_count : WORKER_COUNT);
 
   do {
     if (nullptr == (workers_ = new NetWorker[worker_count_]))
@@ -90,7 +90,7 @@ void NetworkHandler::Destroy(void) {
     delete [] workers_;
     workers_ = nullptr;
   }
-  worker_count_ = kDefaultWorkerCount;
+  worker_count_ = WORKER_COUNT;
 
   if (nullptr != dispatcher_) {
     dispatcher_->CloseAll();

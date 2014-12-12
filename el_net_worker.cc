@@ -29,6 +29,8 @@
 #include "el_event_poller.h"
 #include "el_net_worker.h"
 
+#define POLL_TIMEOUT  (10)
+
 namespace el {
 
 NetWorker::NetWorker(void)
@@ -98,7 +100,7 @@ void NetWorker::Routine(void* argument) {
     return;
 
   while (self->running_) {
-    if (!self->poller_->Dispatch(self->dispatcher_, 10)) {
+    if (!self->poller_->Dispatch(self->dispatcher_, POLL_TIMEOUT)) {
       el::Sleep(1);
       continue;
     }

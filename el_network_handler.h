@@ -34,8 +34,8 @@ class NetListener;
 class ConnectorDispatcher;
 class NetworkHandler : private UnCopyable {
   enum {
-    kDefaultWorkerCount = 1, 
-    kDefaultBufferSize  = 16 * 1024, 
+    WORKER_COUNT = 1, 
+    BUFFERSIZE   = 16 * 1024, 
   };
   ConnectorDispatcher* dispatcher_;
   int worker_count_;
@@ -52,9 +52,9 @@ public:
   }
 public:
   bool Init(
-      int worker_count = kDefaultWorkerCount, 
-      uint32_t rbuf = kDefaultBufferSize, 
-      uint32_t wbuf = kDefaultBufferSize);
+      int worker_count = WORKER_COUNT, 
+      uint32_t rbuf = BUFFERSIZE, 
+      uint32_t wbuf = BUFFERSIZE);
   void Destroy(void);
 
   NetWorker& SuitableWorker(void);

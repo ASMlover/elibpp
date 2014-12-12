@@ -34,7 +34,7 @@ class NetListener : private UnCopyable {
   bool running_;
   Socket* listener_;
   Thread* thread_;
-  NetworkHandler* network_;
+  NetworkHandler*  network_;
   ConnectorHolder* conn_holder_;
 public:
   NetListener(void);

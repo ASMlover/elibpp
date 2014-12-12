@@ -114,7 +114,6 @@ bool NetBuffer::Regrow(void) {
     abort();
     return false;
   }
-
   storage_ = new_storage;
 
   return true;
