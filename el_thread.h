@@ -29,7 +29,7 @@
 
 #if defined(PLATFORM_WIN)
 # include "./win/el_win_thread.h"
-#elif defined(PLATFORM_LINUX)
+#else
 # include "./posix/el_posix_thread.h"
 #endif
 

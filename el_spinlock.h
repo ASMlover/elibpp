@@ -31,6 +31,10 @@
 # include "./win/el_win_spinlock.h"
 #elif defined(PLATFORM_LINUX)
 # include "./posix/el_posix_spinlock.h"
+#elif defined(PLATFORM_MAC)
+// TODO:
+// need to add for mac platform
+// # include "./mac/el_mac_spinlock.h"
 #endif
 
 namespace el {
