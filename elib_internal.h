@@ -38,7 +38,9 @@
 # undef __func__
 # define __func__ __FUNCSIG__
 
-# define bsize(s, n)  memset(s, 0, n)
+# define bsize(s, n)          memset((s), 0, (n))
+# define bcopy(src, dest, n)  memcpy((dest), (src), (n))
+# define bcmp(s1, s2, n)      memcmp((s1), (s2), (n))
 #else
 # include <sys/time.h>
 # include <sys/types.h>
