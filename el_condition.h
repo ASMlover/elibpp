@@ -34,7 +34,7 @@
     HANDLE signal_event;
     HANDLE broadcast_event;
   } CondVar;
-#elif defined(PLATFORM_LINUX)
+#else
   typedef pthread_cond_t CondVar;
 #endif 
 

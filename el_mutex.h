@@ -29,7 +29,7 @@
 
 #if defined(PLATFORM_WIN)
 # include "./win/el_win_mutex.h"
-#elif defined(PLATFORM_LINUX)
+#else
 # include "./posix/el_posix_mutex.h"
 #endif 
 

@@ -33,7 +33,7 @@ class File : private UnCopyable {
   enum { BUFFERSIZE = 16 * 1024 };
 #if defined(PLATFORM_WIN)
   HANDLE fd_;
-#elif defined(PLATFORM_LINUX)
+#else
   int fd_;
 #endif
   char*   buffer_;

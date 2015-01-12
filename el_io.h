@@ -31,8 +31,8 @@ namespace el {
 
 enum ColorType {
   kColorTypeUnknown = 0, 
-  kColorTypeRed     = 1, 
-  kColorTypeGreen   = 2, 
+  kColorTypeRed, 
+  kColorTypeGreen, 
 };
 
 int ColorPrintf(int color, const char* format, ...);

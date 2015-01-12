@@ -32,7 +32,7 @@
 #if defined(PLATFORM_WIN)
 # define el_sleep(x)  Sleep((x))
 # define SelfThreadId GetCurrentThreadId
-#elif defined(PLATFORM_LINUX)
+#else
 # define el_sleep(x)  usleep((x) * 1000)
 # define SelfThreadId pthread_self
 #endif
