@@ -37,23 +37,25 @@
 # define EAGAIN     WSAEWOULDBLOCK
 # define NERROR()   WSAGetLastError()
 #elif defined(USING_EPOLL)
-# include <sys/types.h>
-# include <sys/socket.h>
-# include <sys/epoll.h>
 # include <arpa/inet.h>
 # include <netinet/in.h>
 # include <netinet/tcp.h>
-# include <unistd.h>
-# include <fcntl.h>
+# include <sys/epoll.h>
+# include <sys/socket.h>
+# include <sys/types.h>
+
 # include <errno.h>
+# include <fcntl.h>
+# include <unistd.h>
 # define NERROR()   errno
 #endif 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <vector>
-#include <map>
+
 #include <algorithm>
+#include <map>
+#include <vector>
 
 #include "elib_internal.h"
 #include "el_net.h"

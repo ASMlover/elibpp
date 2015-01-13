@@ -53,9 +53,9 @@
 
 # define MAX_PATH PATH_MAX
 # if defined(PLATFORM_MAC)
+#   include <libkern/OSAtomic.h>
 #   include <mach/mach.h>
 #   include <mach/mach_time.h>
-#   include <libkern/OSAtomic.h>
 # endif
 #endif
 #include <sys/timeb.h>
