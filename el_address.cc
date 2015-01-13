@@ -30,7 +30,7 @@
 namespace el {
 
 Address::Address(void) {
-  memset(this, 0, sizeof(*this));
+  bzero(this, sizeof(*this));
 }
 
 Address::~Address(void) {
@@ -42,7 +42,7 @@ void Address::Attach(const sockaddr_in& addr) {
 }
 
 void Address::Detach(void) {
-  memset(this, 0, sizeof(*this));
+  bzero(this, sizeof(*this));
 }
 
 }

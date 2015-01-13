@@ -36,8 +36,8 @@
 #include "el_time.h"
 
 #include "el_address.h"
-#include "el_socket.h"
 #include "el_connector.h"
 #include "el_network_handler.h"
+#include "el_socket.h"
 
 #endif  // __ELIBPP_NET_HEADER_H__

@@ -30,25 +30,26 @@
 #include "el_config.h"
 #if defined(PLATFORM_WIN)
 # include <windows.h>
+
+# include <direct.h>
+# include <io.h>
 # include <mmsystem.h>
 # include <process.h>
-# include <io.h>
-# include <direct.h>
 
 # undef __func__
-# define __func__ __FUNCSIG__
+# define __func__             __FUNCSIG__
 
-# define bsize(s, n)          memset((s), 0, (n))
+# define bzero(s, n)          memset((s), 0, (n))
 # define bcopy(src, dest, n)  memcpy((dest), (src), (n))
 # define bcmp(s1, s2, n)      memcmp((s1), (s2), (n))
 #else
 # include <sys/time.h>
 # include <sys/types.h>
 # include <sys/stat.h>
-# include <unistd.h>
 # include <fcntl.h>
-# include <pthread.h>
 # include <limits.h>
+# include <pthread.h>
+# include <unistd.h>
 
 # define MAX_PATH PATH_MAX
 # if defined(PLATFORM_MAC)
@@ -58,15 +59,17 @@
 # endif
 #endif
 #include <sys/timeb.h>
+
 #include <assert.h>
-#include <stdint.h>
 #include <stdarg.h>
+#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
-#include <vector>
+
 #include <queue>
+#include <vector>
 
 #if !defined(PLATFORM_WIN)
 # include "./posix/el_posix_tools.h"
@@ -78,9 +81,10 @@
 #include "el_singleton.h"
 #include "el_unique_ptr.h"
 #include "el_unique_array.h"
+
 #include "el_allocator.h"
 #include "el_condition.h"
-#include "el_thread.h"
 #include "el_io.h"
+#include "el_thread.h"
 
 #endif  // __ELIB_INTERNAL_HEADER_H__
