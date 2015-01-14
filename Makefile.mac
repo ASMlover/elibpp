@@ -29,7 +29,7 @@ OUT	= elibpp
 RM	= rm 
 RD	= rm -rf
 CC	= clang++
-CFLAGS	= -g -O2 -Wall -std=c++0x
+CFLAGS	= -g -O2 -Wall -std=c++0x -Wno-format
 LDFLAGS	= -lpthread -lc
 OBJS	= $(patsubst %.cc, %.o, $(wildcard ./test/*.cc ./posix/*.cc *.cc))
 
