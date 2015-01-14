@@ -43,9 +43,9 @@
 # endif
 #endif
 
-#if defined(_MSC_VER)
+#if defined(PLATFORM_WIN) && defined(_MSC_VER)
 # define COMPILER_MSVC
-#elif defined(__GNUC__)
+#elif defined(PLATFORM_LINUX) && defined(__GNUC__)
 # define COMPILER_GCC
 #endif
 

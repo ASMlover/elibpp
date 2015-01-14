@@ -64,11 +64,11 @@ public:
 
 class SmallAllocator {
 public:
-  static void* operator new(uint32_t bytes) {
+  static void* operator new(size_t bytes) {
     return NEW(bytes);
   }
 
-  static void operator delete(void* ptr, uint32_t bytes) {
+  static void operator delete(void* ptr, size_t bytes) {
     DEL(ptr);
   }
 };

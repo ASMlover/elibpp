@@ -1,4 +1,4 @@
-// Copyright (c) 2013 ASMlover. All rights reserved.
+// Copyright (c) 2015 ASMlover. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions
@@ -24,32 +24,30 @@
 // LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 // ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-#ifndef __EL_SPINLOCK_HEADER_H__
-#define __EL_SPINLOCK_HEADER_H__
-
-#if defined(PLATFORM_WIN)
-# include "./win/el_win_spinlock.h"
-#elif defined(PLATFORM_LINUX)
-# include "./posix/el_posix_spinlock.h"
-#elif defined(PLATFORM_MAC)
-# include "./mac/el_mac_spinlock.h"
-#endif
+#ifndef __EL_MAC_SPINLOCK_HEADER_H__
+#define __EL_MAC_SPINLOCK_HEADER_H__
 
 namespace el {
 
-class SpinLockGuard : private UnCopyable {
-  SpinLock& spinlock_;
+class SpinLock : private UnCopyable {
+  OSSpinLock spinlock_;
 public:
-  explicit SpinLockGuard(SpinLock& spinlock)
-    : spinlock_(spinlock) {
-    spinlock_.Lock();
+  SpinLock(void)
+    : spinlock_(0) {
   }
 
-  ~SpinLockGuard(void) {
-    spinlock_.Unlock();
+  ~SpinLock(void) {
+  }
+
+  inline void Lock(void) {
+    OSSpinLockLock(&spinlock_);
+  }
+
+  inline void Unlock(void) {
+    OSSpinLockUnlock(&spinlock_);
   }
 };
 
 }
 
-#endif  // __EL_SPINLOCK_HEADER_H__
+#endif  // __EL_MAC_SPINLOCK_HEADER_H__
