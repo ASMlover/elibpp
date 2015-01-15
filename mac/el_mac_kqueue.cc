@@ -1,4 +1,4 @@
-// Copyright (c) 2013 ASMlover. All rights reserved.
+// Copyright (c) 2015 ASMlover. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions
@@ -24,29 +24,37 @@
 // LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
 // ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
-#ifndef __EL_EVENT_POLLER_HEADER_H__
-#define __EL_EVENT_POLLER_HEADER_H__
-
-#if defined(USING_SELECT)
-# include "win/el_win_select.h"
-#elif defined(USING_EPOLL)
-# include "posix/el_posix_epoll.h"
-#elif defined(USING_KQUEUE)
-# include "mac/el_mac_kqueue.h"
-#else 
-# error "nonsupport this poller !!!"
-#endif
+#include "../el_net_internal.h"
+#include "../el_socket.h"
+#include "../el_connector.h"
+#include "el_mac_kqueue.h"
 
 namespace el {
 
-#if defined(USING_SELECT)
-  typedef Select  EventPoller;
-#elif defined(USING_EPOLL)
-  typedef Epoll   EventPoller;
-#elif defined(USING_KQUEUE)
-  typedef Kqueue  EventPoller;
-#endif
-
+Kqueue::Kqueue(void) {
 }
 
-#endif  // __EL_EVENT_POLLER_HEADER_H__
+Kqueue::~Kqueue(void) {
+}
+
+bool Kqueue::Insert(Connector* conn) {
+  return true;
+}
+
+void Kqueue::Remove(Connector* conn) {
+  return true;
+}
+
+bool Kqueue::AddEvent(Connector* conn, int ev) {
+  return true;
+}
+
+bool Kqueue::DelEvent(Connector* conn, int ev) {
+  return true;
+}
+
+bool Kqueue::Dispatch(Dispatcher* dispatcher, uint32_t millitm) {
+  return true;
+}
+
+}
