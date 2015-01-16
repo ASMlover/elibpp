@@ -27,7 +27,7 @@
 #include "../el_net_internal.h"
 #include "../el_socket.h"
 #include "../el_connector.h"
-#include "el_posix_epoll.h"
+#include "el_linux_epoll.h"
 
 namespace el {
 

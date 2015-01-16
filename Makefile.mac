@@ -31,7 +31,9 @@ RD	= rm -rf
 CC	= clang++
 CFLAGS	= -g -O2 -Wall -std=c++0x -Wno-format
 LDFLAGS	= -lpthread -lc
-OBJS	= $(patsubst %.cc, %.o, $(wildcard ./test/*.cc ./posix/*.cc *.cc))
+OBJS	= $(patsubst %.cc, \
+	  %.o, \
+	  $(wildcard ./test/*.cc ./posix/*.cc ./mac/*.cc *.cc))
 
 all: $(OUT)
 rebuild: clean all 

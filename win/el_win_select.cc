@@ -223,8 +223,7 @@ bool Select::DelEvent(Connector* conn, int ev) {
 }
 
 struct HasRemoved {
-  bool operator ()(const SelectEntry& entry) const 
-  {
+  bool operator ()(const SelectEntry& entry) const {
     return (kNetTypeInval == entry.fd);
   }
 };
