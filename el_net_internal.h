@@ -36,11 +36,10 @@
   typedef int socklen_t;
 # define EAGAIN     WSAEWOULDBLOCK
 # define NERROR()   WSAGetLastError()
-#elif defined(USING_EPOLL)
+#else
 # include <arpa/inet.h>
 # include <netinet/in.h>
 # include <netinet/tcp.h>
-# include <sys/epoll.h>
 # include <sys/socket.h>
 # include <sys/types.h>
 
@@ -48,7 +47,10 @@
 # include <fcntl.h>
 # include <unistd.h>
 # define NERROR()   errno
-#endif 
+# if defined(USING_EPOLL)
+#   include <sys/epoll.h>
+# endif
+#endif
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

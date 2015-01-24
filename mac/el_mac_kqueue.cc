@@ -42,7 +42,6 @@ bool Kqueue::Insert(Connector* conn) {
 }
 
 void Kqueue::Remove(Connector* conn) {
-  return true;
 }
 
 bool Kqueue::AddEvent(Connector* conn, int ev) {
