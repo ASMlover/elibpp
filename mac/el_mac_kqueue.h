@@ -30,6 +30,14 @@
 namespace el {
 
 class Kqueue : public Poller, private UnCopyable {
+  enum {
+    kQueueSize  = 32000,
+    kEventCount = 4096,
+  };
+
+  int kqueue_fd_;
+  uint32_t event_count_;
+  struct kevent* events_;
 public:
   Kqueue(void);
   ~Kqueue(void);
@@ -39,6 +47,10 @@ public:
   virtual bool AddEvent(Connector* conn, int ev);
   virtual bool DelEvent(Connector* conn, int ev);
   virtual bool Dispatch(Dispatcher* dispatcher, uint32_t millitm);
+private:
+  bool Init(void);
+  void Destroy(void);
+  bool Regrow(void);
 };
 
 }
