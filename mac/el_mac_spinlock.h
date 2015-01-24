@@ -30,21 +30,24 @@
 namespace el {
 
 class SpinLock : private UnCopyable {
-  OSSpinLock spinlock_;
+  // OSSpinLock spinlock_;
+  // I don't know why it's crashed using OSSpinLock in mac
+  pthread_mutex_t spinlock_;
 public:
-  SpinLock(void)
-    : spinlock_(0) {
+  SpinLock(void) {
+    pthread_mutex_init(&spinlock_, nullptr);
   }
 
   ~SpinLock(void) {
+    pthread_mutex_destroy(&spinlock_);
   }
 
   inline void Lock(void) {
-    OSSpinLockLock(&spinlock_);
+    pthread_mutex_lock(&spinlock_);
   }
 
   inline void Unlock(void) {
-    OSSpinLockUnlock(&spinlock_);
+    pthread_mutex_unlock(&spinlock_);
   }
 };
 
