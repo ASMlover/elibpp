@@ -1,4 +1,4 @@
-# Copyright (c) 2013 ASMlover. All rights reserved.
+# Copyright (c) 2015 ASMlover. All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -27,12 +27,12 @@
 
 OUT	= demo
 RM	= rm
-CC	= g++
-CFLAGS	= -g -O2 -Wall
-LDFLAGS	= -lpthread -lrt
+CC	= clang++
+CFLAGS	= -g -O2 -Wall -std=c++0x
+LDFLAGS	= -lpthread -lc
 OBJS	= $(patsubst %.cc, \
 	  %.o, \
-	  $(wildcard ../*.cc ../posix/*.cc ../linux/*.cc *.cc))
+	  $(wildcard ../*.cc ../posix/*.cc ../mac/*.cc *.cc))
 
 
 

@@ -25,8 +25,8 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-OUT	= demo.exe 
-RM	= del 
+OUT	= demo.exe
+RM	= del
 CC	= cl -c -nologo
 MT	= mt -nologo
 LINK	= link -nologo
@@ -50,7 +50,7 @@ OBJS	= main.obj server.obj client.obj\
 
 all: $(OUT)
 
-rebuild: clean all 
+rebuild: clean all
 
 clean:
 	$(RM) $(OUT) $(OBJS) *.pdb *.manifest *.ilk
