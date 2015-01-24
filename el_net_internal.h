@@ -45,10 +45,13 @@
 
 # include <errno.h>
 # include <fcntl.h>
+# include <netdb.h>
 # include <unistd.h>
 # define NERROR()   errno
 # if defined(USING_EPOLL)
 #   include <sys/epoll.h>
+# elif defined(USING_KQUEUE)
+#   include <sys/event.h>
 # endif
 #endif
 #include <stdio.h>

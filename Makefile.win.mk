@@ -25,10 +25,10 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-OUT	= elibpp.exe 
-RM	= del 
+OUT	= elibpp.exe
+RM	= del
 RD	= rd /s /q
-CC	= cl -c -nologo 
+CC	= cl -c -nologo
 MT	= mt -nologo
 LINK	= link -nologo
 CFLAGS	= -O2 -W3 -MD -GS -Zi -Fd"vc.pdb" -EHsc -DNDEBUG\
@@ -49,11 +49,11 @@ OBJS	= el_test_main.obj el_test_mutex.obj el_test_spinlock.obj\
 	el_net_listener.obj el_network_handler.obj
 
 all: $(OUT)
-rebuild: clean all 
+rebuild: clean all
 clean:
 	$(RM) $(OUT) $(OBJS) *.pdb *.manifest *.ilk
 clean_all:
-	$(RM) $(OUT) $(OBJS) *.pdb *.manifest *.ilk *.log 
+	$(RM) $(OUT) $(OBJS) *.pdb *.manifest *.ilk *.log
 clean_log:
 	if exist logging $(RD) logging
 

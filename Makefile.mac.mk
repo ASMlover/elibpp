@@ -26,7 +26,7 @@
 # POSSIBILITY OF SUCH DAMAGE.
 
 OUT	= elibpp
-RM	= rm 
+RM	= rm
 RD	= rm -rf
 CC	= clang++
 CFLAGS	= -g -O2 -Wall -std=c++0x -Wno-format
@@ -36,15 +36,15 @@ OBJS	= $(patsubst %.cc, \
 	  $(wildcard ./test/*.cc ./posix/*.cc ./mac/*.cc *.cc))
 
 all: $(OUT)
-rebuild: clean all 
+rebuild: clean all
 clean:
 	$(RM) $(OUT) $(OBJS)
 clean_all:
-	$(RM) $(OUT) $(OBJS) *.log 
+	$(RM) $(OUT) $(OBJS) *.log
 clean_log:
 	$(RD) logging
 
 $(OUT): $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
-$(OBJS): %.o:%.cc 
+$(OBJS): %.o:%.cc
 	$(CC) -o $*.o -c $(CFLAGS) $^
