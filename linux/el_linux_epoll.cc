@@ -52,7 +52,7 @@ bool Epoll::Init(void) {
   size_t size = sizeof(struct epoll_event) * event_count_;
 
   do {
-    events_ = (struct epoll_event*)NEW(size);
+    events_ = (struct epoll_event*)malloc(size);
     if (nullptr == events_)
       break;
 
@@ -65,7 +65,7 @@ bool Epoll::Init(void) {
 
 void Epoll::Destroy(void) {
   if (nullptr != events_) {
-    DEL(events_);
+    free(events_);
     events_ = nullptr;
   }
   event_count_ = kEventCount;
@@ -77,11 +77,11 @@ void Epoll::Destroy(void) {
 }
 
 bool Epoll::Regrow(void) {
-  uint32_t new_event_count = (0 != event_count_ ? 
+  uint32_t new_event_count = (0 != event_count_ ?
       2 * event_count_ : kEventCount);
   size_t size = sizeof(struct epoll_event) * new_event_count;
 
-  events_ = (struct epoll_event*)NEW(size);
+  events_ = (struct epoll_event*)realloc(events_, size);
   if (nullptr == events_) {
     abort();
     return false;
