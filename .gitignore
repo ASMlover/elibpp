@@ -11,4 +11,5 @@
 *.exp
 *.ilk
 *.idb
+*.log
 elibpp
