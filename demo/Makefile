@@ -29,10 +29,8 @@ OUT	= demo
 RM	= rm
 CC	= g++
 CFLAGS	= -g -O2 -Wall
-LDFLAGS	= -lpthread -lrt
-OBJS	= $(patsubst %.cc, \
-	  %.o, \
-	  $(wildcard ../*.cc ../posix/*.cc ../linux/*.cc *.cc))
+LDFLAGS	= -L.. -lelibpp -lpthread -lrt
+OBJS	= $(patsubst %.cc, %.o, $(wildcard *.cc))
 
 
 
