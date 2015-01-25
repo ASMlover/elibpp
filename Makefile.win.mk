@@ -25,28 +25,32 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-OUT	= elibpp.exe
+OUT_LIB	= libelibpp.lib
+OUT_BIN	= elibpp.exe
+OUT	= $(OUT_LIB) $(OUT_BIN)
 RM	= del
 RD	= rd /s /q
 CC	= cl -c -nologo
+AR	= lib -nologo
 MT	= mt -nologo
 LINK	= link -nologo
-CFLAGS	= -O2 -W3 -MD -GS -Zi -Fd"vc.pdb" -EHsc -DNDEBUG\
+CFLAGS	= -O2 -W3 -MDd -GS -Zi -Fd"vc.pdb" -EHsc -DNDEBUG\
 	-D_CRT_SECURE_NO_WARNINGS -D_CRT_NONSTDC_NO_WARNINGS
-LDFLAGS	= -INCREMENTAL -DEBUG -PDB:$(OUT).pdb -manifest\
-	-manifestfile:$(OUT).manifest -manifestuac:no winmm.lib ws2_32.lib
-OBJS	= el_test_main.obj el_test_mutex.obj el_test_spinlock.obj\
-	el_test_condition.obj el_test_thread.obj el_test_thread_pool.obj\
-	el_test_allocator.obj el_test_circular_buffer.obj el_test_file.obj\
-	el_test_time.obj el_test_logging.obj\
-	\
-	el_win_condition.obj el_win_io.obj el_win_file.obj el_win_time.obj\
+LDFLAGS	= -INCREMENTAL -DEBUG -PDB:$(OUT_BIN).pdb -manifest\
+	-manifestfile:$(OUT_BIN).manifest -manifestuac:no\
+	winmm.lib ws2_32.lib libelibpp.lib
+LIBOBJS	= el_win_condition.obj el_win_io.obj el_win_file.obj el_win_time.obj\
 	el_win_net.obj el_win_socket.obj el_win_select.obj\
 	\
 	el_allocator.obj el_thread_pool.obj el_circular_buffer.obj el_time.obj\
 	el_logging.obj el_net.obj el_net_buffer.obj el_address.obj el_socket.obj\
 	el_connector.obj el_connector_dispatcher.obj el_net_worker.obj\
 	el_net_listener.obj el_network_handler.obj
+BINOBJS	= el_test_main.obj el_test_mutex.obj el_test_spinlock.obj\
+	el_test_condition.obj el_test_thread.obj el_test_thread_pool.obj\
+	el_test_allocator.obj el_test_circular_buffer.obj el_test_file.obj\
+	el_test_time.obj el_test_logging.obj
+OBJS	= $(LIBOBJS) $(BINOBJS)
 
 all: $(OUT)
 rebuild: clean all
@@ -57,9 +61,11 @@ clean_all:
 clean_log:
 	if exist logging $(RD) logging
 
-$(OUT): $(OBJS)
-	$(LINK) -out:$(OUT) $(OBJS) $(LDFLAGS)
-	$(MT) -manifest $(OUT).manifest -outputresource:$(OUT);1
+$(OUT_LIB): $(LIBOBJS)
+	$(AR) -out:$(OUT_LIB) $(LIBOBJS)
+$(OUT_BIN): $(BINOBJS)
+	$(LINK) -out:$(OUT_BIN) $(BINOBJS) $(LDFLAGS)
+	$(MT) -manifest $(OUT_BIN).manifest -outputresource:$(OUT_BIN);1
 .cc.obj:
 	$(CC) $(CFLAGS) $<
 {.\win}.cc{}.obj:

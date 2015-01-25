@@ -25,15 +25,18 @@
 # ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-OUT	= elibpp
+OUT_LIB	= libelibpp.a
+OUT_BIN	= elibpp
+OUT	= $(OUT_LIB) $(OUT_BIN)
 RM	= rm
 RD	= rm -rf
 CC	= g++
+AR	= ar
 CFLAGS	= -g -O2 -Wall -std=c++0x
-LDFLAGS	= -lpthread -lrt
-OBJS	= $(patsubst %.cc, \
-	  %.o, \
-	  $(wildcard ./test/*.cc ./posix/*.cc ./linux/*.cc *.cc))
+LDFLAGS	= -L. -lelibpp -lpthread -lrt
+LIBOBJS	= $(patsubst %.cc, %.o, $(wildcard ./posix/*.cc ./linux/*.cc *.cc))
+BINOBJS	= $(patsubst %.cc, %.o, $(wildcard ./test/*.cc))
+OBJS	= $(LIBOBJS) $(BINOBJS)
 
 all: $(OUT)
 rebuild: clean all
@@ -44,7 +47,9 @@ clean_all:
 clean_log:
 	$(RD) logging
 
-$(OUT): $(OBJS)
+$(OUT_LIB): $(LIBOBJS)
+	$(AR) -cru $@ $^
+$(OUT_BIN): $(BINOBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
 $(OBJS): %.o:%.cc 
 	$(CC) -o $*.o -c $(CFLAGS) $^
