@@ -32,7 +32,7 @@ namespace el {
 
 class Address : private UnCopyable {
   enum { ADDRESS_LENGTH = 16 };
-  
+
   char     ip_[ADDRESS_LENGTH];
   uint16_t port_;
 public:

@@ -63,12 +63,12 @@ bool Socket::Bind(const char* ip, unsigned short port) {
     return false;
 
   struct sockaddr_in host_addr;
-  host_addr.sin_addr.s_addr = 
+  host_addr.sin_addr.s_addr =
     (nullptr == ip ? htonl(INADDR_ANY) : inet_addr(ip));
   host_addr.sin_family      = AF_INET;
   host_addr.sin_port        = htons(port);
 
-  if (kNetTypeError == bind(fd_, 
+  if (kNetTypeError == bind(fd_,
         (struct sockaddr*)&host_addr, sizeof(host_addr)))
     return false;
 
@@ -112,7 +112,7 @@ bool Socket::Connect(const char* ip, unsigned short port) {
   remote_addr.sin_addr.s_addr = inet_addr(ip);
   remote_addr.sin_family      = AF_INET;
   remote_addr.sin_port        = htons(port);
-  if (kNetTypeError == connect(fd_, 
+  if (kNetTypeError == connect(fd_,
         (struct sockaddr*)&remote_addr, sizeof(remote_addr)))
     return false;
 

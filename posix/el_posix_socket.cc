@@ -33,7 +33,7 @@ bool Socket::SetOption(int level, int optname, int optval) {
   if (kNetTypeInval == fd_)
     return false;
 
-  if (kNetTypeError == setsockopt(fd_, level, 
+  if (kNetTypeError == setsockopt(fd_, level,
         optname, (const void*)&optval, sizeof(optval)))
     return false;
 
@@ -55,7 +55,7 @@ bool Socket::SetNonBlock(void) {
 }
 
 void Socket::Close(void) {
-  if (kNetTypeInval == fd_) {
+  if (kNetTypeInval != fd_) {
     shutdown(fd_, SHUT_RDWR);
     close(fd_);
 

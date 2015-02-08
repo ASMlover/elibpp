@@ -260,7 +260,7 @@ bool Select::Dispatch(Dispatcher* dispatcher, uint32_t millitm) {
   }
 
   if (has_removed_) {
-    entry_list_.erase(std::remove_if(entry_list_.begin(), 
+    entry_list_.erase(std::remove_if(entry_list_.begin(),
           entry_list_.end(), HasRemoved()), entry_list_.end());
     has_removed_ = false;
   }
