@@ -37,22 +37,13 @@ LDFLAGS	= -INCREMENTAL -DEBUG -PDB:$(OUT).pdb -manifest\
 	ws2_32.lib winmm.lib -LIBPATH:"../" libelibpp.lib
 OBJS	= main.obj server.obj client.obj
 
-
-
-
 all: $(OUT)
-
 rebuild: clean all
-
 clean:
 	$(RM) $(OUT) $(OBJS) *.pdb *.manifest *.ilk
-
-
-
 
 $(OUT): $(OBJS)
 	$(LINK) -out:$(OUT) $(OBJS) $(LDFLAGS)
 	$(MT) -manifest $(OUT).manifest -outputresource:$(OUT);1
-
 .cc.obj:
 	$(CC) $(CFLAGS) $<

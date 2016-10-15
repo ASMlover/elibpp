@@ -58,12 +58,12 @@ Memory* Allocator::AllocChunk(uint32_t index) {
 void Allocator::InsertChunk(void* chunk) {
   if (chunk_count_ == chunk_storage_) {
     uint32_t new_chunk_storage = chunk_storage_ + NFREELISTS;
-    void** new_chunk_list = 
+    void** new_chunk_list =
       (void**)malloc(sizeof(void*) * new_chunk_storage);
     assert(nullptr != new_chunk_list);
 
-    memmove(new_chunk_list, 
-        chunk_list_, 
+    memmove(new_chunk_list,
+        chunk_list_,
         sizeof(void*) * chunk_storage_);
     free(chunk_list_);
     chunk_list_ = new_chunk_list;
@@ -88,7 +88,7 @@ Allocator::~Allocator(void) {
 }
 
 void* Allocator::Malloc(uint32_t bytes) {
-  // Allocator must has beed initialized 
+  // Allocator must has beed initialized
   // and bytes must > 0
 
   assert(bytes > 0);

@@ -41,13 +41,13 @@ class Logging : public Singleton<Logging> {
   enum { BUFFERSIZE = 16 * 1024 };
 public:
   enum SeverityType {
-    kSeverityTypeDebug = 0, 
-    kSeverityTypeMessage, 
-    kSeverityTypeWarning, 
-    kSeverityTypeError, 
-    kSeverityTypeFail, 
+    kSeverityTypeDebug = 0,
+    kSeverityTypeMessage,
+    kSeverityTypeWarning,
+    kSeverityTypeError,
+    kSeverityTypeFail,
 
-    kSeverityTypeCount, 
+    kSeverityTypeCount,
   };
 private:
   LogFile file_list_[kSeverityTypeCount];
@@ -59,7 +59,7 @@ public:
   ~Logging(void);
 
   void Write(int severity, const char* format, ...);
-  void WriteX(int severity, 
+  void WriteX(int severity,
       const char* file, int line, const char* format, ...);
 };
 

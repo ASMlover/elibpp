@@ -39,7 +39,7 @@ class Thread : private UnCopyable {
   void (*routine_)(void*);
   void* argument_;
 public:
-  explicit Thread(void (*routine)(void*) = nullptr, void* argument = nullptr)
+  Thread(void (*routine)(void*) = nullptr, void* argument = nullptr)
     : start_event_(nullptr)
     , thread_(nullptr)
     , routine_(routine)
@@ -55,7 +55,7 @@ public:
     if (nullptr == start_event_)
       abort();
 
-    thread_ = (HANDLE)_beginthreadex(nullptr, 
+    thread_ = (HANDLE)_beginthreadex(nullptr,
         0, &Thread::Routine, this, 0, nullptr);
     if (nullptr != thread_)
       WaitForSingleObject(start_event_, INFINITE);

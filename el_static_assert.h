@@ -32,7 +32,7 @@ namespace el {
 template <bool expr> struct CompileTimeChecker;
 template <> struct CompileTimeChecker<true> {
   enum class Checker : bool {
-    CHECKER_VALUE = true, 
+    CHECKER_VALUE = true,
   };
 };
 

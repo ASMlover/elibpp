@@ -41,8 +41,8 @@ struct Task {
 
 class ThreadPool : private UnCopyable {
   enum {
-    MIN_THREADS = 8, 
-    MAX_THREADS = 64, 
+    MIN_THREADS = 8,
+    MAX_THREADS = 64,
   };
 
   Mutex     mutex_;

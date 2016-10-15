@@ -30,7 +30,7 @@
 UNIT_IMPL(Logging) {
   LOG_DEBUG("Logging test - <%s>\n", __func__);
   LOG_DEBUGX("Logging test - <%s>\n", __func__);
-  
+
   LOG_MSG("Logging test - <%s>\n", __func__);
   LOG_MSGX("Logging test - <%s>\n", __func__);
 

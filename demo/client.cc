@@ -33,12 +33,12 @@ void ClientMain(const char* ip = "127.0.0.1", uint16_t port = 5555) {
     return;
 
   if (!s.Connect(ip, port)) {
-    el::ColorFprintf(stderr, el::kColorTypeRed, 
+    el::ColorFprintf(stderr, el::kColorTypeRed,
         "connect to server <%s, %d> failed ...\n", ip, port);
     return;
   }
   else {
-    el::ColorFprintf(stdout, el::kColorTypeGreen, 
+    el::ColorFprintf(stdout, el::kColorTypeGreen,
         "connect to server <%s, %d> success ...\n", ip, port);
   }
 
@@ -46,7 +46,7 @@ void ClientMain(const char* ip = "127.0.0.1", uint16_t port = 5555) {
   el::Time t;
   while (true) {
     el::Localtime(&t);
-    sprintf(buf, "[%04d-%02d-%02d %02d:%02d:%02d:%03d]", 
+    sprintf(buf, "[%04d-%02d-%02d %02d:%02d:%02d:%03d]",
         t.year, t.mon, t.day, t.hour, t.min, t.sec, t.millitm);
 
     if (el::kNetTypeError == s.Send(buf, strlen(buf)))

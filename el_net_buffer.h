@@ -35,7 +35,7 @@ class NetBuffer : private UnCopyable {
   int   storage_;
 public:
   enum { DEF_STORAGE = 16 * 1024 };
-  explicit NetBuffer(void);
+  NetBuffer(void);
   ~NetBuffer(void);
 
   inline const char* buffer(void) const {

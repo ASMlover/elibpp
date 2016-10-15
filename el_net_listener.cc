@@ -54,9 +54,9 @@ bool NetListener::Start(const char* ip, uint16_t port) {
     return false;
 
   do {
-    if (!listener_->Open() 
-        || !listener_->SetReuseAddr() 
-        || !listener_->Bind(ip, port) 
+    if (!listener_->Open()
+        || !listener_->SetReuseAddr()
+        || !listener_->Bind(ip, port)
         || !listener_->Listen())
       break;
 
@@ -94,7 +94,7 @@ void NetListener::Stop(void) {
 
 void NetListener::Routine(void* argument) {
   NetListener* self = static_cast<NetListener*>(argument);
-  if (nullptr == self || nullptr == self->listener_ 
+  if (nullptr == self || nullptr == self->listener_
       || nullptr == self->network_ || nullptr == self->conn_holder_)
     return;
 

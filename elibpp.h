@@ -28,7 +28,6 @@
 #define __ELIBPP_HEADER_H__
 
 #include "elib_internal.h"
-
 #include "el_circular_buffer.h"
 #include "el_file.h"
 #include "el_logging.h"

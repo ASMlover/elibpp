@@ -38,7 +38,7 @@ public:
   explicit UniqueArray(T* p = nullptr)
     : ptr_(p) {
   }
-  
+
   ~UniqueArray(void) {
     if (nullptr != ptr_)
       delete [] ptr_;

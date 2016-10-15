@@ -30,7 +30,7 @@
 #if defined(UNUSED)
 # undef UNUSED
 #endif
-#define UNUSED(x) {(x) = (x);}
+#define UNUSED(x) ((void)x)
 
 namespace el {
 
@@ -47,7 +47,7 @@ File::~File(void) {
 }
 
 void File::SetBuffer(char* buffer, size_t size) {
-  // this function must be used before any Write 
+  // this function must be used before any Write
   if (nullptr != buffer_ && allocated_)
     free(buffer_);
 

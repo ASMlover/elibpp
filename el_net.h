@@ -30,13 +30,13 @@
 namespace el {
 
 enum NetType {
-  kNetTypeInval = -1, 
-  kNetTypeError = -1, 
+  kNetTypeInval = -1,
+  kNetTypeError = -1,
 };
 
 enum EventType {
-  kEventTypeUnknown = 0x00, 
-  kEventTypeRead    = 0x01, 
+  kEventTypeUnknown = 0x00,
+  kEventTypeRead    = 0x01,
   kEventTypeWrite   = 0x02,
 };
 

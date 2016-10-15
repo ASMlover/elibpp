@@ -45,7 +45,7 @@ UNIT_IMPL(File) {
     _fwrite_nolock(s, sizeof(char), n, fp);
 #elif defined(__linux__)
     fwrite_unlocked(s, sizeof(char), n, fp);
-#endif 
+#endif
   }
   end = clock();
   fprintf(stdout, "\t\tbuffered IO use:\t%lu\n", end - beg);
@@ -54,7 +54,7 @@ UNIT_IMPL(File) {
 
   el::File f;
   f.Open("demo2.log", true);
-  
+
   counter = 0;
   beg = clock();
   while (counter++ < LOOP_TIMES)

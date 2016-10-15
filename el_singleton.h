@@ -29,7 +29,7 @@
 
 namespace el {
 
-template <typename Object, typename Locker = SpinLock> 
+template <typename Object, typename Locker = SpinLock>
 class Singleton : private UnCopyable {
 public:
   static Object& Instance(void) {

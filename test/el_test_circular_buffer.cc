@@ -31,7 +31,7 @@
 
 static inline void InitData(int count, short* data) {
   srand((unsigned int)time(0));
-  for (int i = 0; i < count; ++i) 
+  for (int i = 0; i < count; ++i)
     data[i] = rand() % 10000;
 }
 
@@ -39,7 +39,7 @@ UNIT_IMPL(CircularBufferSingle) {
   const int BUFFER_LEN = 1024 * 1024;
   short data[DATA_NUM];
   InitData(DATA_NUM, data);
-  
+
   el::CircularBuffer buffer;
 
   UNIT_ASSERT(buffer.Create());
@@ -52,7 +52,7 @@ UNIT_IMPL(CircularBufferSingle) {
   UNIT_ASSERT(buffer.length() - (int)sizeof(data) == buffer.free_length());
 
   short read_data[DATA_NUM];
-  UNIT_ASSERT(sizeof(read_data) == 
+  UNIT_ASSERT(sizeof(read_data) ==
       buffer.Read(sizeof(read_data), read_data));
   UNIT_ASSERT(0 == buffer.data_length());
   UNIT_ASSERT(BUFFER_LEN == buffer.free_length());

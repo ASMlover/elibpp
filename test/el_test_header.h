@@ -64,7 +64,7 @@ static bool _s_##name = \
   UnitFramework::Instance().RegisterUnit(#name, el_Unit##name);\
 static void el_Unit##name(void)
 
-// Have our own assert, so we are sure it dose not get 
+// Have our own assert, so we are sure it dose not get
 // optomized away in a release build.
 #define UNIT_ASSERT(expr)\
 do {\

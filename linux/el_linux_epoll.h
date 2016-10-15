@@ -31,8 +31,8 @@ namespace el {
 
 class Epoll : public Poller, private UnCopyable {
   enum {
-    kEpollSize  = 32000, 
-    kEventCount = 4096, 
+    kEpollSize  = 32000,
+    kEventCount = 4096,
   };
 
   int epoll_fd_;

@@ -29,13 +29,13 @@
 
 namespace el {
 
-template <typename T> 
+template <typename T>
 class UniquePtr : private UnCopyable {
   T* ptr_;
 
   typedef UniquePtr<T> SelfType;
 public:
-  explicit UniquePtr(T* p = nullptr) 
+  explicit UniquePtr(T* p = nullptr)
     : ptr_(p) {
   }
 

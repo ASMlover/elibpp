@@ -128,7 +128,7 @@ void Select::Destroy(void) {
 }
 
 bool Select::Regrow(void) {
-  uint32_t new_fd_storage = (0 != fd_storage_ ? 
+  uint32_t new_fd_storage = (0 != fd_storage_ ?
       2 * fd_storage_ : FD_SETSIZE);
   size_t size = sizeof(win_fd_set) + (new_fd_storage - 1) * sizeof(int);
 
@@ -236,9 +236,9 @@ bool Select::Dispatch(Dispatcher* dispatcher, uint32_t millitm) {
 
   WINFD_COPY(rset_out_, rset_in_);
   WINFD_COPY(wset_out_, wset_in_);
-  
-  int ret = select(0, 
-      (struct fd_set*)rset_out_, 
+
+  int ret = select(0,
+      (struct fd_set*)rset_out_,
       (struct fd_set*)wset_out_, nullptr, &tv);
   if (kNetTypeError == ret || 0 == ret)
     return false;
@@ -260,7 +260,7 @@ bool Select::Dispatch(Dispatcher* dispatcher, uint32_t millitm) {
   }
 
   if (has_removed_) {
-    entry_list_.erase(std::remove_if(entry_list_.begin(), 
+    entry_list_.erase(std::remove_if(entry_list_.begin(),
           entry_list_.end(), HasRemoved()), entry_list_.end());
     has_removed_ = false;
   }

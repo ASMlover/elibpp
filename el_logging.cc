@@ -39,14 +39,14 @@ static inline int logging_mkdir(const char* path) {
 #else
   int mode = S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH;
   ret = mkdir(path, mode);
-#endif 
+#endif
 
   return ret;
 }
 
 static inline bool KeyEqual(LogFile* lf, Time* t) {
-  return (lf->year == t->year 
-      && lf->mon == t->mon 
+  return (lf->year == t->year
+      && lf->mon == t->mon
       && lf->day == t->day);
 }
 
@@ -98,7 +98,7 @@ FILE* Logging::GetFileStream(int severity, Time* time) {
     CreateLogDirectory(directory);
 
     char fname[MAX_PATH];
-    sprintf(fname, "./%s/%s/%04d%02d%02d.log", 
+    sprintf(fname, "./%s/%s/%04d%02d%02d.log",
         ROOT_DIR, directory, time->year, time->mon, time->day);
     stream = fopen(fname, "a+");
     setvbuf(stream, nullptr, _IOFBF, BUFFERSIZE);
@@ -116,7 +116,7 @@ FILE* Logging::GetFileStream(int severity, Time* time) {
       fclose(file_list_[severity].stream);
 
       char fname[MAX_PATH];
-      sprintf(fname, "%s/%s/%04d%02d%02d.log", 
+      sprintf(fname, "%s/%s/%04d%02d%02d.log",
           ROOT_DIR, directory, time->year, time->mon, time->day);
       stream = fopen(fname, "a+");
       setvbuf(stream, nullptr, _IOFBF, BUFFERSIZE);
@@ -145,7 +145,7 @@ void Logging::Write(int severity, const char* format, ...) {
   va_end(ap);
 }
 
-void Logging::WriteX(int severity, 
+void Logging::WriteX(int severity,
     const char* file, int line, const char* format, ...) {
   Time time;
   Localtime(&time);
@@ -153,7 +153,7 @@ void Logging::WriteX(int severity,
   FILE* stream = GetFileStream(severity, &time);
   if (nullptr == stream)
     return;
-  fprintf(stream, "[%02d:%02d:%02d:%03d] %s(%d): ", 
+  fprintf(stream, "[%02d:%02d:%02d:%03d] %s(%d): ",
       time.hour, time.min, time.sec, time.millitm, file, line);
 
   va_list ap;

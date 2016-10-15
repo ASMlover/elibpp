@@ -31,7 +31,7 @@ static inline void Worker(void* arg) {
   char* name = static_cast<char*>(arg);
 
   for (int i = 0; i < 5; ++i) {
-    fprintf(stdout, "\t\t[%s : %lu] - counter [%d]\n", 
+    fprintf(stdout, "\t\t[%s : %lu] - counter [%d]\n",
         name, SelfThreadId(), i + 1);
     el_sleep(100);
   }
@@ -51,7 +51,7 @@ UNIT_IMPL(ThreadPool) {
 
 static bool s_running = false;
 static void Worker2(void* arg) {
-  while (s_running) 
+  while (s_running)
     el_sleep(100);
 
   fprintf(stdout, "\t\tWorker finished ...\n");

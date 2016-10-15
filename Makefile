@@ -51,5 +51,5 @@ $(OUT_LIB): $(LIBOBJS)
 	$(AR) -cru $@ $^
 $(OUT_BIN): $(BINOBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
-$(OBJS): %.o:%.cc 
+$(OBJS): %.o:%.cc
 	$(CC) -o $*.o -c $(CFLAGS) $^

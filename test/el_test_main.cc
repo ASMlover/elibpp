@@ -37,10 +37,10 @@ int UnitFramework::Run(void) {
 
   size_t size = unit_list_.size();
   for (size_t i = 0; i < size; ++i) {
-    el::ColorPrintf(el::kColorTypeGreen, 
+    el::ColorPrintf(el::kColorTypeGreen,
         "\tRun UnitCase : %s\n", unit_list_[i].unit_name);
     unit_list_[i].unit_case();
-    el::ColorPrintf(el::kColorTypeGreen, 
+    el::ColorPrintf(el::kColorTypeGreen,
         "\tEnd UnitCase : %s\n", unit_list_[i].unit_name);
     fprintf(stdout, "==============================================\n\n");
   }

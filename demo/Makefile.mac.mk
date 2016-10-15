@@ -32,21 +32,12 @@ CFLAGS	= -g -O2 -Wall -std=c++0x
 LDFLAGS	= -L.. -lelibpp -lpthread -lc
 OBJS	= $(patsubst %.cc, %.o, $(wildcard *.cc))
 
-
-
-
 all: $(OUT)
-
 rebuild: clean all
-
 clean:
 	$(RM) $(OUT) $(OBJS)
 
-
-
-
 $(OUT): $(OBJS)
 	$(CC) -o $@ $^ $(LDFLAGS)
-
-$(OBJS): %.o: %.cc 
+$(OBJS): %.o: %.cc
 	$(CC) -o $*.o -c $(CFLAGS) $^

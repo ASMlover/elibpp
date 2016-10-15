@@ -106,7 +106,7 @@ int Connector::DealWithAsyncRead(void) {
     else if (0 == ret) {
       if (read_bytes > 0)
         break;
-      else 
+      else
         return ret;
     }
     else {
@@ -127,7 +127,7 @@ int Connector::DealWithAsyncWrite(void) {
     if (0 == length) {
       if (write_bytes > 0)
         break;
-      else 
+      else
         return kNetTypeError;
     }
 
@@ -143,7 +143,7 @@ int Connector::DealWithAsyncWrite(void) {
     else if (0 == ret) {
       if (write_bytes > 0)
         break;
-      else 
+      else
         return ret;
     }
     else {

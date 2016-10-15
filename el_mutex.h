@@ -31,7 +31,7 @@
 # include "./win/el_win_mutex.h"
 #else
 # include "./posix/el_posix_mutex.h"
-#endif 
+#endif
 
 namespace el {
 

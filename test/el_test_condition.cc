@@ -49,7 +49,7 @@ static inline void Worker(void* arg) {
   UNIT_ASSERT(!wc->posted);
   if (wc->use_signal_all)
     wc->cond.SignalAll();
-  else 
+  else
     wc->cond.Signal();
   wc->posted = true;
   wc->mutex.Unlock();

@@ -46,7 +46,7 @@ UNIT_IMPL(Allocator) {
   }
   end = clock();
   fprintf(stdout, "\t\tdefault use : %lu\n", end - beg);
-  
+
   counter = 0;
   beg = clock();
   while (counter++ < LOOP_TIMES) {

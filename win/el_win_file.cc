@@ -42,8 +42,8 @@ File::~File(void) {
 }
 
 void File::SetBuffer(char* buffer, size_t size) {
-  // this function must be used before any Write 
-  if (nullptr != buffer_ && allocated_) 
+  // this function must be used before any Write
+  if (nullptr != buffer_ && allocated_)
     free(buffer_);
 
   data_size_ = 0;
@@ -59,12 +59,12 @@ void File::SetBuffer(char* buffer, size_t size) {
 }
 
 bool File::Open(const char* fname, bool append) {
-  fd_ = CreateFileA(fname, 
-    GENERIC_READ | GENERIC_WRITE, 
-    FILE_SHARE_READ | FILE_SHARE_WRITE, 
-    nullptr, 
-    OPEN_ALWAYS, 
-    FILE_ATTRIBUTE_NORMAL, 
+  fd_ = CreateFileA(fname,
+    GENERIC_READ | GENERIC_WRITE,
+    FILE_SHARE_READ | FILE_SHARE_WRITE,
+    nullptr,
+    OPEN_ALWAYS,
+    FILE_ATTRIBUTE_NORMAL,
     nullptr);
   if (INVALID_HANDLE_VALUE == fd_)
     return false;

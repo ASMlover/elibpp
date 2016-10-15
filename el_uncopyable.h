@@ -30,11 +30,11 @@
 namespace el {
 
 class UnCopyable {
-  UnCopyable(const UnCopyable&);
-  UnCopyable& operator=(const UnCopyable&);
+  UnCopyable(const UnCopyable&) = delete;
+  UnCopyable& operator=(const UnCopyable&) = delete;
 protected:
-  UnCopyable(void) {}
-  ~UnCopyable(void) {}
+  UnCopyable(void) = default;
+  ~UnCopyable(void) = default;
 };
 
 }

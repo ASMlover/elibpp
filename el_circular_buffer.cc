@@ -95,7 +95,7 @@ void CircularBuffer::Clear(void) {
 
 int CircularBuffer::Write(const void* buffer, int length) {
   // buffer must be valid and length must > 0
-  
+
   if (nullptr == buffer || length <= 0)
     return -1;
 
@@ -123,7 +123,7 @@ int CircularBuffer::Write(const void* buffer, int length) {
 }
 
 int CircularBuffer::Read(int length, void* buffer) {
-  // length must > 0 and buffer must be valid 
+  // length must > 0 and buffer must be valid
 
   if (length <= 0 || nullptr == buffer)
     return -1;
@@ -147,7 +147,7 @@ int CircularBuffer::Read(int length, void* buffer) {
   }
   data_length_ -= read_length;
   free_length_ += read_length;
-  
+
   return read_length;
 }
 

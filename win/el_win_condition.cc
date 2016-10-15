@@ -70,7 +70,7 @@ static inline int CondVarWaitHelper(
   bool last_waiter = false;
   EnterCriticalSection(&cond->waiters_count_lock);
   --cond->waiters_count;
-  last_waiter = (((WAIT_OBJECT_0 + 1) == result) 
+  last_waiter = (((WAIT_OBJECT_0 + 1) == result)
     || (0 == cond->waiters_count));
   LeaveCriticalSection(&cond->waiters_count_lock);
 

@@ -36,7 +36,7 @@
   } CondVar;
 #else
   typedef pthread_cond_t CondVar;
-#endif 
+#endif
 
 namespace el {
 
@@ -44,7 +44,7 @@ class Condition : private UnCopyable {
   Mutex&  mutex_;
   CondVar cond_;
 public:
-  Condition(Mutex& mutex);
+  explicit Condition(Mutex& mutex);
   ~Condition(void);
 
   void Signal(void);

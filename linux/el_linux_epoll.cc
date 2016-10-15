@@ -100,7 +100,7 @@ bool Epoll::Insert(Connector* conn) {
   event.events = 0;
   event.data.ptr = conn;
 
-  if (kNetTypeError == epoll_ctl(epoll_fd_, 
+  if (kNetTypeError == epoll_ctl(epoll_fd_,
         EPOLL_CTL_ADD, conn->fd(), &event))
     return false;
 
@@ -134,7 +134,7 @@ bool Epoll::AddEvent(Connector* conn, int ev) {
   if (ev & kEventTypeWrite)
     event.events |= EPOLLOUT;
 
-  if (kNetTypeError == epoll_ctl(epoll_fd_, 
+  if (kNetTypeError == epoll_ctl(epoll_fd_,
         EPOLL_CTL_MOD, conn->fd(), &event))
     return false;
 
@@ -157,7 +157,7 @@ bool Epoll::DelEvent(Connector* conn, int ev) {
   if (ev & kEventTypeWrite)
     event.events &= ~EPOLLOUT;
 
-  if (kNetTypeError == epoll_ctl(epoll_fd_, 
+  if (kNetTypeError == epoll_ctl(epoll_fd_,
         EPOLL_CTL_MOD, conn->fd(), &event))
     return false;
 

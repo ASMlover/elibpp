@@ -32,11 +32,11 @@ namespace el {
 struct Memory;
 class Allocator : public Singleton<Allocator> {
   enum {
-    ALIGN       = 8, 
-    MAX_BYTES   = 1024, 
-    NFREELISTS  = MAX_BYTES / ALIGN, 
-    MAX_NUMBER  = 64, 
-    PREFIX_SIZE = sizeof(uint32_t), 
+    ALIGN       = 8,
+    MAX_BYTES   = 1024,
+    NFREELISTS  = MAX_BYTES / ALIGN,
+    MAX_NUMBER  = 64,
+    PREFIX_SIZE = sizeof(uint32_t),
   };
 
   Memory*   free_list_[NFREELISTS];

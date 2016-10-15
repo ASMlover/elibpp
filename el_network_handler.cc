@@ -56,7 +56,7 @@ bool NetworkHandler::Init(
   dispatcher_->Attach(handler_);
   dispatcher_->SetBuffer(rbuf, wbuf);
 
-  worker_count_ = (worker_count > WORKER_COUNT ? 
+  worker_count_ = (worker_count > WORKER_COUNT ?
       worker_count : WORKER_COUNT);
 
   do {

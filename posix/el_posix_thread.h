@@ -32,7 +32,7 @@ class Thread : private UnCopyable {
   void (*routine_)(void*);
   void* argument_;
 public:
-  explicit Thread(
+  Thread(
       void (*routine)(void*) = nullptr, void* argument = nullptr)
     : thread_id_(0)
     , routine_(routine)
@@ -44,7 +44,7 @@ public:
   }
 
   inline void Start(void) {
-    PthreadCall("thread create", 
+    PthreadCall("thread create",
       pthread_create(&thread_id_, nullptr, &Thread::Routine, this));
   }
 

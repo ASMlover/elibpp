@@ -33,8 +33,8 @@ bool Socket::SetOption(int level, int optname, int optval) {
   if (kNetTypeInval == fd_)
     return false;
 
-  if (kNetTypeError == setsockopt(fd_, level, 
-        optname, (const char*)&optval, sizeof(optval))) 
+  if (kNetTypeError == setsockopt(fd_, level,
+        optname, (const char*)&optval, sizeof(optval)))
     return false;
 
   return true;
