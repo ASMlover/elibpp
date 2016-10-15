@@ -55,7 +55,7 @@ bool Socket::SetNonBlock(void) {
 }
 
 void Socket::Close(void) {
-  if (kNetTypeInval == fd_) {
+  if (kNetTypeInval != fd_) {
     shutdown(fd_, SHUT_RDWR);
     close(fd_);
 

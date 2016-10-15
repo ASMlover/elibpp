@@ -75,10 +75,6 @@ bool Connector::WriteBufferEmpty(void) {
   return ret;
 }
 
-void Connector::SetWritable(bool writable) {
-  writable_ = writable;
-}
-
 int Connector::DealWithAsyncRead(void) {
   int read_bytes = 0;
   int ret;
